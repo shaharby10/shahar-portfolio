@@ -238,6 +238,9 @@ body {
   text-align: center;
   -webkit-text-stroke: var(--stroke-detail) var(--color-text);
   paint-order: stroke fill;
+  /* Keeps the details above the big headline boxes,
+     so the phone and email links can be clicked */
+  z-index: 1;
 }
 
 /* Phone and email links look exactly like the other details */
