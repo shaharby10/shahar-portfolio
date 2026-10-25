@@ -1,0 +1,326 @@
+/* =========================================================
+   Scaling
+   The page is the 1440×900 Figma frame, scaled to fit the window.
+   --unit = one Figma pixel. Every size below is "Figma px × --unit".
+   ========================================================= */
+:root {
+  /* Smallest allowed scale: 55% keeps the small text at about 17px.
+     Below this the page scrolls instead of shrinking further. */
+  --min-scale: 0.55px;
+
+  /* Fit the frame inside the window: the smaller of width/1440 and height/900 */
+  --unit: max(var(--min-scale), min(100vw / 1440, 100dvh / 900));
+}
+
+/* =========================================================
+   Design tokens (from the Figma frame "Frame 38")
+   ========================================================= */
+:root {
+  /* Colors */
+  --color-background: #0d00ff;
+  --color-text: #ffffff;
+  --color-project-box: rgba(255, 255, 255, 0.01);
+
+  /* Fonts. Garamond Premier Pro comes from Adobe Fonts (linked in index.html).
+     Each Figma style = family + weight + style. */
+  /* Helvetica Light Oblique (installed on Mac and iPhone) */
+  --font-detail: Helvetica, sans-serif;
+  --weight-detail: 300;
+
+  /* Light Display */
+  --font-headline-coming: "garamond-premier-pro-display", serif;
+  --weight-headline-coming: 300;
+
+  /* Italic */
+  --font-headline-soon: "garamond-premier-pro", serif;
+  --weight-headline-soon: 400;
+
+  /* Display */
+  --font-headline-period: "garamond-premier-pro-display", serif;
+  --weight-headline-period: 400;
+
+  /* Medium Caption */
+  --font-tagline: "garamond-premier-pro-caption", serif;
+  --weight-tagline: 500;
+
+  /* Adobe's web version of Garamond has different line metrics than the
+     desktop font Figma uses, so the text sits a little lower.
+     These move each line back up to its Figma position (measured in em,
+     so the fix scales with the text). */
+  --baseline-fix-coming: -0.04304em;
+  --baseline-fix-soon: -0.04587em;
+  --baseline-fix-tagline: -0.05521em;
+
+  /* Font sizes and line heights */
+  --size-detail: calc(31 * var(--unit));
+  --line-detail: 1.11672;
+  --size-coming: calc(383.37 * var(--unit));
+  --size-soon: calc(281.237 * var(--unit));
+  --line-headline: 0.8;
+  --size-tagline: calc(46.19 * var(--unit));
+  --line-tagline: 1.055;
+
+  /* Letter spacing (Figma percent = em) */
+  --tracking-detail: 0.01em;
+  --tracking-soon: calc(-5.6247 * var(--unit));
+  --tracking-period: 0.03em;
+
+  /* Text stroke on the details: 0.2px outside, in white.
+     CSS strokes are centered, so it is drawn twice as wide
+     and the fill covers the inner half. */
+  --stroke-detail: calc(0.4 * var(--unit));
+
+  /* Figma frame size */
+  --frame-width: calc(1440 * var(--unit));
+  --frame-height: calc(900 * var(--unit));
+
+  /* Hover animation (Figma prototype: Smart Animate, Ease Out, 0.3s) */
+  --hover-duration: 0.3s;
+  --hover-easing: ease-out;
+}
+
+/* =========================================================
+   Page
+   ========================================================= */
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+/* The stage fills the whole window (but never gets smaller than the frame) */
+.stage {
+  position: relative;
+  width: max(100%, var(--frame-width));
+  height: max(100dvh, var(--frame-height));
+  overflow: hidden;
+}
+
+/* The Figma frame, centered in the stage. Holds all the text and images. */
+.composition {
+  position: absolute;
+  left: calc(50% - var(--frame-width) / 2);
+  top: calc(50% - var(--frame-height) / 2);
+  width: var(--frame-width);
+  height: var(--frame-height);
+  /* The empty parts of the frame let the mouse reach the images below */
+  pointer-events: none;
+}
+
+.composition > * {
+  pointer-events: auto;
+}
+
+/* =========================================================
+   Projects (blurred images that fade in on hover)
+   ========================================================= */
+.project {
+  position: absolute;
+  overflow: hidden;
+  background: var(--color-project-box);
+}
+
+/* The blurred layer that holds the image */
+.project-image {
+  position: absolute;
+  inset: 0;
+  filter: blur(calc(var(--blur) * var(--unit)));
+}
+
+/* The image is invisible until the project is hovered */
+.project-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--hover-duration) var(--hover-easing);
+}
+
+.project:hover .project-image img {
+  opacity: var(--hover-opacity);
+}
+
+/* Each project: position, size, blur and hover opacity from Figma */
+.project--kolnoa-darom {
+  left: calc(21 * var(--unit));
+  top: calc(33 * var(--unit));
+  width: calc(427.196 * var(--unit));
+  height: calc(594 * var(--unit));
+  --blur: 6.367;
+  --hover-opacity: 0.53;
+}
+
+.project--birkat-shalom {
+  left: calc(50 * var(--unit));
+  top: calc(549 * var(--unit));
+  width: calc(215.753 * var(--unit));
+  height: calc(319.646 * var(--unit));
+  --blur: 4.97;
+  --hover-opacity: 0.36;
+}
+
+.project--exhibition-design {
+  left: calc(379 * var(--unit));
+  top: calc(477 * var(--unit));
+  width: calc(659 * var(--unit));
+  height: calc(406 * var(--unit));
+  --blur: 10;
+  --hover-opacity: 0.53;
+}
+
+.project--shoponi {
+  left: calc(1082 * var(--unit));
+  top: calc(334 * var(--unit));
+  width: calc(297.646 * var(--unit));
+  height: calc(451.772 * var(--unit));
+  --blur: 7.07;
+  --hover-opacity: 0.56;
+}
+
+.project--travel-journal-scribble {
+  left: calc(647 * var(--unit));
+  top: calc(12 * var(--unit));
+  width: calc(781.199 * var(--unit));
+  height: calc(491 * var(--unit));
+  --blur: 6.877;
+  --hover-opacity: 0.55;
+}
+
+.project--travel-journal-cyanotype {
+  left: calc(461 * var(--unit));
+  top: calc(30 * var(--unit));
+  width: calc(168 * var(--unit));
+  height: calc(227.649 * var(--unit));
+  --blur: 1.321;
+  --hover-opacity: 0.57;
+}
+
+/* Image crops that differ from a simple "cover" (copied from Figma) */
+.project--exhibition-design img {
+  top: -8.17%;
+  height: 108.21%;
+}
+
+.project--travel-journal-scribble img {
+  left: -5.94%;
+  top: -75.5%;
+  width: 111.89%;
+  height: 251%;
+}
+
+.project--travel-journal-cyanotype img {
+  left: -27.48%;
+  top: -28.69%;
+  width: 149.64%;
+  height: 152%;
+}
+
+/* =========================================================
+   Text
+   ========================================================= */
+
+/* Small details: name, phone, email, title */
+.detail {
+  position: absolute;
+  width: calc(354 * var(--unit));
+  font-family: var(--font-detail);
+  font-weight: var(--weight-detail);
+  font-style: italic;
+  font-size: var(--size-detail);
+  line-height: var(--line-detail);
+  letter-spacing: var(--tracking-detail);
+  text-align: center;
+  -webkit-text-stroke: var(--stroke-detail) var(--color-text);
+  paint-order: stroke fill;
+}
+
+/* Phone and email links look exactly like the other details */
+.detail a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.detail--name {
+  left: calc(359 * var(--unit));
+  top: calc(265 * var(--unit));
+  width: calc(440 * var(--unit));
+}
+
+.detail--phone {
+  left: calc(905 * var(--unit));
+  top: calc(265 * var(--unit));
+}
+
+.detail--email {
+  left: calc(698 * var(--unit));
+  top: calc(670 * var(--unit));
+}
+
+.detail--portfolio {
+  left: calc(665 * var(--unit));
+  top: calc(212 * var(--unit));
+}
+
+/* Headline: "coming" and "soon." */
+.headline {
+  font-weight: normal;
+}
+
+.headline-coming,
+.headline-soon {
+  position: absolute;
+  line-height: var(--line-headline);
+  text-align: center;
+}
+
+.headline-coming {
+  left: calc(224 * var(--unit));
+  top: calc(240 * var(--unit) + var(--baseline-fix-coming));
+  width: calc(969.866 * var(--unit));
+  font-family: var(--font-headline-coming);
+  font-weight: var(--weight-headline-coming);
+  font-size: var(--size-coming);
+}
+
+.headline-soon {
+  left: calc(563 * var(--unit));
+  top: calc(458 * var(--unit) + var(--baseline-fix-soon));
+  width: calc(519 * var(--unit));
+  font-family: var(--font-headline-soon);
+  font-weight: var(--weight-headline-soon);
+  font-style: italic;
+  font-size: var(--size-soon);
+  letter-spacing: var(--tracking-soon);
+}
+
+/* The period after "soon" is upright, not italic */
+.headline-period {
+  font-family: var(--font-headline-period);
+  font-weight: var(--weight-headline-period);
+  font-style: normal;
+  letter-spacing: var(--tracking-period);
+  /* Figma ignores the spacing after the last letter when centering, the browser doesn't */
+  margin-right: calc(-1 * var(--tracking-period));
+}
+
+/* "Still deciding how to say it." */
+.tagline {
+  position: absolute;
+  left: calc(305 * var(--unit));
+  top: calc(525 * var(--unit) + var(--baseline-fix-tagline));
+  width: calc(252 * var(--unit));
+  font-family: var(--font-tagline);
+  font-weight: var(--weight-tagline);
+  font-size: var(--size-tagline);
+  line-height: var(--line-tagline);
+  /* On Mac, Chrome thickens light text on dark backgrounds.
+     This draws the letters at their true weight, like Figma. */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
