@@ -3,75 +3,213 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Shahar Ben Yaacov – Portfolio 2026</title>
-  <!-- Garamond Premier Pro from Adobe Fonts (Web Project) -->
-  <link rel="stylesheet" href="https://use.typekit.net/img6kxj.css">
+  <title>Shahar Ben Yaacov</title>
+  <!-- Tells the CSS that JavaScript is on (images wait for it before fading in) -->
+  <script>document.documentElement.classList.add('js');</script>
+  <!-- The entrance: the sentence stays hidden until its words have fallen and
+       arranged themselves (home.js). Wide screens only (the phone's intro is built
+       differently), not for people who ask for less motion, and not when the page
+       opens already scrolled down. -->
+  <script>
+    if (matchMedia('(min-width: 792px)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches && !location.hash) {
+      document.documentElement.classList.add('is-entering');
+    }
+  </script>
   <link rel="stylesheet" href="styles.css">
+  <script src="nav.js"></script>
+  <script src="physics.js" defer></script>
+  <script src="home.js" defer></script>
 </head>
-<body>
-  <main class="page">
-    <!-- The "stage" fills the whole window with the background color -->
-    <div class="stage">
+<body class="home-page">
 
-      <!-- The "composition" is the 1440×900 Figma frame, scaled to fit and centered.
-           Everything inside is placed with the same x/y as in Figma. -->
-      <div class="composition">
+  <!-- Layer 3 (top): name and navigation, fixed to the window, always sharp -->
+  <header class="home-header">
+    <!-- On a phone the small name says "Home" instead -->
+    <p class="home-name"><span class="name-full">Shahar Ben Yaacov</span><span class="name-home">Home</span></p>
+    <nav class="home-nav">
+      <a class="nav-item nav-index" href="project-index.html">Index</a>
+      <a class="nav-item nav-about" href="about.html">About</a>
+      <span class="nav-item nav-contact">Contact</span>
+      <!-- Switch moves through three layouts of the navigation and the intro -->
+      <button class="nav-item nav-switch" type="button">Switch</button>
+    </nav>
+  </header>
 
-        <!-- Project images: hidden and blurred, they fade in on hover.
-             The order here matches the layer order in Figma (later = on top). -->
-        <div class="project project--kolnoa-darom">
-          <div class="project-image">
-            <img src="images/kolnoa-darom.jpg" alt="">
-          </div>
-        </div>
+  <!-- Phone only: the red asterisk opens a menu with the navigation (home.js) -->
+  <button class="menu-button" type="button" aria-label="Menu" aria-expanded="false" aria-controls="phone-menu">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <use href="#star-arm"/>
+      <use href="#star-arm" transform="rotate(60 50 50)"/>
+      <use href="#star-arm" transform="rotate(120 50 50)"/>
+      <use href="#star-arm" transform="rotate(180 50 50)"/>
+      <use href="#star-arm" transform="rotate(240 50 50)"/>
+      <use href="#star-arm" transform="rotate(300 50 50)"/>
+    </svg>
+  </button>
+  <nav class="phone-menu" id="phone-menu" hidden>
+    <a class="menu-link" href="project-index.html">Index</a>
+    <a class="menu-link" href="about.html">About</a>
+    <span class="menu-link" tabindex="0">Contact</span>
+  </nav>
 
-        <div class="project project--birkat-shalom">
-          <div class="project-image">
-            <img src="images/birkat-shalom.jpg" alt="">
-          </div>
-        </div>
+  <main class="home">
 
-        <div class="project project--exhibition-design">
-          <div class="project-image">
-            <img src="images/exhibition-design.jpg" alt="">
-          </div>
-        </div>
+    <!-- Layer 1 (bottom): the intro stays in place (sticky) and blurs
+         once the projects start scrolling over it -->
+    <section class="home-intro">
+      <!-- The same words in all three layouts; the CSS arranges them.
+           "break-c" line breaks only appear in the third layout. -->
+      <!-- The big name leads to the About page (a temporary page for now) -->
+      <p class="intro-text">
+        <span class="intro-im">I<span class="accent accent-medium accent-comma">’</span>m</span>
+        <a class="intro-name" href="about.html">Shahar Ben Yaacov<span class="accent accent-medium accent-comma">,</span></a><br class="break-c">
+        <span class="intro-rest"><span class="intro-rest-a">a graphic designer working across print<span class="accent accent-medium accent-comma">,</span> visual identities<span class="accent accent-medium accent-comma">,</span> and art direction<span class="accent accent-period">.</span></span><br class="break-ab"><span class="intro-rest-b">I shape what ideas say <span class="accent accent-dash">—</span> not just how they look<span class="accent accent-period">.</span></span></span>
+      </p>
+      <p class="intro-tagline">from <br class="break-c">the first words to the smallest visual details.</p>
+    </section>
 
-        <div class="project project--shoponi">
-          <div class="project-image">
-            <img src="images/shoponi.jpg" alt="">
-          </div>
-        </div>
+    <!-- Layer 2 (middle): projects scroll over the intro and stay sharp.
+         Each image shows a tiny blurred preview until the full image loads. -->
+    <!-- The numbers in style="" are Figma pixels (frame "דף הבית").
+         In Figma a browser bar sits above the page, so everything there is 85 lower:
+         the numbers here are Figma's minus 85 (the same place on the page).
+         From the plants (Etymology) down, everything is 20 lower than that, as one block.
+         Each project: its image (or video) and a caption with the name and the kind of work.
+         The images and videos are already cut to what shows in Figma's frame. -->
+    <div class="home-work">
 
-        <div class="project project--travel-journal-scribble">
-          <div class="project-image">
-            <img src="images/travel-journal-scribble.jpg" alt="">
-          </div>
-        </div>
-
-        <!-- Small details: name, phone, email, title -->
-        <p class="detail detail--name">Shahar Ben Yaacov</p>
-        <p class="detail detail--phone"><a href="tel:+972528882640">+972528882640</a></p>
-        <p class="detail detail--email"><a href="mailto:shaharby10@gmail.com">shaharby10@gmail.com</a></p>
-        <p class="detail detail--portfolio">Portfolio 2026</p>
-
-        <!-- Main headline -->
-        <h1 class="headline">
-          <span class="headline-coming">coming</span>
-          <span class="headline-soon">soon<span class="headline-period">.</span></span>
-        </h1>
-
-        <p class="tagline">Still deciding how to say it.</p>
-
-        <!-- This project sits on top of all the text in Figma, so it comes last -->
-        <div class="project project--travel-journal-cyanotype">
-          <div class="project-image">
-            <img src="images/travel-journal-cyanotype.jpg" alt="">
-          </div>
-        </div>
-
+      <!-- Shufuni Cider (the image and the caption lead to the project page).
+           Over the project all the project page's photos appear in a grid under the caption
+           (4 columns, 5 rows: the space up to the photo fits 4), in the page's order;
+           the video is shown by its first frame (video-poster), like Cinema South's teaser (home.js). -->
+      <div class="work-project" data-gallery-area="27 954.1 337.2 556.9" data-gallery="images/shufuni/small/postcard-lychee.jpg images/shufuni/small/postcard-loquat.jpg images/shufuni/small/postcard-pitanga.jpg images/shufuni/small/postcard-sabra.jpg images/shufuni/small/cards-and-labels.jpg images/shufuni/small/crouching-with-bottle.jpg images/shufuni/small/holding-bottle.jpg images/shufuni/small/tote-bag.jpg images/shufuni/small/bottles-sun.jpg images/shufuni/small/bottle-back-label.jpg images/shufuni/small/sitting-with-bottle.jpg images/shufuni/small/drinking.jpg images/shufuni/small/pitanga-bottle.jpg images/shufuni/small/hand-at-beach.jpg images/shufuni/small/bottles-on-log.jpg images/shufuni/small/friends-sharing.jpg images/shufuni/small/holding-bottle-small.jpg images/shufuni/small/video-poster.jpg images/shufuni/small/postcards.jpg">
+        <!-- On a phone: the whole tall photo of the hand holding the sabra bottle instead (<picture>, styles.css),
+             zoomed in on the hand and the bottle (--phone-zoom, around --phone-zoom-at) -->
+        <a class="progressive work-image work-image-phone-alt" href="shufuni-cider.html" style="--left: 414; --top: 795; --width: 996; --height: 696; --phone-ratio: 797 / 1196; --phone-zoom: 1.4; --phone-zoom-at: 53% 38%; --preview: url('images/home/shufuni-hand-preview.jpg'); --preview-phone: url('images/shufuni/hand-at-beach-preview.jpg')">
+          <picture>
+            <source media="(max-width: 791px)" srcset="images/shufuni/hand-at-beach.jpg">
+            <img class="progressive-image" src="images/home/shufuni-hand.jpg" alt="A hand holding a bottle of Shufuni cider" loading="lazy" decoding="async">
+          </picture>
+        </a>
+        <a class="work-caption" href="shufuni-cider.html" style="--left: 27; --top: 838; --width: 302">
+          <span class="work-title">Shufuni Cider</span>
+          <span class="work-tag">Brand Identity, Art Direction, Packaging Design</span>
+        </a>
       </div>
+
+      <!-- Cinema South Festival: the moving poster (a video without sound).
+           The poster and the caption lead to the project page.
+           Over the project its images appear in a grid under the caption, left of the poster:
+           its bottom sits 80 above the bottom of the poster (data-gallery-align). -->
+      <div class="work-project" data-gallery-area="423 1726 554 300" data-gallery-align="bottom" data-gallery="images/cinema-south/small/poster-on-wall.jpg images/cinema-south/small/etty-poster.jpg images/cinema-south/small/boy-poster.jpg images/cinema-south/small/posters-pair-poster.jpg images/cinema-south/small/instagram-on-phone.jpg images/cinema-south/small/instagram-story-1.jpg images/cinema-south/small/instagram-story-2.jpg images/cinema-south/small/instagram-story-3.jpg images/cinema-south/small/shorts-poster.jpg images/cinema-south/small/program-in-hands.jpg images/cinema-south/small/program-page.jpg images/cinema-south/small/program-micro-typography.jpg images/cinema-south/small/program-pages-poster.jpg images/cinema-south/small/program-schedule.jpg images/cinema-south/small/program-audience-page.jpg images/cinema-south/small/program-films.jpg images/cinema-south/small/tote-bag.jpg images/cinema-south/small/bus-stop.jpg images/cinema-south/small/teaser-poster.jpg">
+        <a class="progressive work-image" href="cinema-south.html" style="--left: 1011; --top: 1537; --width: 402; --height: 569; --preview: url('images/home/cinema-south-etty-poster-preview.jpg')">
+          <video class="progressive-image" src="images/home/cinema-south-etty-poster.mp4" poster="images/home/cinema-south-etty-poster.jpg" autoplay muted loop playsinline aria-label="An animated Cinema South Festival screening poster"></video>
+        </a>
+        <a class="work-caption" href="cinema-south.html" style="--left: 423; --top: 1561; --width: 520">
+          <span class="work-title">Cinema South Festival - 25th edition</span>
+          <span class="work-tag">Visual Identity, Editorial Design, Motion</span>
+        </a>
+      </div>
+
+      <!-- Etymology of wild plants (the video and the caption lead to the project page).
+           Over the project its images appear in a grid under the caption, right of the video;
+           the grid ends on the line the Hebrew plant names stand on (measured in the video: y 2519). -->
+      <div class="work-project" data-gallery-area="852 2313.1 561 205.9" data-gallery-align="bottom" data-gallery="images/etymology-exhibition/small/exhibition-hall.jpg images/etymology-exhibition/small/anchusa-video-poster.jpg images/etymology-exhibition/small/screen-and-books.jpg images/etymology-exhibition/small/noa-at-the-wall.jpg images/etymology-exhibition/small/book-pages.jpg images/etymology-exhibition/small/mint-wall.jpg images/etymology-exhibition/small/anchusa-wall.jpg images/etymology-exhibition/small/hillel-reading.jpg">
+        <!-- A video on a white background; its white lets what is behind it show through (styles.css) -->
+        <a class="progressive work-image work-image-see-through" href="etymology-exhibition.html" style="--left: -5.93; --top: 2024; --width: 955; --height: 609; --preview: url('images/home/etymology-plants-cropped-preview.jpg')">
+          <video class="progressive-image work-video-white" src="images/home/etymology-plants-cropped.mp4" poster="images/home/etymology-plants-cropped.jpg" autoplay muted loop playsinline aria-label="Three blue plants turning slowly: Mentha, Arbutus and Anchusa"></video>
+        </a>
+        <a class="work-caption" href="etymology-exhibition.html" style="--left: 852; --top: 2197; --width: 331">
+          <span class="work-title">Etymology of wild plants</span>
+          <span class="work-tag">Exhibition design</span>
+        </a>
+      </div>
+
+      <!-- The curious incident of the dog in the night-time: the caption above the video
+           (the video and the caption lead to the project page).
+           Over the project its images appear in a grid under the caption, left of the video;
+           its bottom sits on the line of the video's bottom (data-gallery-align). -->
+      <div class="work-project" data-gallery-area="27 2788 334 365" data-gallery-align="bottom" data-gallery="images/curious-incident/small/based-on-the-novel.jpg images/curious-incident/small/studio-scene-poster.jpg images/curious-incident/small/street-red-line.jpg images/curious-incident/small/street-credits.jpg images/curious-incident/small/dog-with-red-line.jpg images/curious-incident/small/store-before.jpg images/curious-incident/small/store-after.jpg images/curious-incident/small/teaser-poster.jpg images/curious-incident/small/dog-and-ball-poster.jpg images/curious-incident/small/last-scene-poster.jpg">
+        <a class="progressive work-image" href="curious-incident.html" style="--left: 395; --top: 2788; --width: 651; --height: 365; --preview: url('images/home/curious-title-sequence-poster-preview.jpg')">
+          <video class="progressive-image" src="images/home/curious-title-sequence.mp4" poster="images/home/curious-title-sequence-poster.jpg" autoplay muted loop playsinline aria-label="The title sequence: a hand-drawn map of streets, then a street with a small dog"></video>
+        </a>
+        <a class="work-caption" href="curious-incident.html" style="--left: 27; --top: 2703; --width: 602">
+          <span class="work-title">the curious incident of the dog in the night-time</span>
+          <span class="work-tag">Title sequence, Motion design</span>
+        </a>
+      </div>
+
+      <!-- Football in Israel: the booklet's pages turning (a video without sound).
+           The video and the caption lead to the project page. 
+           Over the project its images appear in a grid in the empty space next to it,
+           aligned to the bottom of the image (data-gallery-align). -->
+      <div class="work-project" data-gallery-area="997 3570 416 398" data-gallery-align="bottom" data-gallery="images/football-in-israel/small/stadium-crowd.jpg images/football-in-israel/small/booklet-on-table.jpg images/football-in-israel/small/booklet-flip-poster.jpg images/football-in-israel/small/booklet-spread-photos.jpg images/football-in-israel/small/white-spread-15.jpg images/football-in-israel/small/white-spread-11.jpg images/football-in-israel/small/black-spread-13.jpg images/football-in-israel/small/black-spread-6.jpg images/football-in-israel/small/black-spread-12.jpg images/football-in-israel/small/black-spread-8.jpg">
+        <a class="progressive work-image" href="football-in-israel.html" style="--left: 24; --top: 3333; --width: 925; --height: 635; --preview: url('images/home/football-in-israel-flip-poster-preview.jpg')">
+          <video class="progressive-image" src="images/home/football-in-israel-flip.mp4" poster="images/home/football-in-israel-flip-poster.jpg" autoplay muted loop playsinline aria-label="The Football in Israel booklet, its pages turning"></video>
+        </a>
+        <a class="work-caption" href="football-in-israel.html" style="--left: 997; --top: 3500; --width: 336">
+          <span class="work-title">Football In Israel</span>
+          <span class="work-tag">Editorial Design, Typography</span>
+        </a>
+      </div>
+
+      <!-- Consumerism Crisis: an animation (a video without sound), the caption on its left.
+           The video and the caption lead to the project page ("The Cost of Consumption"). 
+           Over the project its images appear in a grid in the empty space next to it,
+           aligned to the bottom of the image (data-gallery-align). -->
+      <div class="work-project" data-gallery-area="713 4170 283 164" data-gallery-align="bottom" data-gallery="images/cost-of-consumption/small/woman-with-bag-phone.jpg images/cost-of-consumption/small/work-less-poster.jpg images/cost-of-consumption/small/fashion-laundry-poster.jpg images/cost-of-consumption/small/recycling-poster.jpg">
+        <a class="progressive work-image" href="cost-of-consumption.html" style="--left: 1030; --top: 4100; --width: 339; --height: 234; --preview: url('images/home/consumerism-crisis-poster-preview.jpg')">
+          <video class="progressive-image" src="images/home/consumerism-crisis.mp4" poster="images/home/consumerism-crisis-poster.jpg" autoplay muted loop playsinline aria-label="An illustrated man in a suit floating by a pool"></video>
+        </a>
+        <a class="work-caption" href="cost-of-consumption.html" style="--left: 713; --top: 4100; --width: 300">
+          <span class="work-title">Consumerism Crisis</span>
+          <span class="work-tag">Illustration, Motion Design</span>
+        </a>
+      </div>
+
+      <!-- The Fine Print of the Pill (the image and the caption lead to the project page) 
+           Over the project its images appear in a grid in the empty space next to it,
+           aligned to the bottom of the image (data-gallery-align). -->
+      <div class="work-project" data-gallery-area="626 4590 787 522" data-gallery-align="bottom" data-gallery="images/fine-print-of-the-pill/small/broadsheet-flip-poster.jpg images/fine-print-of-the-pill/small/broadsheet-front-page.jpg images/fine-print-of-the-pill/small/broadsheet-held-up.jpg images/fine-print-of-the-pill/small/broadsheet-open-hands.jpg images/fine-print-of-the-pill/small/broadsheet-spread-1.jpg images/fine-print-of-the-pill/small/broadsheet-date-close-up.jpg images/fine-print-of-the-pill/small/broadsheet-spread-2.jpg images/fine-print-of-the-pill/small/broadsheet-spread-3.jpg">
+        <a class="progressive work-image" href="fine-print-of-the-pill.html" style="--left: 27; --top: 4467; --width: 566; --height: 645; --preview: url('images/home/the-pill-cropped-preview.jpg')">
+          <img class="progressive-image" src="images/home/the-pill-cropped.jpg" alt="Hands holding open a broadsheet" loading="lazy" decoding="async">
+        </a>
+        <a class="work-caption" href="fine-print-of-the-pill.html" style="--left: 626; --top: 4489; --width: 385">
+          <span class="work-title">The Fine Print of the Pill</span>
+          <span class="work-tag">Broadsheet Design, Complex Typography, Editorial Research</span>
+        </a>
+      </div>
+
+      <!-- Dalia and Dov (the image and the caption lead to the project page) 
+           Over the project its images appear in a grid in the empty space next to it,
+           aligned to the bottom of the image (data-gallery-align). -->
+      <div class="work-project" data-gallery-area="1017 5350 396 544" data-gallery-align="bottom" data-gallery="images/dalia-and-dov/small/book-open-top.jpg images/dalia-and-dov/small/book-cover.jpg images/dalia-and-dov/small/family-tree.jpg images/dalia-and-dov/small/book-held-open.jpg images/dalia-and-dov/small/chapter-opening.jpg images/dalia-and-dov/small/photo-album-pages.jpg images/dalia-and-dov/small/spread-12-13.jpg images/dalia-and-dov/small/book-photo-page.jpg">
+        <a class="progressive work-image" href="dalia-and-dov.html" style="--left: 27; --top: 5250; --width: 966; --height: 644; --preview: url('images/home/dalia-and-dov-cropped-preview.jpg')">
+          <img class="progressive-image" src="images/home/dalia-and-dov-cropped.jpg" alt="Hands resting on an open book" loading="lazy" decoding="async">
+        </a>
+        <a class="work-caption" href="dalia-and-dov.html" style="--left: 1017; --top: 5279; --width: 239">
+          <span class="work-title">Dalia and Dov</span>
+          <span class="work-tag">Editorial Design, Book Design</span>
+        </a>
+      </div>
+
     </div>
   </main>
+
+  <!-- Over the big name in the intro, the mouse turns into this spinning asterisk (home.js) -->
+  <!-- Six drop-shaped arms, like the commas and periods of the big font -->
+  <div class="cursor-star" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <defs>
+        <path id="star-arm" d="M50 50 C47.6 41 42.2 25 42.6 16.5 A7.6 7.6 0 1 1 57.4 16.5 C57.8 25 52.4 41 50 50 Z"/>
+      </defs>
+      <use href="#star-arm"/>
+      <use href="#star-arm" transform="rotate(60 50 50)"/>
+      <use href="#star-arm" transform="rotate(120 50 50)"/>
+      <use href="#star-arm" transform="rotate(180 50 50)"/>
+      <use href="#star-arm" transform="rotate(240 50 50)"/>
+      <use href="#star-arm" transform="rotate(300 50 50)"/>
+    </svg>
+  </div>
 </body>
 </html>

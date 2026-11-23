@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Cinema South Festival · Shahar Ben Yaacov</title>
+  <!-- Tells the CSS that JavaScript is on (images wait for it before fading in) -->
+  <script>document.documentElement.classList.add('js');</script>
+  <link rel="stylesheet" href="styles.css">
+  <script src="nav.js"></script>
+  <script src="physics.js" defer></script>
+  <script src="project.js" defer></script>
+  <script src="menu.js" defer></script>
+</head>
+<!-- "home-page" gives this page the same sizes, fonts and navigation as the home page.
+     "layout-b" always puts Index, About and Contact at the top right (like Switch layout 2).
+     "cinema-south-page" holds what is different on this page (Figma frame "דף פרוייקט קולנוע דרום"). -->
+<body class="home-page project-page layout-b cinema-south-page">
+
+  <!-- Phone only: a white band at the top of the screen, behind "Home" and the asterisk -->
+  <div class="project-phone-band"></div>
+
+  <!-- Name and navigation, fixed to the window.
+       The name leads back to the home page. -->
+  <header class="home-header">
+    <!-- On a phone the small name says "Home" instead -->
+    <a class="home-name" href="index.html"><span class="name-full">Shahar Ben Yaacov</span><span class="name-home">Home</span></a>
+    <nav class="home-nav">
+      <a class="nav-item nav-index" href="project-index.html">Index</a>
+      <a class="nav-item nav-about" href="about.html">About</a>
+      <span class="nav-item nav-contact">Contact</span>
+      <!-- Project pages have no Switch; this link goes back to the top of the page -->
+      <a class="nav-item nav-back-to-top" href="#">Back to top</a>
+    </nav>
+  </header>
+
+  <!-- Phone only: the asterisk opens a menu with the navigation (menu.js) -->
+  <button class="menu-button" type="button" aria-label="Menu" aria-expanded="false" aria-controls="phone-menu">
+    <svg viewBox="0 0 100 100" aria-hidden="true">
+      <defs>
+        <path id="star-arm" d="M50 50 C47.6 41 42.2 25 42.6 16.5 A7.6 7.6 0 1 1 57.4 16.5 C57.8 25 52.4 41 50 50 Z"/>
+      </defs>
+      <use href="#star-arm"/>
+      <use href="#star-arm" transform="rotate(60 50 50)"/>
+      <use href="#star-arm" transform="rotate(120 50 50)"/>
+      <use href="#star-arm" transform="rotate(180 50 50)"/>
+      <use href="#star-arm" transform="rotate(240 50 50)"/>
+      <use href="#star-arm" transform="rotate(300 50 50)"/>
+    </svg>
+  </button>
+  <nav class="phone-menu" id="phone-menu" hidden>
+    <a class="menu-link" href="project-index.html">Index</a>
+    <a class="menu-link" href="about.html">About</a>
+    <span class="menu-link" tabindex="0">Contact</span>
+  </nav>
+
+  <!-- The project. data-section: the Figma group (a composition) each element belongs to.
+       On a screen too short for a section, its images shrink together and the text keeps
+       its size, next to them (project.js). data-section-text: text (keeps its size);
+       data-section-background: a band behind the section (stays as wide as the page);
+       data-section-stretch: keeps its width when the section shrinks (only its height shrinks);
+       data-fit-gap: when the section shrinks, a right-side image comes this close (Figma px)
+       to the images on its left, like in Figma (-54 between the boxes = about 42 between the papers);
+       data-section-center: the whole section is always centered sideways on the page;
+       data-ink-x: the part of a see-through image's width where its paper is (from, to).
+       Each image or video has its Figma place and size in style=""
+       (--left, --top, --width, --height in Figma pixels) and shows a tiny blurred
+       preview until it loads. Edges a pixel or two off in Figma are lined up:
+       on the sides of the trailer (19 and 1421), or across the whole page (0 to 1440). -->
+  <main class="project project-desktop">
+
+    <!-- The main poster on a wall -->
+    <div class="progressive project-header-media project-placed" style="--left: 19; --top: 80; --width: 1402; --height: 701; --preview: url('images/cinema-south/poster-on-wall-preview.jpg')">
+      <img class="progressive-image" fetchpriority="high" src="images/cinema-south/poster-on-wall.jpg" alt="The Cinema South Festival poster on a wall" width="2200" height="1101" decoding="async">
+    </div>
+
+    <!-- Title, details and description -->
+    <h1 class="project-title">CINEMA SOUTH<br>FESTIVAL <span class="project-title-edition">(25th Edition)</span></h1>
+    <p class="project-label project-description-label">Description</p>
+    <!-- The details, one under the other, centered -->
+    <p class="project-label project-type">Visual Identity, Editorial Design, Motion</p>
+    <p class="project-label project-year">2026</p>
+    <p class="project-label project-school">Academic · Bezalel</p>
+    <div class="project-text project-intro">
+      <p>A visual identity for the 25th Cinema South Festival, held in Sderot, Rahat, and the surrounding communities. Rooted in the region’s cultural and linguistic diversity, the identity brings Hebrew, Arabic, and English together in a trilingual typographic system with equal visual prominence.</p>
+    </div>
+
+    <!-- Screening posters -->
+    <div class="progressive project-placed" style="--left: 100; --top: 1118; --width: 532.783; --height: 745.566; --preview: url('images/cinema-south/etty-poster-preview.jpg')" data-section="posters">
+      <img class="progressive-image" src="images/cinema-south/etty-poster.jpg" alt="The screening poster for Etty" width="1000" height="1399" loading="lazy" decoding="async">
+    </div>
+    <div class="progressive project-placed" style="--left: 773; --top: 1119; --width: 532.548; --height: 745.494; --preview: url('images/cinema-south/boy-poster-preview.jpg')" data-section="posters">
+      <img class="progressive-image" src="images/cinema-south/boy-poster.jpg" alt="A premiere screening poster" width="1000" height="1400" loading="lazy" decoding="async">
+    </div>
+
+    <!-- Two posters, changing (a moving image without sound) -->
+    <div class="progressive project-placed" style="--left: 102; --top: 2014; --width: 500.475; --height: 705; --preview: url('images/cinema-south/posters-pair-poster-preview.jpg')" data-section="language">
+      <video class="progressive-image" src="images/cinema-south/posters-pair.mp4" poster="images/cinema-south/posters-pair-poster.jpg" autoplay muted loop playsinline aria-label="Screening posters changing one after another"></video>
+    </div>
+
+    <div class="project-text project-placed" style="--left: 667; --top: 2014; --width: 547" data-section="language" data-section-text>
+      <p>Language is the starting point of the visual identity. Each of the three languages has its own typographic character: English in a brutalist sans-serif, Hebrew in a dotted outline, and Arabic in a calligraphic script. Their contrasting forms, rhythms, and lengths become compositions in their own right.</p>
+      <p>The color palette draws from the landscape of Sderot and its surroundings: dust, haze, and industrial tones, contrasted with vivid, warm accents that bring energy and celebration to the system.</p>
+    </div>
+
+    <div class="progressive project-placed" style="--left: 667; --top: 2244; --width: 340; --height: 475; --preview: url('images/cinema-south/instagram-on-phone-preview.jpg')" data-section="language">
+      <img class="progressive-image" src="images/cinema-south/instagram-on-phone.jpg" alt="The festival's Instagram on a phone" width="680" height="949" loading="lazy" decoding="async">
+    </div>
+
+    <!-- Instagram stories -->
+    <div class="progressive project-placed" style="--left: 43; --top: 2810; --width: 411; --height: 572; --preview: url('images/cinema-south/instagram-story-1-preview.jpg')" data-section="stories">
+      <img class="progressive-image" src="images/cinema-south/instagram-story-1.jpg" alt="A festival Instagram story" width="822" height="1146" loading="lazy" decoding="async">
+    </div>
+    <div class="progressive project-placed" style="--left: 514; --top: 2810; --width: 411; --height: 572; --preview: url('images/cinema-south/instagram-story-2-preview.jpg')" data-section="stories">
+      <img class="progressive-image" src="images/cinema-south/instagram-story-2.jpg" alt="A festival Instagram story" width="822" height="1146" loading="lazy" decoding="async">
+    </div>
+    <div class="progressive project-placed" style="--left: 985; --top: 2810; --width: 411; --height: 572; --preview: url('images/cinema-south/instagram-story-3-preview.jpg')" data-section="stories">
+      <img class="progressive-image" src="images/cinema-south/instagram-story-3.jpg" alt="A festival Instagram story" width="822" height="1146" loading="lazy" decoding="async">
+    </div>
+
+    <p class="project-text project-placed" style="--left: 44; --top: 3511; --width: 393" data-section="shorts" data-section-text>Each language has its own typographic character: an industrial sans-serif for English, an expressive calligraphic script for Arabic, and a dotted outline for Hebrew, adapted from an existing typeface. Their contrasting forms and rhythms create a playful visual language in which all three languages share the same space without losing their individuality.</p>
+
+    <div class="progressive project-placed" style="--left: 497; --top: 3473; --width: 446; --height: 623; --preview: url('images/cinema-south/shorts-poster-preview.jpg')" data-section="shorts">
+      <img class="progressive-image" src="images/cinema-south/shorts-poster.jpg" alt="The Negev shorts competition poster, its films stacked into one image" width="847" height="1182" loading="lazy" decoding="async">
+    </div>
+
+    <!-- The printed program in hands -->
+    <div class="progressive project-placed" style="--left: 0; --top: 4149; --width: 1440; --height: 716; --preview: url('images/cinema-south/program-in-hands-preview.jpg')" data-section="scan">
+      <img class="progressive-image" src="images/cinema-south/program-in-hands.jpg" alt="Hands holding the printed program" width="2200" height="1094" loading="lazy" decoding="async">
+    </div>
+
+    <!-- The close-up of the program: bigger than in Figma, its left edge on the left edge of
+         the paragraph above it (134), its bottom on the lowest point of
+         the paper of the turned spread beside it (measured in the image: 5957.4, not the
+         bottom of its see-through box); under the spread, like in Figma -->
+    <div class="progressive project-placed magnifier-target" data-zoom-src="images/cinema-south/program-micro-typography.jpg" style="--left: 30; --top: 5527; --width: 624.3; --height: 433; --preview: url('images/cinema-south/program-micro-typography-preview.jpg')" data-section="program-1">
+      <img class="progressive-image" src="images/cinema-south/program-micro-typography.jpg" alt="The program's small typography, close up" width="1900" height="1318" loading="lazy" decoding="async">
+    </div>
+
+    <!-- A program page, turned a little (see-through around the paper) -->
+    <div class="progressive project-placed project-cutout project-turned magnifier-target" data-zoom-src="images/cinema-south/program-page-zoom.jpg" style="--left: 604.58; --top: 4887.30; --width: 856.314; --height: 1207.389; --turn: -0.44deg" data-fit-gap="-54" data-ink-x="0.1109 0.9236" data-section="program-1">
+      <img class="progressive-image" src="images/cinema-south/program-page.png" alt="A program page in Hebrew, Arabic and English" width="1100" height="1551" loading="lazy" decoding="async">
+    </div>
+
+    <!-- The magnifier: over the spread and the close-up (each .magnifier-target) the mouse
+         becomes a wide red rectangle that enlarges what is under it (project.js) -->
+    <p class="project-text project-placed" style="--left: 134; --top: 5039; --width: 393" data-section="program-1" data-section-text data-section-center>The festival program brings Hebrew, Arabic, and English together within a shared editorial grid, rather than separating them into different sections. Each film’s language is highlighted through color, making the multilingual content easier to navigate while giving all three languages equal visual presence.</p>
+
+
+    <!-- The program carousel, in a black square: first the pages turning (a video that plays
+         by itself), then three spreads, one at a time: a schedule, a text page, another
+         schedule, and back to the video. The arrows move left and right (project.js). -->
+    <div class="project-placed project-black-band carousel program-carousel" style="--left: 0; --top: 6004; --width: 829; --height: 984" data-section-stretch role="region" aria-roledescription="carousel" aria-label="The festival program" data-section="program-2">
+      <div class="carousel-slide is-current" style="--left: 125.01; --top: 73.63; --width: 578.979; --height: 836.743">
+        <div class="progressive carousel-media" style="--preview: url('images/cinema-south/program-pages-poster-preview.jpg')">
+          <video class="progressive-image" src="images/cinema-south/program-pages.mp4" poster="images/cinema-south/program-pages-poster.jpg" autoplay muted loop playsinline aria-label="The program's pages turning, one after another"></video>
+        </div>
+      </div>
+      <div class="carousel-slide" style="--left: 84.30; --top: 26.42; --width: 660.404; --height: 931.158; --turn: -0.78deg">
+        <img class="carousel-media" src="images/cinema-south/program-schedule.png" alt="A program spread with the day's schedule" width="1100" height="1551" loading="lazy" decoding="async">
+      </div>
+      <div class="carousel-slide" style="--left: 96.68; --top: 21.93; --width: 635.648; --height: 940.149; --turn: -1.67deg">
+        <img class="carousel-media" src="images/cinema-south/program-audience-page.png" alt="A program spread with a photo of the festival audience and text" width="1050" height="1553" loading="lazy" decoding="async">
+      </div>
+      <div class="carousel-slide" style="--left: 144.77; --top: 98.70; --width: 539.461; --height: 786.598; --turn: -0.25deg">
+        <img class="carousel-media" src="images/cinema-south/program-films.png" alt="A program spread with films and their times" width="900" height="1313" loading="lazy" decoding="async">
+      </div>
+      <button class="carousel-arrow carousel-previous" type="button" aria-label="Previous">←</button>
+      <button class="carousel-arrow carousel-next" type="button" aria-label="Next">→</button>
+    </div>
+
+    <p class="project-text project-placed" style="--left: 928; --top: 6322; --width: 393" data-section="program-2" data-section-text>Across the printed program, dense schedules alternate with cinematic imagery and more open typographic compositions. The changing layouts create a visual rhythm that unfolds as the pages are turned.</p>
+
+    <div class="progressive project-placed" style="--left: 876.18; --top: 7014; --width: 521.285; --height: 799; --preview: url('images/cinema-south/tote-bag-preview.jpg')" data-section="public">
+      <img class="progressive-image" src="images/cinema-south/tote-bag.jpg" alt="A festival tote bag on the street" width="820" height="1255" loading="lazy" decoding="async">
+    </div>
+
+    <p class="project-text project-placed" style="--left: 114; --top: 7121; --width: 402" data-section="public" data-section-text>The identity extends into public spaces and everyday objects, carrying its trilingual typographic language across different scales and formats.</p>
+
+    <div class="progressive project-placed" style="--left: 200; --top: 7872; --width: 1041; --height: 694; --preview: url('images/cinema-south/bus-stop-preview.jpg')" data-section="bus-stop">
+      <img class="progressive-image" src="images/cinema-south/bus-stop.jpg" alt="A bus stop with a trilingual festival poster" width="1536" height="1024" loading="lazy" decoding="async">
+    </div>
+
+    <!-- The festival teaser, on an olive band. It plays by itself without sound;
+         "sound on" starts it again from the beginning with sound, "sound off" only
+         turns the sound off (project.js). -->
+    <div class="project-placed teaser-band" style="--left: 0; --top: 8628; --width: 1440; --height: 810" data-section="teaser" data-section-background></div>
+    <p class="project-text project-placed teaser-text" style="--left: 715.5; --top: 8668; --width: 393" data-section="teaser" data-section-text>A cinematic teaser edited from film footage and set to music, capturing the atmosphere and emotional range of the festival.</p>
+    <button class="project-placed teaser-sound" type="button" aria-pressed="false" style="--left: 227; --top: 8767" data-section="teaser" data-section-text>sound on</button>
+    <div class="progressive project-placed project-teaser" style="--left: 227; --top: 8803; --width: 986; --height: 554.625; --preview: url('images/cinema-south/teaser-poster-preview.jpg')" data-section="teaser">
+      <video class="progressive-image" src="images/cinema-south/teaser.mp4" poster="images/cinema-south/teaser-poster.jpg" autoplay muted loop playsinline aria-label="The Cinema South Festival teaser"></video>
+    </div>
+
+    <!-- Next project (copied from Figma as it is). The whole area is a link to it:
+         a see-through box over the area, from NEXT UP to the bottom of the page -->
+    <p class="project-next-label project-placed" style="--left: 222; --top: 9500; --width: 525" data-section="next" data-section-text>NEXT UP <span class="project-next-slashes">////</span></p>
+    <!-- The hand ☞: the title font has no such letter, so it is cut from Figma's own drawing of it -->
+    <img class="project-next-hand project-placed" src="images/shufuni/next-up-hand.png" alt="☞" width="307" height="173" style="--left: 615.48; --top: 9531.84; --width: 102.33; --height: 57.67" data-section="next" data-section-text>
+    <p class="project-next-title project-placed" style="--left: 222; --top: 9600; --width: 987" data-section="next" data-section-text>ETYMOLOGY OF WILD PLANTS</p>
+    <p class="project-next-tag project-placed" style="--left: 738; --top: 9511; --width: 441" data-section="next" data-section-text>Exhibition<br>Design</p>
+    <p class="project-next-arrow project-placed" style="--left: 868; --top: 9559" data-section="next" data-section-text>↗</p>
+    <p class="project-next-view project-placed" style="--left: 834; --top: 9560.1; --width: 287.2" data-section="next" data-section-text>VIEW PROJECT</p>
+    <a class="project-next-link project-placed" href="etymology-exhibition.html" aria-label="Next project: Etymology of Wild Plants" style="--left: 0; --top: 9500; --width: 1440; --height: 254" data-section="next" data-section-background></a>
+
+  </main>
+
+  <!-- ==================== Phone (Figma "cinema south festival project page mobile", 390 wide) ====================
+       Each image or video has its place and size in the phone frame in style=""
+       (--left, --top, --width, --height). Images cut like in Figma have their
+       place inside the box in --crop-left, --crop-top, --crop-width, --crop-height. -->
+  <main class="project project-mobile">
+
+    <!-- The top: the festival poster on a wall (cut for the phone) -->
+    <div class="progressive project-header-media project-placed" style="--left: 25; --top: 77; --width: 342; --height: 514; --preview: url('images/cinema-south/poster-on-wall-phone-preview.jpg')">
+      <img class="progressive-image" fetchpriority="high" src="images/cinema-south/poster-on-wall-phone.jpg" alt="The Cinema South Festival poster on a wall" width="684" height="1026" decoding="async">
+    </div>
+
+    <!-- Title, details and description -->
+    <h1 class="project-placed phone-title" style="--left: 195; --top: 591; --width: 436">CINEMA SOUTH<br>FESTIVAL<br>(25th Edition)</h1>
+    <p class="project-placed phone-detail" style="--left: 194.93; --top: 783; --width: 283.87">Visual Identity, Editorial Design, Motion</p>
+    <p class="project-placed phone-detail" style="--left: 194.02; --top: 803.27; --width: 60">2026</p>
+    <p class="project-placed phone-detail phone-detail-regular" style="--left: 194; --top: 822.8; --width: 200">Academic · Bezalel</p>
+    <p class="project-placed phone-text" style="--left: 23; --top: 861; --width: 343">A visual identity for the 25th Cinema South Festival, held in Sderot, Rahat, and the surrounding communities. Rooted in the region’s cultural and linguistic diversity, the identity brings Hebrew, Arabic, and English together in a trilingual typographic system with equal visual prominence.</p>
+
+    <!-- Two screening posters -->
+    <div class="progressive project-placed" style="--left: 24; --top: 1043; --width: 343; --height: 480.2; --preview: url('images/cinema-south/boy-poster-preview.jpg')">
+      <img class="progressive-image" src="images/cinema-south/boy-poster.jpg" alt="A premiere screening poster" width="1000" height="1400" loading="lazy" decoding="async">
+    </div>
+    <div class="progressive project-placed" style="--left: 23; --top: 1548; --width: 341; --height: 477.06; --preview: url('images/cinema-south/etty-poster-preview.jpg')">
+      <img class="progressive-image" src="images/cinema-south/etty-poster.jpg" alt="The screening poster for Etty" width="1000" height="1399" loading="lazy" decoding="async">
+    </div>
+
+    <p class="project-placed phone-text" style="--left: 23; --top: 2077; --width: 341">Language is the starting point of the visual identity. Each of the three languages has its own typographic character: English in a brutalist sans-serif, Hebrew in a dotted outline, and Arabic in a calligraphic script. Their contrasting forms, rhythms, and lengths become compositions in their own right.<br>The color palette draws from the landscape of Sderot and its surroundings: dust, haze, and industrial tones, contrasted with vivid, warm accents that bring energy and celebration to the system.</p>
+
+    <!-- Screening posters changing one after another (video, plays by itself without sound) -->
+    <div class="progressive project-placed" style="--left: 23; --top: 2373; --width: 343; --height: 484.56; --preview: url('images/cinema-south/posters-pair-poster-preview.jpg')">
+      <video class="progressive-image" src="images/cinema-south/posters-pair.mp4" poster="images/cinema-south/posters-pair-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Screening posters changing one after another"></video>
+    </div>
+
+    <!-- Carousel: three Instagram posts -->
+    <div class="project-placed carousel phone-carousel" data-reveal-previous style="--left: 23.86; --top: 2904; --width: 343.14; --height: 477; --square-width: 343.14" role="region" aria-roledescription="carousel" aria-label="Festival Instagram posts">
+        <div class="carousel-slide is-current" style="--left: 1.14; --top: 0; --width: 342; --height: 476.8">
+          <img class="carousel-media" src="images/cinema-south/instagram-story-1.jpg" alt="A festival Instagram post: a masterclass with Hagai Levi" width="822" height="1146" loading="lazy" decoding="async">
+        </div>
+        <div class="carousel-slide" style="--left: 0; --top: 0; --width: 342.14; --height: 477">
+          <img class="carousel-media" src="images/cinema-south/instagram-story-3.jpg" alt="A festival Instagram post: Omer Moshkovitz live" width="822" height="1146" loading="lazy" decoding="async">
+        </div>
+        <div class="carousel-slide" style="--left: 1; --top: 0; --width: 342.14; --height: 477">
+          <img class="carousel-media" src="images/cinema-south/instagram-story-2.jpg" alt="A festival Instagram post: Tuesday's schedule" width="822" height="1146" loading="lazy" decoding="async">
+        </div>
+        <button class="carousel-arrow carousel-previous" type="button" aria-label="Previous">←</button>
+        <button class="carousel-arrow carousel-next" type="button" aria-label="Next">→</button>
+    </div>
+
+    <p class="project-placed phone-text" style="--left: 23; --top: 3424; --width: 341">Each language has its own typographic character: an industrial sans-serif for English, an expressive calligraphic script for Arabic, and a dotted outline for Hebrew, adapted from an existing typeface. Their contrasting forms and rhythms create a playful visual language in which all three languages share the same space without losing their individuality.</p>
+
+    <div class="progressive project-placed" style="--left: 25; --top: 3637; --width: 341.81; --height: 477; --preview: url('images/cinema-south/shorts-poster-preview.jpg')">
+      <img class="progressive-image" src="images/cinema-south/shorts-poster.jpg" alt="The Negev shorts competition poster, its films stacked into one image" width="847" height="1182" loading="lazy" decoding="async">
+    </div>
+
+    <!-- The program: in hands, then its pages turning (video) -->
+    <div class="progressive project-placed" style="--left: -1; --top: 4129; --width: 391; --height: 278; --preview: url('images/cinema-south/program-in-hands-phone-preview.jpg')">
+      <img class="progressive-image" src="images/cinema-south/program-in-hands-phone.jpg" alt="Hands holding the printed program" width="782" height="555" loading="lazy" decoding="async">
+    </div>
+    <div class="progressive project-placed" style="--left: 24; --top: 4439; --width: 341.82; --height: 494; --preview: url('images/cinema-south/program-pages-poster-preview.jpg')">
+      <video class="progressive-image" src="images/cinema-south/program-pages.mp4" poster="images/cinema-south/program-pages-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The program's pages turning, one after another"></video>
+    </div>
+
+    <p class="project-placed phone-text" style="--left: 25; --top: 4970; --width: 341">The festival program brings Hebrew, Arabic, and English together within a shared editorial grid, rather than separating them into different sections. Each film’s language is highlighted through color, making the multilingual content easier to navigate while giving all three languages equal visual presence.</p>
+
+    <!-- A program page, turned a little, and its small typography close up over its bottom -->
+    <div class="progressive project-placed project-turned" style="--left: -23.72; --top: 5122.39; --width: 425.4; --height: 599.81; --turn: -0.44deg; --preview: url('images/cinema-south/program-page-preview.jpg')">
+      <img class="progressive-image" src="images/cinema-south/program-page.jpg" alt="A program page in Hebrew, Arabic and English" width="1600" height="2256" loading="lazy" decoding="async">
+    </div>
+    <div class="progressive project-placed" style="--left: 0; --top: 5679.79; --width: 390; --height: 270.49; --preview: url('images/cinema-south/program-micro-typography-phone-preview.jpg')">
+      <img class="progressive-image" src="images/cinema-south/program-micro-typography-phone.jpg" alt="The program's small typography, close up" width="780" height="540" loading="lazy" decoding="async">
+    </div>
+
+    <!-- In the street -->
+    <div class="progressive project-placed" style="--left: 24; --top: 5985; --width: 342; --height: 523.43; --preview: url('images/cinema-south/tote-bag-preview.jpg')">
+      <img class="progressive-image" src="images/cinema-south/tote-bag.jpg" alt="A festival tote bag on the street" width="820" height="1255" loading="lazy" decoding="async">
+    </div>
+    <div class="progressive project-placed" style="--left: 0; --top: 6530; --width: 390; --height: 310; --preview: url('images/cinema-south/bus-stop-preview.jpg')">
+      <img class="progressive-image is-cropped" src="images/cinema-south/bus-stop.jpg" alt="A bus stop with a trilingual festival poster" width="1536" height="1024" loading="lazy" decoding="async" style="--crop-left: -12.31%; --crop-top: 0%; --crop-width: 119.1%; --crop-height: 99.89%">
+    </div>
+
+    <!-- The teaser (video, without sound), turned on its side like in Figma -->
+    <div class="progressive project-placed phone-video-turned" style="--left: 24; --top: 7056; --width: 342; --height: 608; --preview: url('images/cinema-south/teaser-poster-preview.jpg')">
+      <video class="progressive-image" src="images/cinema-south/teaser.mp4" poster="images/cinema-south/teaser-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The Cinema South Festival teaser"></video>
+    </div>
+
+    <!-- Next project (as in the phone frame). The whole area is a link to it. -->
+    <p class="project-placed phone-next-label" style="--left: 49; --top: 7699; --width: 300">NEXT UP <span class="project-next-slashes">////</span></p>
+    <img class="project-placed project-next-hand" src="images/shufuni/next-up-hand.png" alt="☞" width="307" height="173" style="--left: 285.55; --top: 7718.17; --width: 61.52; --height: 34.68">
+    <p class="project-placed phone-next-title" style="--left: 24; --top: 7759; --width: 342">ETYMOLOGY OF<br>WILD PLANTS</p>
+    <p class="project-placed phone-next-tag" style="--left: 118; --top: 7888; --width: 155">Exhibition Design</p>
+    <!-- The thin red line above "VIEW PROJECT" -->
+    <div class="project-placed phone-next-line" style="--left: 81; --top: 7926; --width: 229.93"></div>
+    <p class="project-placed phone-next-arrow" style="--left: 96; --top: 7932.51">↗</p>
+    <p class="project-placed phone-next-view" style="--left: 115.97; --top: 7935.64; --width: 189">VIEW PROJECT</p>
+    <a class="project-next-link project-placed" href="etymology-exhibition.html" aria-label="Next project: Etymology of Wild Plants" style="--left: 0; --top: 7699; --width: 390; --height: 320"></a>
+  </main>
+</body>
+</html>
