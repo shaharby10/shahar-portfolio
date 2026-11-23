@@ -268,6 +268,7 @@ switchButton.addEventListener('click', () => {
       const copy = w.cloneNode(true);
       copy.className = 'morph-word';
       copy.style.font = getComputedStyle(w).font; // intro words and the small line use different fonts
+      copy.style.letterSpacing = getComputedStyle(w).letterSpacing; // the big text is 2% tighter ("font" leaves this out)
       copy.style.left = (before[i].left - introBox.left) + 'px';
       copy.style.top = (before[i].top - introBox.top) + 'px';
       copy.style.lineHeight = before[i].height + 'px'; // keeps the letters on the same baseline
