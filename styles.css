@@ -242,7 +242,7 @@ button * {
   /* 9. The entrance: the words and the punctuation fall one after another, pile up
      at the bottom of the screen (each one a solid body), then arrange into the sentence */
   --entrance-stagger: 30ms;               /* between one word and the next */
-  --next-fall-delay: 1500ms;              /* project pages: the next project's words fall this long after the last image reaches the screen (project.js) */
+  --next-fall-delay: 250ms;               /* project pages: the next project's words start falling this long after the whole NEXT UP block is on the screen (project.js) */
   --next-arrow-wiggle-duration: 900ms;    /* then the arrow by "VIEW PROJECT" wiggles (project.js) */
   --entrance-gravity: 2.4;                /* how strong gravity is (screen heights per second²) */
   --entrance-settle: 2600ms;              /* the pile has at most this long to come to rest */

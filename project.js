@@ -493,8 +493,8 @@ if (focusBoxes.length && !window.matchMedia('(prefers-reduced-motion: reduce)').
 }
 
 // ---------- 9. Project pages: the next project's words fall, then go back one by one ----------
-// When the "NEXT UP" block at the bottom reaches the screen (and at least 1.5 s,
-// --next-fall-delay, after the project's last image did), its words (and the hand, the
+// Until then the NEXT UP area is empty. When the whole block is on the screen (and
+// --next-fall-delay later), its words (and the hand, the
 // arrow and the red line) fall from above the screen by themselves, like the sentence on
 // the home page: one after another, with the same gravity, as solid bodies that hit each
 // other and pile up at the bottom of the screen. They fall behind the project's images,
@@ -687,31 +687,23 @@ function playNextFall(main) {
 
 if (typeof makeBody === 'function' && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
   const main = visibleProjectMain();
-  const images = main ? [...main.querySelectorAll('.progressive')] : [];
-  const lastImage = images[images.length - 1];
-  const block = main && main.querySelector('.project-next-label, .phone-next-label');
-  if (lastImage && block) {
-    const delay = parseFloat(getComputedStyle(document.body).getPropertyValue('--next-fall-delay')) || 1500;
-    let lastImageSeenAt = null;
+  const title = main && main.querySelector('.project-next-title, .phone-next-title');
+  if (title) {
+    // Until the fall, the NEXT UP area is empty: its words only arrive by falling
+    // (playNextFall shows them again when the copies are back)
+    main.querySelectorAll(nextPieceSelector).forEach(element => { element.style.visibility = 'hidden'; });
+
+    const delay = parseFloat(getComputedStyle(document.body).getPropertyValue('--next-fall-delay')) || 0;
     let started = false;
 
-    // When the last image first reaches the screen
-    const imageWatcher = new IntersectionObserver(entries => {
-      if (!entries.some(entry => entry.isIntersecting)) return;
-      lastImageSeenAt = performance.now();
-      imageWatcher.disconnect();
-    });
-    imageWatcher.observe(lastImage);
-
-    // When the NEXT UP block itself is on the screen: start (once), but not sooner
-    // than --next-fall-delay after the last image was reached
+    // Start (once) when the whole block is on the screen: its last line, the
+    // project's name, is fully in view; then a short pause, --next-fall-delay
     const blockWatcher = new IntersectionObserver(entries => {
       if (started || !entries.some(entry => entry.isIntersecting)) return;
       started = true;
       blockWatcher.disconnect();
-      const since = lastImageSeenAt === null ? 0 : performance.now() - lastImageSeenAt;
-      setTimeout(() => playNextFall(main), Math.max(0, delay - since));
-    }, { threshold: 0.5 });
-    blockWatcher.observe(block);
+      setTimeout(() => playNextFall(main), delay);
+    }, { threshold: 1 });
+    blockWatcher.observe(title);
   }
 }
