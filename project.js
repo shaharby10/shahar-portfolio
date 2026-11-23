@@ -1,8 +1,7 @@
 // Project pages and the index page:
 // 1. Images and the video go from a blurred preview to sharp when they load.
 // 2. "Back to top" glides back to the top of the page.
-// 3. On the project page the title ends on the same line as the description,
-//    and the details are centered between the title and the description.
+// 3. On the project page the title ends on the same line as the description.
 // 4. Carousels (Cinema South, Shufuni on the phone), and the Cinema South teaser's sound button.
 // 5. (No longer used: the index page's navigation is plain black, styles.css.)
 // 6. Sections (Figma groups) that are taller than the screen shrink to fit.
@@ -86,30 +85,6 @@ function alignTitle() {
 if (projectTitle && descriptionText) {
   document.fonts.ready.then(alignTitle);
   window.addEventListener('resize', alignTitle);
-}
-
-// The details (the kind of work, the year, "Academic · Bezalel") are one unit,
-// centered in the space between the end of the title's letters and the word
-// "Description". Each line stays centered on that same middle line.
-const descriptionLabel = document.querySelector('.project-description-label');
-const projectDetails = projectTitle
-  ? [...projectTitle.parentElement.querySelectorAll(':scope > .project-type, :scope > .project-year, :scope > .project-school')]
-  : [];
-
-function centerDetails() {
-  const range = document.createRange();
-  range.selectNodeContents(projectTitle);
-  const titleRight = Math.max(...[...range.getClientRects()].map(line => line.right));
-  const descriptionLeft = descriptionLabel.getBoundingClientRect().left;
-  if (!isFinite(titleRight) || !descriptionLabel.offsetParent) return; // the phone layout shows instead
-  const pageLeft = descriptionLabel.offsetParent.getBoundingClientRect().left;
-  const middle = (titleRight + descriptionLeft) / 2 - pageLeft;
-  projectDetails.forEach(detail => { detail.style.left = middle + 'px'; });
-}
-
-if (projectTitle && descriptionLabel && projectDetails.length) {
-  document.fonts.ready.then(centerDetails);
-  window.addEventListener('resize', centerDetails);
 }
 
 // ---------- 4. Cinema South: the program carousel and the teaser's sound ----------
