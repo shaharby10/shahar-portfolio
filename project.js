@@ -571,7 +571,9 @@ function playNextFall(main) {
   layer.style.left = -(mainBox.left + pageX) + 'px';
   layer.style.top = -(mainBox.top + pageY) + 'px';
   main.prepend(layer);
-  const floor = pageY + window.innerHeight; // the bottom of the screen, when it starts
+  // The floor is always the bottom of the screen as it is right now: if the page is
+  // still scrolling (or the visitor scrolls during the fall), it moves with the screen
+  const screenBottom = () => window.scrollY + window.innerHeight;
   const width = document.documentElement.clientWidth;
   const measure = document.createElement('canvas').getContext('2d');
 
@@ -666,7 +668,7 @@ function playNextFall(main) {
     for (; stepsDone < stepsDue; stepsDone++) {
       const stepTime = stepsDone * 1000 / 60;
       pieces.forEach(p => { if (!p.home && stepTime >= p.startAt) p.body.active = true; });
-      stepWorld(pieces.map(p => p.body), gravity, floor, width);
+      stepWorld(pieces.map(p => p.body), gravity, screenBottom(), width);
     }
     pieces.forEach(piece => {
       if (piece.home || !piece.body.active) return;
