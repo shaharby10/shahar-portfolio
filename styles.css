@@ -909,6 +909,12 @@ body.home-page {
   .intro-text .accent-comma:hover:not(.is-falling) {
     animation: comma-wiggle var(--comma-wiggle-duration) ease-in-out;
   }
+
+  /* A click on the word that ends with a comma also makes it fall,
+     so the arrow turns black over the whole word */
+  .intro-text .word:has(> .accent-comma) {
+    cursor: var(--cursor-arrow-hover);
+  }
 }
 
 @keyframes comma-wiggle {
@@ -940,6 +946,7 @@ body.home-page {
   font-size: 0;
   line-height: 0; /* keeps the line on the baseline, also in the moving copies during Switch */
   vertical-align: baseline;
+  cursor: var(--cursor-arrow-hover); /* a click spins it, so the arrow turns black */
 }
 
 .accent-dash::after {
