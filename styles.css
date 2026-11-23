@@ -1389,8 +1389,8 @@ body.home-page {
 }
 
 .home-name {
-  left: calc(var(--margin-left) * var(--unit)); /* on the left margin */
-  top: calc(21 * var(--unit));
+  left: calc((var(--margin-left) - 2) * var(--unit)); /* 2px left of the margin (Figma, Helvetica Neue: x 25) */
+  top: calc(22 * var(--unit)); /* Figma y 107, minus the browser bar (85) */
 }
 
 /* The Switch button looks like the other words */
@@ -1468,7 +1468,8 @@ body.home-page {
   pointer-events: none;
 }
 
-/* Widths of the words in Helvetica Neue at Figma size (measured):
+/* Widths of the words at Figma size (measured in Ginto, the old font; in Figma the
+   words kept the same centers with Helvetica Neue, so the numbers stay):
    Index 42.906, About 47.781, Contact 61.609.
    Index, About and Contact have an equal gap between them (--nav-gap).
    A word placed by its center uses: its left edge + half its width. */
@@ -2493,6 +2494,7 @@ body.about-page {
      The other words are inside the asterisk's menu (below). ---- */
   /* "Home" instead of the full name, in line with the middle of the asterisk */
   .home-page .home-name {
+    left: calc(var(--margin-left) * var(--unit)); /* on the phone it stays on the margin */
     top: calc(12 * var(--unit) + var(--menu-star-size) / 2 - 0.6em);
     line-height: 1.2;
   }
@@ -3179,7 +3181,7 @@ body.about-page {
 /* The Pill: the kind of work is on two lines, so the rest is lower */
 .pill-page .project-type,
 .pill-page .project-year,
-.pill-page .project-school { left: calc(760 * var(--unit)); }
+.pill-page .project-school { left: calc(750.5 * var(--unit)); } /* updated in Figma (was 760) */
 .dalia-page .project-type,
 .dalia-page .project-year,
 .dalia-page .project-school { left: calc(758 * var(--unit)); }
