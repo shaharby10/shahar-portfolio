@@ -50,8 +50,8 @@
 }
 
 ::selection {
-  background: var(--color-selection-background);
-  color: var(--color-selection-text);
+  background: var(--color-selection-background, #ff1738);
+  color: var(--color-selection-text, #ffffff);
 }
 
 /* =========================================================
