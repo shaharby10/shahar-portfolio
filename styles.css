@@ -1684,6 +1684,14 @@ a.nav-item {
 .project-year { top: calc(856 * var(--unit)); }
 .etymology-page .project-school { top: calc(883 * var(--unit)); }
 
+/* Etymology (updated in Figma): centered on x 741, lower */
+.etymology-page .project-type,
+.etymology-page .project-year,
+.etymology-page .project-school { left: calc(741 * var(--unit)); }
+.etymology-page .project-type { top: calc(855 * var(--unit)); }
+.etymology-page .project-year { top: calc(882 * var(--unit)); }
+.etymology-page .project-school { top: calc(909 * var(--unit)); }
+
 /* Etymology of Wild Plants: the page is as tall as its Figma frame (6459, with the next project) */
 .etymology-page {
   --project-page-height: calc(6459 * var(--unit));
@@ -2852,11 +2860,11 @@ body.about-page {
 }
 
 /* The details: the kind of work, "2026" and "Academic · Bezalel", centered on
-   the same line (Figma: 773), 26px apart. The last one in the regular weight. */
+   the same line (Figma: 791), 26px apart. The last one in the regular weight. */
 .cinema-south-page .project-type,
 .cinema-south-page .project-year,
 .project-school {
-  left: calc(773 * var(--unit));
+  left: calc(791 * var(--unit));
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -2909,18 +2917,18 @@ body.about-page {
   width: calc(400 * var(--unit));
 }
 
-/* The details, one under the other, 26-27px apart, centered on x 615 (as in Figma) */
+/* The details, one under the other, 26-27px apart, centered on x 628 (as in Figma; "Academic · Bezalel" on 631) */
 .shufuni-page .project-type,
 .shufuni-page .project-year,
 .shufuni-page .project-school {
-  left: calc(615 * var(--unit));
+  left: calc(628 * var(--unit));
   transform: translateX(-50%);
   white-space: nowrap;
 }
 
 .shufuni-page .project-type { top: calc(855 * var(--unit)); }
 .shufuni-page .project-year { top: calc(882 * var(--unit)); }
-.shufuni-page .project-school { top: calc(908 * var(--unit)); }
+.shufuni-page .project-school { top: calc(908 * var(--unit)); left: calc(631 * var(--unit)); }
 
 /* =========================================================
    The Curious Incident of the Dog in the Night-Time (Figma frame
@@ -2947,20 +2955,20 @@ body.about-page {
   font-style: normal;
 }
 
-/* The details, one under the other, centered on x 786 (as in Figma).
+/* The details, one under the other, centered on x 789 (as in Figma).
    The kind of work is on two lines. */
 .curious-page .project-type,
 .curious-page .project-year,
 .curious-page .project-school {
-  left: calc(786 * var(--unit));
+  left: calc(789 * var(--unit));
   transform: translateX(-50%);
   text-align: center;
   white-space: nowrap;
 }
 
-.curious-page .project-type { top: calc(871 * var(--unit)); }
-.curious-page .project-year { top: calc(921 * var(--unit)); }
-.curious-page .project-school { top: calc(947 * var(--unit)); }
+.curious-page .project-type { top: calc(853 * var(--unit)); }
+.curious-page .project-year { top: calc(910 * var(--unit)); }
+.curious-page .project-school { top: calc(936 * var(--unit)); }
 
 /* The black bands behind the videos */
 .curious-band {
@@ -2984,11 +2992,11 @@ body.about-page {
   transform: none;
 }
 
-/* The details, one under the other, centered on x 649.5 (as in Figma) */
+/* The details, one under the other, centered on x 642 (as in Figma) */
 .football-page .project-type,
 .football-page .project-year,
 .football-page .project-school {
-  left: calc(649.5 * var(--unit));
+  left: calc(642 * var(--unit));
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -3020,11 +3028,11 @@ body.about-page {
   transform: none;
 }
 
-/* The details, one under the other, centered on x 741 (as in Figma) */
+/* The details, one under the other, centered on x 720 (as in Figma) */
 .cost-page .project-type,
 .cost-page .project-year,
 .cost-page .project-school {
-  left: calc(741 * var(--unit));
+  left: calc(720 * var(--unit));
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -3089,7 +3097,7 @@ body.about-page {
   transform: none;
 }
 
-/* The details, one under the other, centered on x 741 (as in Figma) */
+/* The details, one under the other, centered on x 760 (the Pill) and 758 (Dalia & Dov), as in Figma */
 .pill-page .project-type,
 .pill-page .project-year,
 .pill-page .project-school,
@@ -3103,13 +3111,20 @@ body.about-page {
 }
 
 /* The Pill: the kind of work is on two lines, so the rest is lower */
-.pill-page .project-type { top: calc(856 * var(--unit)); }
+.pill-page .project-type,
+.pill-page .project-year,
+.pill-page .project-school { left: calc(760 * var(--unit)); }
+.dalia-page .project-type,
+.dalia-page .project-year,
+.dalia-page .project-school { left: calc(758 * var(--unit)); }
+
+.pill-page .project-type { top: calc(853 * var(--unit)); }
 .pill-page .project-year { top: calc(908 * var(--unit)); }
 .pill-page .project-school { top: calc(934 * var(--unit)); }
 
-.dalia-page .project-type { top: calc(856 * var(--unit)); }
-.dalia-page .project-year { top: calc(882 * var(--unit)); }
-.dalia-page .project-school { top: calc(908 * var(--unit)); }
+.dalia-page .project-type { top: calc(855 * var(--unit)); }
+.dalia-page .project-year { top: calc(881 * var(--unit)); }
+.dalia-page .project-school { top: calc(907 * var(--unit)); }
 
 /* Dalia and Dov on the phone: the next project's kind of work, on two lines */
 .dalia-page .dalia-phone-next-tag {
