@@ -55,21 +55,21 @@
 }
 
 /* =========================================================
-   Mouse cursor: a red arrow (#FF1738) with a thin white outline,
-   on every page, also over text, links and buttons.
-   The color is written inside the drawing: %23ff1738 means #ff1738.
+   Mouse cursor: a black arrow with a thin white outline,
+   on every page, also over text.
+   The color is written inside the drawing: %23000000 means #000000.
    "2 2" is the arrow's tip (the point that clicks).
    ========================================================= */
 :root {
-  --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M2 2 L2 19 L6.5 14.8 L9.6 21.6 L12.6 20.3 L9.6 13.6 L15.6 13.6 Z' fill='%23ff1738' stroke='%23ffffff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2, auto;
+  --cursor-arrow: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M2 2 L2 19 L6.5 14.8 L9.6 21.6 L12.6 20.3 L9.6 13.6 L15.6 13.6 Z' fill='%23000000' stroke='%23ffffff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2, auto;
   cursor: var(--cursor-arrow);
 }
 
 /* Over something you can click (links, buttons, the red commas and periods,
-   the carousel arrows...) the arrow turns black instead of becoming a hand.
-   Same drawing as above, only the fill is %23000000 (black). */
+   the carousel arrows...) the arrow turns red instead of becoming a hand.
+   Same drawing as above, only the fill is %23ff1738 (red, #FF1738). */
 :root {
-  --cursor-arrow-hover: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M2 2 L2 19 L6.5 14.8 L9.6 21.6 L12.6 20.3 L9.6 13.6 L15.6 13.6 Z' fill='%23000000' stroke='%23ffffff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2, pointer;
+  --cursor-arrow-hover: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M2 2 L2 19 L6.5 14.8 L9.6 21.6 L12.6 20.3 L9.6 13.6 L15.6 13.6 Z' fill='%23ff1738' stroke='%23ffffff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 2 2, pointer;
 }
 
 a,
@@ -912,7 +912,7 @@ body.home-page {
   }
 
   /* A click on the word that ends with a comma also makes it fall,
-     so the arrow turns black over the whole word */
+     so the arrow turns red over the whole word */
   .intro-text .word:has(> .accent-comma) {
     cursor: var(--cursor-arrow-hover);
   }
@@ -947,7 +947,7 @@ body.home-page {
   font-size: 0;
   line-height: 0; /* keeps the line on the baseline, also in the moving copies during Switch */
   vertical-align: baseline;
-  cursor: var(--cursor-arrow-hover); /* a click spins it, so the arrow turns black */
+  cursor: var(--cursor-arrow-hover); /* a click spins it, so the arrow turns red */
 }
 
 .accent-dash::after {
