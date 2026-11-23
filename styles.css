@@ -301,6 +301,8 @@ button * {
   --intro-scale: 1.05;
   --size-intro: calc(79.879 * var(--intro-scale) * var(--unit));
   --line-intro: 1.21;
+  --tracking-intro: -0.02em; /* the big text: letters 2% closer together */
+  --dash-length: 0.8; /* the long dash: 20% shorter than 1em */
   --size-tagline-home: calc(32 * var(--intro-scale) * var(--unit));
   --line-tagline-home: 1.16;
   --size-home-small: calc(17.111 * var(--unit));
@@ -853,6 +855,7 @@ body.home-page {
   font-weight: normal;
   font-size: var(--size-intro);
   line-height: var(--line-intro);
+  letter-spacing: var(--tracking-intro);
   text-align: center;
 }
 
@@ -937,12 +940,12 @@ body.home-page {
 
 /* The long dash: Items has no "—" character (the browser borrowed a thin one
    from another font), so it is drawn as a line with the thickness and height
-   of the Items Medium hyphen. It keeps the same length as before (1em),
+   of the Items Medium hyphen. It is 20% shorter than 1em (--dash-length),
    and the "—" stays in the text for screen readers. */
 .accent-dash {
   position: relative;
   display: inline-block;
-  width: var(--size-intro);
+  width: calc(var(--dash-length) * var(--size-intro));
   height: 0;
   font-size: 0;
   line-height: 0; /* keeps the line on the baseline, also in the moving copies during Switch */
@@ -1075,6 +1078,16 @@ body.home-page {
 
 /* Line breaks that only exist in the third layout */
 .break-c {
+  display: none;
+}
+
+/* Fixed line breaks that keep the lines as they were before the letters came
+   2% closer (--tracking-intro): .break-a only in the first layout,
+   .break-ac in the first and the third, .break-phone only in the phone's big sentence */
+.layout-b .break-a,
+.layout-c .break-a,
+.layout-b .break-ac,
+.break-phone {
   display: none;
 }
 
@@ -2407,6 +2420,7 @@ body.about-page {
     font-family: var(--font-intro-lead-phone);
     font-size: var(--size-intro);
     line-height: var(--line-intro);
+    letter-spacing: var(--tracking-intro);
   }
 
   .home-page .intro-rest-b {
@@ -2418,13 +2432,20 @@ body.about-page {
     white-space: nowrap;
   }
 
-  .home-page .break-ab {
+  .home-page .break-ab,
+  .home-page .break-a,
+  .home-page .break-ac {
     display: none;
+  }
+
+  .home-page .intro-lead .break-phone {
+    display: inline;
   }
 
   /* Then "I'm Shahar Ben Yaacov, a graphic designer…", smaller, in Helvetica Neue Light
      (the name in Medium). The punctuation is black here, in the same font. */
   .home-page .intro-text {
+    letter-spacing: normal; /* the small text keeps its spacing */
     font-family: var(--font-intro-phone-small);
     font-size: var(--size-intro-phone-small);
     line-height: var(--line-intro-phone-small);
