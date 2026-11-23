@@ -41,6 +41,20 @@
 }
 
 /* =========================================================
+   Selected text: red highlight with white letters
+   (instead of the browser's default blue)
+   ========================================================= */
+:root {
+  --color-selection-background: #ff1738;
+  --color-selection-text: #ffffff;
+}
+
+::selection {
+  background: var(--color-selection-background);
+  color: var(--color-selection-text);
+}
+
+/* =========================================================
    Mouse cursor: a red arrow (#FF1738) with a thin white outline,
    on every page, also over text, links and buttons.
    The color is written inside the drawing: %23ff1738 means #ff1738.
