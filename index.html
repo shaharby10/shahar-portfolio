@@ -15,10 +15,11 @@
       document.documentElement.classList.add('is-entering');
     }
   </script>
-  <link rel="stylesheet" href="styles.css?v=6">
+  <link rel="stylesheet" href="styles.css?v=7">
   <script src="nav.js"></script>
   <script src="physics.js" defer></script>
   <script src="home.js" defer></script>
+  <script src="contact.js" defer></script>
 </head>
 <body class="home-page">
 
@@ -91,7 +92,7 @@
             <img class="progressive-image" src="images/home/shufuni-hand.jpg" alt="A hand holding a bottle of Shufuni cider" loading="lazy" decoding="async">
           </picture>
         </a>
-        <a class="work-caption" href="shufuni-cider.html" style="--left: 27; --top: 838; --width: 302">
+        <a class="work-caption" href="shufuni-cider.html" style="--left: 27; --top: 808; --width: 373">
           <span class="work-title">Shufuni Cider</span>
           <span class="work-tag">Brand Identity, Art Direction, Packaging Design</span>
         </a>
@@ -105,7 +106,7 @@
         <a class="progressive work-image" href="cinema-south.html" style="--left: 1011; --top: 1537; --width: 402; --height: 569; --preview: url('images/home/cinema-south-etty-poster-preview.jpg')">
           <video class="progressive-image" src="images/home/cinema-south-etty-poster.mp4" poster="images/home/cinema-south-etty-poster.jpg" autoplay muted loop playsinline aria-label="An animated Cinema South Festival screening poster"></video>
         </a>
-        <a class="work-caption" href="cinema-south.html" style="--left: 423; --top: 1561; --width: 520">
+        <a class="work-caption" href="cinema-south.html" style="--left: 423; --top: 1537; --width: 520">
           <span class="work-title">Cinema South Festival - 25th edition</span>
           <span class="work-tag">Visual Identity, Editorial Design, Motion</span>
         </a>
@@ -119,7 +120,7 @@
         <a class="progressive work-image work-image-see-through" href="etymology-exhibition.html" style="--left: -5.93; --top: 2024; --width: 955; --height: 609; --preview: url('images/home/etymology-plants-cropped-preview.jpg')">
           <video class="progressive-image work-video-white" src="images/home/etymology-plants-cropped.mp4" poster="images/home/etymology-plants-cropped.jpg" autoplay muted loop playsinline aria-label="Three blue plants turning slowly: Mentha, Arbutus and Anchusa"></video>
         </a>
-        <a class="work-caption" href="etymology-exhibition.html" style="--left: 852; --top: 2197; --width: 331">
+        <a class="work-caption" href="etymology-exhibition.html" style="--left: 784; --top: 2152; --width: 331">
           <span class="work-title">Etymology of wild plants</span>
           <span class="work-tag">Exhibition design</span>
         </a>
@@ -147,7 +148,7 @@
         <a class="progressive work-image" href="football-in-israel.html" style="--left: 24; --top: 3333; --width: 925; --height: 635; --preview: url('images/home/football-in-israel-flip-poster-preview.jpg')">
           <video class="progressive-image" src="images/home/football-in-israel-flip.mp4" poster="images/home/football-in-israel-flip-poster.jpg" autoplay muted loop playsinline aria-label="The Football in Israel booklet, its pages turning"></video>
         </a>
-        <a class="work-caption" href="football-in-israel.html" style="--left: 997; --top: 3500; --width: 336">
+        <a class="work-caption" href="football-in-israel.html" style="--left: 972; --top: 3333; --width: 336">
           <span class="work-title">Football In Israel</span>
           <span class="work-tag">Editorial Design, Typography</span>
         </a>
@@ -161,7 +162,7 @@
         <a class="progressive work-image" href="cost-of-consumption.html" style="--left: 1030; --top: 4100; --width: 339; --height: 234; --preview: url('images/home/consumerism-crisis-poster-preview.jpg')">
           <video class="progressive-image" src="images/home/consumerism-crisis.mp4" poster="images/home/consumerism-crisis-poster.jpg" autoplay muted loop playsinline aria-label="An illustrated man in a suit floating by a pool"></video>
         </a>
-        <a class="work-caption" href="cost-of-consumption.html" style="--left: 713; --top: 4100; --width: 300">
+        <a class="work-caption work-caption-light-title" href="cost-of-consumption.html" style="--left: 708; --top: 4097; --width: 300">
           <span class="work-title">Consumerism Crisis</span>
           <span class="work-tag">Illustration, Motion Design</span>
         </a>
@@ -174,7 +175,7 @@
         <a class="progressive work-image" href="fine-print-of-the-pill.html" style="--left: 27; --top: 4467; --width: 566; --height: 645; --preview: url('images/home/the-pill-cropped-preview.jpg')">
           <img class="progressive-image" src="images/home/the-pill-cropped.jpg" alt="Hands holding open a broadsheet" loading="lazy" decoding="async">
         </a>
-        <a class="work-caption" href="fine-print-of-the-pill.html" style="--left: 626; --top: 4489; --width: 385">
+        <a class="work-caption work-caption-light-title work-caption-no-spacing" href="fine-print-of-the-pill.html" style="--left: 619; --top: 4460; --width: 385">
           <span class="work-title">The Fine Print of the Pill</span>
           <span class="work-tag">Broadsheet Design, Complex Typography, Editorial Research</span>
         </a>
@@ -192,6 +193,15 @@
           <span class="work-tag">Editorial Design, Book Design</span>
         </a>
       </div>
+
+      <!-- Let's talk (computer only, as in Figma): a click on a line copies the address,
+           without opening it (contact.js) -->
+      <p class="home-talk" style="--left: 27; --top: 5871">Let's talk.</p>
+      <ul class="home-contact" style="--left: 1060.17; --top: 5944.24">
+        <li><button class="about-copy" type="button" data-copy="shaharby10@gmail.com" aria-label="Copy email address">Email <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+        <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+        <li><button class="about-copy" type="button" data-copy="www.linkedin.com/in/shaharbenyaacov" aria-label="Copy LinkedIn link">LinkedIn <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+      </ul>
 
     </div>
   </main>

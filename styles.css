@@ -277,11 +277,11 @@ button * {
   --font-intro: "Items Condensed Thin", serif;
   --font-accent: "Items Condensed Bold", serif; /* the red periods */
   --font-accent-medium: "Items Condensed Medium", serif; /* the red commas and apostrophe */
-  --font-home-small: "Ginto Regular", sans-serif;
-  --font-tagline-home: "Ginto Hairline", sans-serif; /* "from the first words…" */
+  --font-home-small: "HN Regular", sans-serif;
+  --font-tagline-home: "HN Thin", sans-serif; /* "from the first words…" */
   /* The caption under each project: its name, then the kind of work */
-  --font-work-title: "Ginto Regular", sans-serif; /* the project's name, in capitals */
-  --font-work-tag: "Ginto Light", sans-serif;     /* the kind of work */
+  --font-work-title: "HN Regular", sans-serif; /* the project's name, in capitals */
+  --font-work-tag: "HN Light", sans-serif;     /* the kind of work */
 
   /* Name and navigation on hover: the letters spread out to 22% */
   --nav-tracking-hover: 0.22em;
@@ -310,7 +310,7 @@ button * {
   --line-work-caption: 1.33;
 
   /* Page and layers */
-  --home-page-height: calc(6000 * var(--unit)); /* Figma's height (6065) minus the browser bar above it (85), plus 20 (everything from the plants down is 20 lower) */
+  --home-page-height: calc(6274 * var(--unit)); /* Figma's height (6339, with "Let's talk") minus the browser bar above it (85), plus 20 (everything from the plants down is 20 lower) */
   --home-intro-height: calc(814 * var(--unit)); /* the first screen in Figma */
   /* Layout 1: the intro and the small line sit 30px higher than in Figma, as one group */
   --intro-shift-up: 30;
@@ -331,7 +331,7 @@ button * {
 
   --font-index-heading: "Items Condensed Thin", serif;
   --font-index-title: "Items Condensed Book", serif;
-  --font-index-tag: "Ginto Regular", sans-serif;
+  --font-index-tag: "HN Regular", sans-serif;
 
   --size-index-heading: calc(186.06 * var(--unit));
   --size-index-title: calc(24.038 * var(--unit));
@@ -363,11 +363,12 @@ button * {
   --color-about-heading: #ffffff;  /* headings, roles, the brackets of "(copy)" */
 
   --font-about-text: "Items Condensed Light", serif;
+  --font-about-paragraph: "Items Condensed Regular", serif; /* the paragraphs on the computer */
   --font-about-work: "Items Condensed Bold", serif;
   --font-about-talk: "Items Condensed Thin", serif;
   --font-about-bracket: "Items Condensed Medium", serif;
-  --font-about-role: "Ginto Regular", sans-serif;
-  --font-about-role-place: "Ginto Light", sans-serif;
+  --font-about-role: "HN Regular", sans-serif;
+  --font-about-role-place: "HN Light", sans-serif;
 
   --size-about-text: calc(35 * var(--unit));
   --size-about-work: calc(87.5 * var(--unit));
@@ -387,14 +388,14 @@ button * {
   --about-page-height: calc(2366 * var(--unit));
 
   /* On a phone (Figma "about page mobile", 390 wide) */
-  --font-about-phone-text: "Ginto Regular", sans-serif;
+  --font-about-phone-text: "HN Medium", sans-serif;
   --size-about-phone-text: calc(16 * var(--unit));
   --size-about-phone-work: calc(64 * var(--unit));
   --line-about-phone-work: 0.98;
   --size-about-phone-cv: calc(99.306 * var(--unit));
-  --size-about-phone-talk: calc(107.643 * var(--unit));
-  --size-about-phone-contact: calc(50.634 * var(--unit));
-  --about-phone-page-height: calc(2877 * var(--unit));
+  --size-about-phone-talk: calc(101.83 * var(--unit));
+  --size-about-phone-contact: calc(47.9 * var(--unit));
+  --about-phone-page-height: calc(2794 * var(--unit));
 }
 
 /* Moving between pages: how long the name and the buttons take to glide
@@ -419,25 +420,23 @@ button * {
 
 }
 
-/* Fonts for the home page: installed on this computer, or else from the fonts/ folder
-   (only on this computer, for the phone preview; Git ignores it, see .gitignore) */
+/* Fonts for the home page: installed on this computer, or else from the fonts/ folder */
 @font-face { font-family: "Items Condensed Thin"; src: local("Items Text Trial Condensed Thin"), url("fonts/ItemsTextTrial-CondensedThin.otf"); }
 @font-face { font-family: "Items Condensed Light Italic"; src: local("Items Text Trial Condensed Light Italic"), url("fonts/ItemsTextTrial-CondensedLightItalic.otf"); }
 @font-face { font-family: "Items Condensed Bold"; src: local("Items Text Trial Condensed Bold"), url("fonts/ItemsTextTrial-CondensedBold.otf"); }
 @font-face { font-family: "Items Condensed Medium"; src: local("Items Text Trial Condensed Medium"), url("fonts/ItemsTextTrial-CondensedMedium.otf"); }
-@font-face { font-family: "Ginto Regular"; src: local("ABC Ginto Trial Regular"), url("fonts/ABCGintoTrial-Regular.otf"); }
-@font-face { font-family: "Ginto Hairline"; src: local("ABC Ginto Trial Hairline"), url("fonts/ABCGintoTrial-Hairline.otf"); }
-@font-face { font-family: "Ginto Light"; src: local("ABC Ginto Trial Light"), url("fonts/ABCGintoTrial-Light.otf"); }
-@font-face { font-family: "Ginto Thin"; src: local("ABC Ginto Trial Thin"), url("fonts/ABCGintoTrial-Thin.otf"); }
 @font-face { font-family: "Saol Medium Italic"; src: local("Saol Display Trial Medium Italic"), url("fonts/SaolDisplayTrial-MediumItalic.otf"); }
 @font-face { font-family: "Items Condensed Light"; src: local("Items Text Trial Condensed Light"), url("fonts/ItemsTextTrial-CondensedLight.otf"); }
-@font-face { font-family: "Ginto Medium"; src: local("ABC Ginto Trial Medium"), url("fonts/ABCGintoTrial-Medium.otf"); }
-@font-face { font-family: "Ginto Medium Italic"; src: local("ABC Ginto Trial Medium Italic"), url("fonts/ABCGintoTrial-MediumItalic.otf"); }
-@font-face { font-family: "Ginto Light Italic"; src: local("ABC Ginto Trial Light Italic"), url("fonts/ABCGintoTrial-LightItalic.otf"); }
-@font-face { font-family: "Ginto Bold"; src: local("ABC Ginto Trial Bold"), url("fonts/ABCGintoTrial-Bold.otf"); }
-@font-face { font-family: "Ginto Black"; src: local("ABC Ginto Trial Black"), url("fonts/ABCGintoTrial-Black.otf"); }
 @font-face { font-family: "Items Condensed Regular"; src: local("Items Text Trial Condensed Regular"), url("fonts/ItemsTextTrial-CondensedRegular.otf"); }
 @font-face { font-family: "Items Condensed Book"; src: local("Items Text Trial Condensed Book"), url("fonts/ItemsTextTrial-CondensedBook.otf"); }
+
+/* Helvetica Neue (the site's small text): installed on Mac and iPhone, or else from the fonts/ folder */
+@font-face { font-family: "HN Thin"; src: local("HelveticaNeue-Thin"), url("fonts/HelveticaNeue-Thin.ttf"); }
+@font-face { font-family: "HN Light"; src: local("HelveticaNeue-Light"), url("fonts/HelveticaNeue-Light.ttf"); }
+@font-face { font-family: "HN Regular"; src: local("HelveticaNeue"), url("fonts/HelveticaNeue-Regular.ttf"); }
+@font-face { font-family: "HN Medium"; src: local("HelveticaNeue-Medium"), url("fonts/HelveticaNeue-Medium.ttf"); }
+@font-face { font-family: "HN Medium Italic"; src: local("HelveticaNeue-MediumItalic"), url("fonts/HelveticaNeue-MediumItalic.ttf"); }
+@font-face { font-family: "HN Bold"; src: local("HelveticaNeue-Bold"), url("fonts/HelveticaNeue-Bold.ttf"); }
 
 /* =========================================================
    Project page tokens (Figma frame "דף פרוייקט-עיצוב תערוכה")
@@ -450,10 +449,12 @@ button * {
 
   /* Fonts (installed on this computer) */
   --font-project-title: "Items Condensed Light", serif;
-  --font-project-intro: "Ginto Light", sans-serif;   /* the paragraph next to the title */
-  --font-project-text: "Ginto Regular", sans-serif;  /* the paragraphs further down */
-  --font-project-label: "Ginto Medium", sans-serif;  /* Description, Exhibition Design, 2026 */
-  --font-project-thin: "Ginto Thin", sans-serif;     /* the kind of work at the end of a phone page */
+  --font-project-intro: "HN Medium", sans-serif;    /* the paragraph next to the title (computer) */
+  --font-project-body: "HN Light", sans-serif;      /* the paragraphs further down (computer) */
+  --font-project-text: "HN Regular", sans-serif;    /* "Academic · Bezalel", "VIEW PROJECT", the phone's paragraphs */
+  --font-project-label: "HN Medium", sans-serif;    /* Exhibition Design, 2026 */
+  --font-project-description: "HN Regular", sans-serif; /* the word "Description" */
+  --font-project-light: "HN Light", sans-serif;     /* the kind of work at the end of a phone page */
 
   /* Font sizes and line heights */
   /* The title's letters start and end on the same lines as the description
@@ -467,8 +468,8 @@ button * {
   --project-page-height: calc(6148 * var(--unit));
 
   /* The next project at the bottom (desktop):
-     the kind of work in big italic Ginto, "↗ VIEW PROJECT" under it */
-  --font-next-tag-big: "Ginto Medium Italic", sans-serif;
+     the kind of work in big italic Helvetica Neue, "↗ VIEW PROJECT" under it */
+  --font-next-tag-big: "HN Medium Italic", sans-serif;
   --size-next-tag-big: calc(33 * var(--unit));
   --size-next-arrow-big: calc(33.786 * var(--unit));
   --size-next-view-big: calc(24 * var(--unit));
@@ -1195,6 +1196,49 @@ body.home-page {
   text-transform: capitalize;
 }
 
+/* Consumerism Crisis and The Fine Print of the Pill (Figma, computer): the name is
+   light and the kind of work regular; the Pill's name without the spaced letters */
+@media (min-width: 792px) {
+  .work-caption-light-title .work-title { font-family: var(--font-work-tag); }
+  .work-caption-light-title .work-tag { font-family: var(--font-work-title); }
+  .work-caption-no-spacing .work-title { letter-spacing: 0; }
+}
+
+/* ---------- "Let's talk." at the end of the home page (computer only) ---------- */
+/* Like on the About page, but black on white, with red brackets around "copy" */
+.home-talk,
+.home-contact {
+  position: absolute;
+  left: calc(var(--left) * var(--unit));
+  top: calc((var(--top) - 814) * var(--unit));
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-intro); /* Items Condensed Thin */
+  line-height: var(--line-intro); /* 121% */
+  white-space: nowrap;
+}
+
+.home-talk {
+  font-size: calc(333.465 * var(--unit));
+}
+
+.home-contact {
+  list-style: none;
+  font-size: calc(58.328 * var(--unit));
+}
+
+.home-contact .about-copy-bracket {
+  font-family: var(--font-accent-medium);
+  color: var(--color-home-accent);
+}
+
+@media (max-width: 791px) {
+  .home-talk,
+  .home-contact {
+    display: none;
+  }
+}
+
 /* Over a project: all its images in a grid, in the empty space next to it (home.js).
    The place and the size of each image come from home.js. */
 .work-gallery {
@@ -1325,7 +1369,7 @@ body.home-page {
     transform var(--nav-hover-duration) var(--nav-hover-easing);
 }
 
-/* On hover the letters spread out to 22% (still in Ginto).
+/* On hover the letters spread out to 22% (still in Helvetica Neue).
    The browser also adds that space after the last letter; the small shift
    cancels it, so the word stays on its anchor (and inside the margins).
    The button of the page you are on (aria-current="page" in its HTML) stays spread
@@ -1424,7 +1468,7 @@ body.home-page {
   pointer-events: none;
 }
 
-/* Widths of the words in Ginto at Figma size (measured):
+/* Widths of the words in Helvetica Neue at Figma size (measured):
    Index 42.906, About 47.781, Contact 61.609.
    Index, About and Contact have an equal gap between them (--nav-gap).
    A word placed by its center uses: its left edge + half its width. */
@@ -1659,11 +1703,12 @@ a.nav-item {
 
 .project-text {
   width: var(--width-project-text);
-  font-family: var(--font-project-text);
+  font-family: var(--font-project-body);
   text-wrap: pretty; /* no single word alone on the last line */
 }
 
 .project-description-label {
+  font-family: var(--font-project-description);
   left: calc(867 * var(--unit));
   top: calc(808 * var(--unit));
 }
@@ -2028,6 +2073,11 @@ body.about-page {
   white-space: nowrap;
 }
 
+/* On the computer the paragraphs (about me, education, tools) are a little bolder */
+.about-desktop .about-text {
+  font-family: var(--font-about-paragraph);
+}
+
 /* The two paragraphs about me, with one empty line between them */
 .about-text p + p {
   margin-top: calc(var(--size-about-text) * var(--line-about));
@@ -2178,7 +2228,7 @@ body.about-page {
   text-align: center;
 }
 
-/* The paragraphs about me: small Ginto, with one empty line between them */
+/* The paragraphs about me: small Helvetica Neue, with one empty line between them */
 .about-phone-text {
   font-family: var(--font-about-phone-text);
   font-size: var(--size-about-phone-text);
@@ -2310,8 +2360,8 @@ body.about-page {
     --size-intro: min(calc(64.4 * var(--unit)), (100svh - var(--intro-margin) - var(--intro-to-peek) - var(--first-project-peek)) / 7);
     /* "I'm Shahar Ben Yaacov, a graphic designer…", under the big sentence */
     --font-intro-lead-phone: "Items Condensed Regular", serif; /* the big first sentence */
-    --font-intro-phone-small: "Ginto Light", sans-serif;
-    --font-intro-name-phone: "Ginto Medium", sans-serif; /* the name in it, thicker: it can be tapped (Ginto has no Semibold) */
+    --font-intro-phone-small: "HN Light", sans-serif;
+    --font-intro-name-phone: "HN Medium", sans-serif; /* the name in it, thicker: it can be tapped */
     --size-intro-phone-small: calc(20 * var(--unit));
     --line-intro-phone-small: 1.25;
     --intro-marquee-duration: 10s; /* one full round of the running small line */
@@ -2371,7 +2421,7 @@ body.about-page {
     display: none;
   }
 
-  /* Then "I'm Shahar Ben Yaacov, a graphic designer…", smaller, in Ginto Light
+  /* Then "I'm Shahar Ben Yaacov, a graphic designer…", smaller, in Helvetica Neue Light
      (the name in Medium). The punctuation is black here, in the same font. */
   .home-page .intro-text {
     font-family: var(--font-intro-phone-small);
@@ -2712,7 +2762,7 @@ body.about-page {
   --carousel-arrow-inset: 24;     /* the arrows' distance from the carousel's sides (Figma px) */
   --carousel-arrow-size: 48;      /* the circle around each arrow (Figma px) */
   --size-carousel-arrow: 28;      /* the arrow inside it (Figma px) */
-  --font-carousel-arrow: "Ginto Light", sans-serif; /* a little thinner than the text */
+  --font-carousel-arrow: "HN Light", sans-serif; /* a little thinner than the text */
   --color-carousel-arrow: #ffffff;
   --color-carousel-arrow-milk: rgba(255, 255, 255, 0.35); /* the milky circle on hover */
   --carousel-arrow-hover-duration: 300ms;
@@ -2938,7 +2988,7 @@ body.about-page {
 .curious-page {
   --project-page-height: calc(5871 * var(--unit));
   --color-curious-band: rgba(0, 0, 0, 0.93); /* the black bands behind the videos */
-  --font-project-intro-italic: "Ginto Light Italic", sans-serif;
+  --font-project-intro-italic: "HN Medium", sans-serif; /* in Figma now the same as the text around it */
 }
 
 /* The title (three lines, wider than on the other pages): its letters start on the
@@ -3041,8 +3091,19 @@ body.about-page {
 .cost-page .project-year { top: calc(882 * var(--unit)); }
 .cost-page .project-school { top: calc(908 * var(--unit)); }
 
+/* Cost of Consumption on the computer (Figma): the description is light,
+   "Description" is medium, and the episode names are bold */
+.cost-page {
+  --font-cost-light: "HN Light", sans-serif;
+  --font-cost-bold: "HN Bold", sans-serif;
+}
+
+.cost-page .project-intro { font-family: var(--font-cost-light); }
+.cost-page .project-description-label { font-family: var(--font-project-label); }
+
 /* The episode names, centered above their videos */
 .cost-caption {
+  font-family: var(--font-cost-bold);
   width: auto;
   transform: translateX(-50%);
   white-space: nowrap;
@@ -3050,7 +3111,7 @@ body.about-page {
 
 /* On the phone: the description is in the light weight, a little bigger (as in Figma) */
 .cost-page .cost-phone-intro {
-  font-family: var(--font-project-intro);
+  font-family: var(--font-cost-light);
   font-size: var(--size-cost-phone-caption-big);
 }
 
@@ -3058,6 +3119,11 @@ body.about-page {
 .cost-page .cost-phone-caption,
 .cost-page .cost-phone-caption-big {
   text-align: center;
+}
+
+/* On the phone all three episode names are light (as in Figma) */
+.cost-page .project-mobile .phone-text {
+  font-family: var(--font-cost-light);
 }
 
 .cost-page .cost-phone-caption-big {
@@ -3183,7 +3249,7 @@ body.about-page {
   height: calc(var(--height) * var(--unit));
 }
 
-/* The project pages (Figma, desktop): the kind of work in big italic Ginto
+/* The project pages (Figma, desktop): the kind of work in big italic Helvetica Neue
    on two lines next to the hand, "↗ VIEW PROJECT" under it, and the next
    project's name on its own line under NEXT UP. */
 .project-desktop .project-next-tag {
@@ -3210,6 +3276,7 @@ body.about-page {
 /* On Etymology of Wild Plants the next project's name is long, on two lines */
 .etymology-page .project-desktop .project-next-title {
   white-space: normal;
+  line-height: 1.02; /* the two lines closer together (Figma 102%) */
 }
 
 /* After the next project's words fall back into place (project.js), the arrow next to
@@ -3392,7 +3459,7 @@ body.about-page {
 
   /* The kind of work: thin, on two lines, centered in its box */
   .phone-next-tag {
-    font-family: var(--font-project-thin);
+    font-family: var(--font-project-light);
     font-size: var(--size-phone-next-tag);
     text-align: center;
   }
