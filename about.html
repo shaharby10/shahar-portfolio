@@ -6,9 +6,9 @@
   <title>About · Shahar Ben Yaacov</title>
   <!-- Tells the CSS that JavaScript is on (images wait for it before fading in) -->
   <script>document.documentElement.classList.add('js');</script>
-  <link rel="stylesheet" href="styles.css?v=16">
+  <link rel="stylesheet" href="styles.css?v=22">
   <script src="nav.js"></script>
-  <script src="about.js" defer></script>
+  <script src="about.js?v=3" defer></script>
   <script src="contact.js" defer></script>
   <script src="menu.js" defer></script>
 </head>
@@ -60,86 +60,91 @@
   <main class="about about-desktop">
 
     <!-- ===== About & approach ===== -->
-    <div class="progressive project-placed" style="--left: 37; --top: 166; --width: 231; --height: 346.5; --preview: url('images/about/portrait-preview.jpg')">
+    <!-- The red block on the left (it starts a little past the left edge), with the portrait on it -->
+    <div class="about-red-block project-placed" style="--left: -11; --top: 63; --width: 546; --height: 739"></div>
+    <div class="progressive project-placed" style="--left: 317; --top: 104; --width: 179; --height: 269; --preview: url('images/about/portrait-preview.jpg')">
       <img class="progressive-image" src="images/about/portrait.jpg" alt="Shahar Ben Yaacov, black and white portrait" width="684" height="1026" decoding="async">
     </div>
 
-    <h2 class="about-heading project-placed" style="--left: 309; --top: 102; --width: 400">About &amp; Approach</h2>
-    <div class="about-text project-placed" style="--left: 309; --top: 159; --width: 903">
-      <p>I’m a graphic designer with a particular interest in visual identities, typography, and art direction. I enjoy research and concept development, as well as the challenge of building complex visual systems. I’m especially interested in working across languages, exploring their cultural contexts, and bringing them together within a shared visual system.</p>
-      <p>Before moving into graphic design, I studied and practiced theatre directing. My background in the performing arts brings a different perspective to my design practice, shaping the way I approach storytelling, composition, space, and the relationships between different elements. While art direction feels like a natural continuation of that experience, this perspective influences my work across all areas of design.</p>
+    <!-- The big heading, underlined in red, with a red "&" -->
+    <h2 class="about-title about-title-underlined project-placed" style="--left: 593; --top: 80; --width: 751">About <span class="about-red">&amp;</span> Approach</h2>
+    <div class="about-intro project-placed" style="--left: 592; --top: 199; --width: 707">
+      <p>I’m a graphic designer with a particular interest in visual identities, typography, and art direction. <strong class="about-intro-medium">I enjoy research and concept development, as well as the challenge of building complex visual systems.</strong> I’m especially interested in working across languages, exploring their cultural contexts, and bringing them together within a shared visual system.</p>
+      <p><strong class="about-intro-medium">Before moving into graphic design, I studied and practiced theatre directing.</strong> My background in the performing arts brings a different perspective to my design practice, shaping the way I approach storytelling, composition, space, and the relationships between different elements. While art direction feels like a natural continuation of that experience, this perspective influences my work across all areas of design.</p>
     </div>
 
-    <!-- ===== Recent work =====
-         Hovering a work shows its images on the left and its role on the right.
+    <!-- ===== Recent clients =====
+         Hovering a work shows its images on the right and its role next to it.
          When a work has several images, its name is split into equal parts from
          left to right, and each part shows one image (about.js). -->
-    <h2 class="about-heading project-placed" style="--left: 309; --top: 776; --width: 300">Recent Work</h2>
+    <h2 class="about-title project-placed" style="--left: 27; --top: 825; --width: 643">Recent clients</h2>
 
-    <!-- The thin white lines between the works -->
-    <div class="about-line project-placed" style="--left: 309; --top: 846.5; --width: 793"></div>
-    <div class="about-line project-placed" style="--left: 309; --top: 966.5; --width: 793"></div>
-    <div class="about-line project-placed" style="--left: 309; --top: 1095.5; --width: 793"></div>
-    <div class="about-line project-placed" style="--left: 309; --top: 1214.75; --width: 793"></div>
+    <!-- The red lines between the works (3px; each top is the Figma line's middle minus 1.5) -->
+    <div class="about-line project-placed" style="--left: 27; --top: 923.5; --width: 793"></div>
+    <div class="about-line project-placed" style="--left: 27; --top: 1043.5; --width: 793"></div>
+    <div class="about-line project-placed" style="--left: 27; --top: 1172.5; --width: 793"></div>
+    <div class="about-line project-placed" style="--left: 27; --top: 1291; --width: 793"></div>
 
     <!-- The works: each row reaches from one line to the next -->
-    <div class="about-work project-placed" data-work="eisenkot" style="--left: 309; --top: 848; --width: 793; --height: 118.5">
+    <div class="about-work project-placed" data-work="eisenkot" style="--left: 27; --top: 926.5; --width: 793; --height: 117">
       <p class="about-work-title">Gadi Eisenkot Campaign</p>
     </div>
-    <div class="about-work project-placed" data-work="the-marker" style="--left: 309; --top: 968; --width: 793; --height: 127.5">
+    <div class="about-work project-placed" data-work="the-marker" style="--left: 27; --top: 1046.5; --width: 793; --height: 126">
       <p class="about-work-title">The Marker</p>
     </div>
-    <div class="about-work project-placed" data-work="carmelos" style="--left: 309; --top: 1097; --width: 793; --height: 117.75">
+    <div class="about-work project-placed" data-work="carmelos" style="--left: 27; --top: 1175.5; --width: 793; --height: 115.5">
       <p class="about-work-title">Carmelos</p>
     </div>
 
-    <!-- The role in each work (white): the role, and under it where -->
-    <p class="about-role project-placed" data-work="eisenkot" style="--left: 1116; --top: 833"><span class="about-role-name">Campaign designer</span><br>Re-Levant studio<br>2026</p>
-    <p class="about-role project-placed" data-work="the-marker" style="--left: 1116; --top: 953"><span class="about-role-name">Digital marketing &amp;<br>motion designer</span><br>Freelance<br>2026</p>
-    <p class="about-role project-placed" data-work="carmelos" style="--left: 1116; --top: 1081"><span class="about-role-name">Digital designer</span><br>Freelance<br>2026</p>
+    <!-- The role in each work (black): the role, and under it where -->
+    <p class="about-role project-placed" data-work="eisenkot" style="--left: 834; --top: 910"><span class="about-role-name">Campaign designer</span><br>Re-Levant studio | 2026</p>
+    <p class="about-role project-placed" data-work="the-marker" style="--left: 834; --top: 1030"><span class="about-role-name">Digital marketing &amp;<br>motion designer</span><br>Freelance | 2026</p>
+    <p class="about-role project-placed" data-work="carmelos" style="--left: 834; --top: 1158"><span class="about-role-name">Digital designer</span><br>Freelance | 2026</p>
 
-    <!-- The images of each work, in the order of the parts of its name -->
-    <div class="about-work-image progressive project-placed" data-work="eisenkot" style="--left: 37; --top: 844; --width: 231; --height: 351; --crop: 0 0; --preview: url('images/about/eisenkot-minibus-preview.jpg')">
+    <!-- The images of each work (on the right), in the order of the parts of its name -->
+    <div class="about-work-image progressive project-placed" data-work="eisenkot" style="--left: 1149; --top: 872; --width: 231; --height: 351; --crop: 0 0; --preview: url('images/about/eisenkot-minibus-preview.jpg')">
       <img class="progressive-image" src="images/about/eisenkot-minibus.jpg" alt="Gadi Eisenkot campaign on a minibus" width="470" height="835" decoding="async">
     </div>
-    <div class="about-work-image progressive project-placed" data-work="eisenkot" style="--left: 38; --top: 844; --width: 230; --height: 172.5; --preview: url('images/about/eisenkot-netanyahu-ayalon-preview.jpg')">
+    <div class="about-work-image progressive project-placed" data-work="eisenkot" style="--left: 1150; --top: 872; --width: 230; --height: 172.5; --preview: url('images/about/eisenkot-netanyahu-ayalon-preview.jpg')">
       <img class="progressive-image" src="images/about/eisenkot-netanyahu-ayalon.jpg" alt="Gadi Eisenkot campaign billboard on the Ayalon highway" width="460" height="345" decoding="async">
     </div>
-    <div class="about-work-image progressive project-placed" data-work="eisenkot" style="--left: 38; --top: 844; --width: 226; --height: 302; --preview: url('images/about/eisenkot-ayalon-preview.jpg')">
+    <div class="about-work-image progressive project-placed" data-work="eisenkot" style="--left: 1150; --top: 872; --width: 226; --height: 302; --preview: url('images/about/eisenkot-ayalon-preview.jpg')">
       <img class="progressive-image" src="images/about/eisenkot-ayalon.jpg" alt="Gadi Eisenkot campaign on the Ayalon highway" width="452" height="602" decoding="async">
     </div>
-    <div class="about-work-image progressive project-placed" data-work="eisenkot" style="--left: 37; --top: 844; --width: 230; --height: 231; --crop: 0 0; --preview: url('images/about/eisenkot-bus-station-preview.jpg')">
+    <div class="about-work-image progressive project-placed" data-work="eisenkot" style="--left: 1149; --top: 872; --width: 230; --height: 231; --crop: 0 0; --preview: url('images/about/eisenkot-bus-station-preview.jpg')">
       <img class="progressive-image" src="images/about/eisenkot-bus-station.jpg" alt="Gadi Eisenkot campaign at a bus station" width="620" height="465" decoding="async">
     </div>
-    <div class="about-work-image progressive project-placed" data-work="the-marker" style="--left: 34; --top: 844; --width: 234.56; --height: 351; --crop: 78% 0; --preview: url('images/about/the-marker-digital-preview.jpg')">
+    <div class="about-work-image progressive project-placed" data-work="the-marker" style="--left: 1146; --top: 872; --width: 234.56; --height: 351; --crop: 78% 0; --preview: url('images/about/the-marker-digital-preview.jpg')">
       <img class="progressive-image" src="images/about/the-marker-digital.jpg" alt="The Marker digital ad on a phone" width="702" height="702" decoding="async">
     </div>
-    <div class="about-work-image progressive project-placed" data-work="carmelos" style="--left: 34; --top: 844; --width: 234; --height: 292; --preview: url('images/about/carmelos-money-workshop-preview.jpg')">
+    <div class="about-work-image progressive project-placed" data-work="carmelos" style="--left: 1146; --top: 872; --width: 234; --height: 292; --preview: url('images/about/carmelos-money-workshop-preview.jpg')">
       <img class="progressive-image" src="images/about/carmelos-money-workshop.jpg" alt="Carmelos money workshop poster" width="468" height="585" decoding="async">
     </div>
-    <div class="about-work-image progressive project-placed" data-work="carmelos" style="--left: 34; --top: 844; --width: 235; --height: 293; --preview: url('images/about/carmelos-writing-workshop-preview.jpg')">
+    <div class="about-work-image progressive project-placed" data-work="carmelos" style="--left: 1146; --top: 872; --width: 235; --height: 293; --preview: url('images/about/carmelos-writing-workshop-preview.jpg')">
       <img class="progressive-image" src="images/about/carmelos-writing-workshop.jpg" alt="Carmelos writing workshop poster" width="470" height="587" decoding="async">
     </div>
 
     <!-- ===== Education ===== -->
+    <h2 class="about-title project-placed" style="--left: 29; --top: 1367; --width: 436">Education</h2>
+    <!-- A red frame around the emblem and the text -->
+    <div class="about-red-frame project-placed" style="--left: 29; --top: 1462; --width: 735; --height: 230"></div>
     <!-- The Bezalel emblem, turned a little (7.11°) like in Figma -->
-    <img class="about-emblem project-placed" src="images/about/bezalel-logo.png" alt="Bezalel Academy of Arts and Design emblem" width="300" height="300" style="--left: 75.68; --top: 1387.68; --width: 149.64">
-    <h2 class="about-heading project-placed" style="--left: 309; --top: 1379; --width: 300">Education</h2>
-    <p class="about-text project-placed" style="--left: 309; --top: 1437; --width: 600">BA Candidate in Visual Communication<br>Bezalel Academy of Arts and Design</p>
-    <!-- An invisible area over the whole Education part (emblem and text).
+    <img class="about-emblem project-placed" src="images/about/bezalel-logo.png" alt="Bezalel Academy of Arts and Design emblem" width="300" height="300" style="--left: 55.17; --top: 1489.17; --width: 175.36">
+    <p class="about-text project-placed" style="--left: 257.7; --top: 1534.4; --width: 649.6">BA Candidate in Visual Communication<br>Bezalel Academy of Arts and Design</p>
+    <!-- An invisible area over the whole Education part (heading, emblem and text).
          The first time the mouse reaches it, the emblem appears out of a blur
          and stays (about.js). -->
-    <div class="about-education-area project-placed" style="--left: 37; --top: 1379; --width: 745; --height: 167"></div>
+    <div class="about-education-area project-placed" style="--left: 29; --top: 1367; --width: 735; --height: 325"></div>
 
     <!-- ===== Tools ===== -->
-    <h2 class="about-heading project-placed" style="--left: 309; --top: 1630; --width: 300">Tools</h2>
-    <p class="about-text about-one-line project-placed" style="--left: 309; --top: 1688; --width: 1000">InDesign · Claude Code · Photoshop · Lightroom · After Effects · Weavy · Illustrator</p>
+    <h2 class="about-heading project-placed" style="--left: 45; --top: 1777; --width: 154">Tools</h2>
+    <p class="about-text about-one-line project-placed" style="--left: 45; --top: 1835; --width: 547">InDesign · Claude Code · Photoshop ·<br>Lightroom · After Effects · Weavy · Illustrator</p>
 
-    <!-- ===== CV (no link yet) ===== -->
-    <p class="about-heading project-placed" style="--left: 309; --top: 1839; --width: 300">View CV</p>
+    <!-- ===== CV (no link yet): big, red and underlined ===== -->
+    <p class="about-cv project-placed" style="--left: 923; --top: 1741; --width: 447">View CV</p>
 
     <!-- ===== Let's talk ===== -->
-    <p class="about-talk project-placed" style="--left: 27; --top: 1930; --width: 1080">Let's talk.</p>
+    <p class="about-talk project-placed" style="--left: 27; --top: 1930; --width: 1080">Let<span class="about-red">'</span>s talk.</p>
     <!-- A click on a line (the word or "(copy)") copies the address, without opening it (contact.js) -->
     <ul class="about-contact project-placed" style="--left: 1060.17; --top: 2003.24; --width: 384.5">
       <li><button class="about-copy" type="button" data-copy="shaharby10@gmail.com" aria-label="Copy email address">Email <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>

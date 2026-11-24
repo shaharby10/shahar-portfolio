@@ -365,7 +365,6 @@ button * {
   --color-about-heading: #ffffff;  /* headings, roles, the brackets of "(copy)" */
 
   --font-about-text: "Items Condensed Light", serif;
-  --font-about-paragraph: "Items Condensed Regular", serif; /* the paragraphs on the computer */
   --font-about-work: "Items Condensed Bold", serif;
   --font-about-talk: "Items Condensed Thin", serif;
   --font-about-bracket: "Items Condensed Medium", serif;
@@ -384,10 +383,29 @@ button * {
 
   --about-line-weight: calc(1.5 * var(--unit));
   --about-hover-duration: 200ms;
-  --about-focus-duration: 600ms; /* a work's image comes into focus each time it appears */
+  --about-rise-duration: 300ms;   /* a work's image rises a little as it appears */
+  --about-rise-distance: calc(16 * var(--unit));
+  --emblem-turn-duration: 1200ms; /* the Bezalel emblem's full turn (computer) */
 
   /* The Figma frame (2451) minus its browser bar (85) */
   --about-page-height: calc(2366 * var(--unit));
+
+  /* The computer version (Figma, updated): a white page with a red block,
+     red lines and red accents */
+  --color-about-desktop-background: #ffffff;
+  --color-about-red: #ff1738;
+  --font-about-intro: "HN Regular", sans-serif;        /* the paragraphs about me */
+  --font-about-intro-medium: "HN Medium", sans-serif;  /* two sentences in them, a little bolder */
+  --about-desktop-page-height: calc(2314 * var(--unit)); /* the Figma frame (2399) minus its browser bar (85) */
+  --font-about-title: "HN Light", sans-serif;          /* RECENT CLIENTS, EDUCATION */
+  --size-about-intro: calc(25 * var(--unit));
+  --size-about-title: calc(79.879 * var(--unit));      /* the big headings */
+  --size-about-cv: calc(136.65 * var(--unit));         /* VIEW CV */
+  --about-red-line-weight: calc(3 * var(--unit));      /* the red lines and the red frame */
+  /* The underlines of ABOUT & APPROACH, TOOLS and VIEW CV (Figma: 20% below the
+     letters, 3.5% of the letter size thick) */
+  --about-underline-offset: 0.2em;
+  --about-underline-thickness: 0.035em;
 
   /* On a phone (Figma "about page mobile", 390 wide) */
   --font-about-phone-text: "HN Medium", sans-serif;
@@ -2143,11 +2161,6 @@ body.about-page {
   white-space: nowrap;
 }
 
-/* On the computer the paragraphs (about me, education, tools) are a little bolder */
-.about-desktop .about-text {
-  font-family: var(--font-about-paragraph);
-}
-
 /* The two paragraphs about me, with one empty line between them */
 .about-text p + p {
   margin-top: calc(var(--size-about-text) * var(--line-about));
@@ -2200,23 +2213,20 @@ body.about-page {
   letter-spacing: var(--tracking-about-role);
 }
 
-/* The images of the works, hidden until their work (and part of its name) is hovered */
+/* The images of the works, hidden until their work (and part of its name) is hovered.
+   Each time one appears it rises a little into its place (no blur);
+   when it hides it drops back at once, ready to rise again. */
 .about-work-image {
   opacity: 0;
-  transition: opacity var(--about-hover-duration) ease;
+  translate: 0 var(--about-rise-distance);
   pointer-events: none;
 }
 
-/* Each time an image appears it starts blurred and comes into focus; while it is hidden
-   it goes back to blurred at once, so the next time it appears it focuses again */
-.js .about-work-image.is-loaded:not(.is-shown) .progressive-image {
-  filter: blur(var(--focus-blur));
-  transition: none;
-}
-
-.js .about-work-image.is-loaded.is-shown .progressive-image {
-  filter: blur(0px);
-  transition: filter var(--about-focus-duration) ease;
+.about-work-image.is-shown {
+  translate: 0 0;
+  transition:
+    opacity var(--about-rise-duration) ease-out,
+    translate var(--about-rise-duration) ease-out;
 }
 
 .about-role.is-shown,
@@ -2244,6 +2254,15 @@ body.about-page {
 .js .about-emblem.is-shown {
   opacity: 1;
   filter: blur(0px);
+}
+
+/* On the computer the emblem just appears, without blur, and turns once
+   clockwise (about.js); it turns again each time the mouse comes over it.
+   It is above the invisible Education area, so the mouse can reach it. */
+.js .about-desktop .about-emblem {
+  z-index: 1;
+  filter: none;
+  transition: opacity var(--image-reveal-duration) var(--image-reveal-easing);
 }
 
 /* The invisible area that wakes the emblem */
@@ -2283,6 +2302,107 @@ body.about-page {
 .about-copy-bracket {
   font-family: var(--font-about-bracket);
   color: var(--color-about-heading);
+}
+
+/* ---------- The computer version (Figma, updated) ----------
+   A white page. Everything black, with red accents: the block behind the
+   portrait, the lines between the works, the frame around Education,
+   VIEW CV and the "&", the apostrophe of "Let's" and the brackets of "(copy)". */
+@media (min-width: 792px) {
+  body.about-page {
+    background: var(--color-about-desktop-background);
+  }
+}
+
+/* The page is as tall as the Figma frame, which cuts the bottom of "Let's talk."
+   (the red block also starts a little past the left edge; the page cuts it there too) */
+.about-desktop {
+  min-height: var(--about-desktop-page-height);
+  height: var(--about-desktop-page-height);
+  overflow: clip;
+}
+
+.about-red-block {
+  height: calc(var(--height) * var(--unit));
+  background: var(--color-about-red);
+}
+
+.about-red {
+  color: var(--color-about-red);
+}
+
+/* The big headings: ABOUT & APPROACH (Items Thin, underlined in red),
+   RECENT CLIENTS and EDUCATION (Helvetica Neue Light) */
+.about-title {
+  font-family: var(--font-about-title);
+  font-size: var(--size-about-title);
+  line-height: var(--line-about);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.about-title-underlined {
+  font-family: var(--font-about-talk);
+  text-decoration: underline var(--color-about-red); /* a red underline */
+  letter-spacing: -0.02em; /* the letters 2% closer together (Figma) */
+}
+
+/* The underlines on the computer, as in Figma */
+.about-title-underlined,
+.about-desktop .about-heading,
+.about-cv {
+  text-decoration-thickness: var(--about-underline-thickness);
+  text-underline-offset: var(--about-underline-offset);
+}
+
+/* The two paragraphs about me, with one empty line between them */
+.about-intro {
+  font-family: var(--font-about-intro);
+  font-size: var(--size-about-intro);
+  line-height: var(--line-about);
+}
+
+.about-intro p + p {
+  margin-top: 1lh;
+}
+
+.about-intro-medium {
+  font-family: var(--font-about-intro-medium);
+  font-weight: normal;
+}
+
+/* Black where it was white on the red page: the TOOLS heading and the roles */
+.about-desktop .about-heading,
+.about-desktop .about-role {
+  color: var(--color-about-text);
+}
+
+/* The lines between the works: red and 3px */
+.about-desktop .about-line {
+  height: var(--about-red-line-weight);
+  background: var(--color-about-red);
+}
+
+/* The red frame around the emblem and the text of Education */
+.about-red-frame {
+  height: calc(var(--height) * var(--unit));
+  border: var(--about-red-line-weight) solid var(--color-about-red);
+}
+
+/* VIEW CV: big, red and underlined */
+.about-cv {
+  font-size: var(--size-about-cv);
+  line-height: var(--line-about);
+  color: var(--color-about-red);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  white-space: nowrap;
+}
+
+/* The brackets of "(copy)" are red here */
+.about-desktop .about-copy-bracket {
+  color: var(--color-about-red);
 }
 
 /* ---------- About on a phone (Figma "about page mobile") ----------
