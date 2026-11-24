@@ -6,7 +6,7 @@
   <title>About · Shahar Ben Yaacov</title>
   <!-- Tells the CSS that JavaScript is on (images wait for it before fading in) -->
   <script>document.documentElement.classList.add('js');</script>
-  <link rel="stylesheet" href="styles.css?v=22">
+  <link rel="stylesheet" href="styles.css?v=24">
   <script src="nav.js"></script>
   <script src="about.js?v=3" defer></script>
   <script src="contact.js" defer></script>
@@ -62,7 +62,8 @@
     <!-- ===== About & approach ===== -->
     <!-- The red block on the left (it starts a little past the left edge), with the portrait on it -->
     <div class="about-red-block project-placed" style="--left: -11; --top: 63; --width: 546; --height: 739"></div>
-    <div class="progressive project-placed" style="--left: 317; --top: 104; --width: 179; --height: 269; --preview: url('images/about/portrait-preview.jpg')">
+    <!-- The portrait grows on hover, from its top right corner (styles.css) -->
+    <div class="about-portrait progressive project-placed" style="--left: 317; --top: 104; --width: 179; --height: 269; --preview: url('images/about/portrait-preview.jpg')">
       <img class="progressive-image" src="images/about/portrait.jpg" alt="Shahar Ben Yaacov, black and white portrait" width="684" height="1026" decoding="async">
     </div>
 

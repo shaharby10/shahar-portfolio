@@ -386,6 +386,7 @@ button * {
   --about-rise-duration: 300ms;   /* a work's image rises a little as it appears */
   --about-rise-distance: calc(16 * var(--unit));
   --emblem-turn-duration: 1200ms; /* the Bezalel emblem's full turn (computer) */
+  --about-portrait-duration: 400ms; /* the portrait growing on hover */
 
   /* The Figma frame (2451) minus its browser bar (85) */
   --about-page-height: calc(2366 * var(--unit));
@@ -2329,6 +2330,43 @@ body.about-page {
 
 .about-red {
   color: var(--color-about-red);
+}
+
+/* The portrait: on hover it grows evenly, its top and right edges staying where they are.
+   It grows to its earlier Figma size (254 wide instead of 179), still inside the red block. */
+.about-portrait {
+  --portrait-hover-scale: calc(254 / 179);
+  transform-origin: 100% 0;
+  transition: scale var(--about-portrait-duration) ease;
+}
+
+.about-portrait:hover {
+  scale: var(--portrait-hover-scale);
+}
+
+/* Entering the page, the portrait rises a little into its place and appears,
+   like the images of the works (no blurred preview, no blur) */
+.about-portrait::before {
+  display: none;
+}
+
+.js .about-portrait .progressive-image {
+  opacity: 1;
+  filter: none;
+  transition: none;
+}
+
+.js .about-portrait:not(.is-loaded) {
+  opacity: 0;
+}
+
+.js .about-portrait.is-loaded {
+  animation: about-rise var(--about-rise-duration) ease-out both;
+}
+
+@keyframes about-rise {
+  from { opacity: 0; translate: 0 var(--about-rise-distance); }
+  to   { opacity: 1; translate: 0 0; }
 }
 
 /* The big headings: ABOUT & APPROACH (Items Thin, underlined in red),
