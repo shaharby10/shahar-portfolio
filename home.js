@@ -678,6 +678,33 @@ function playEntrance() {
   if (!root.classList.contains('is-entering')) return;
   if (window.scrollY > 0 || wantsLessMotion() || phoneLayout.matches) { finish(); return; }
 
+  // Scrolling (wheel, finger, or keys) during the entrance skips it: the words go straight
+  // into the sentence and the projects appear, so the page can be scrolled to them
+  let skipped = false;
+  let frameId = 0, arrangeTimer = 0, doneTimer = 0;
+  const scrollKeys = ['ArrowDown', 'PageDown', 'End', ' ', 'Spacebar'];
+  const onKey = event => { if (scrollKeys.includes(event.key)) skip(); };
+  const stopListening = () => {
+    window.removeEventListener('wheel', skip);
+    window.removeEventListener('touchmove', skip);
+    window.removeEventListener('scroll', skip);
+    window.removeEventListener('keydown', onKey);
+  };
+  function skip() {
+    if (skipped) return;
+    skipped = true;
+    cancelAnimationFrame(frameId);
+    clearTimeout(arrangeTimer);
+    clearTimeout(doneTimer);
+    stopListening();
+    layer.remove();
+    finish();
+  }
+  window.addEventListener('wheel', skip, { passive: true });
+  window.addEventListener('touchmove', skip, { passive: true });
+  window.addEventListener('scroll', skip, { passive: true });
+  window.addEventListener('keydown', onKey);
+
   const stagger = cssTime('--entrance-stagger');
   const settle = cssTime('--entrance-settle');
   const rest = cssTime('--entrance-rest');
@@ -781,10 +808,10 @@ function playEntrance() {
     // Still: no corner moved more than half a pixel in the last step
     const fastest = Math.max(...pieces.map(p => Math.max(...p.body.corners.map(c => Math.hypot(c.x - c.oldX, c.y - c.oldY)))));
     stillFrames = elapsed > lastStart && fastest < 0.5 ? stillFrames + 1 : 0;
-    if (stillFrames < 20 && elapsed < lastStart + settle) requestAnimationFrame(frame);
-    else setTimeout(arrangeAll, rest);
+    if (stillFrames < 20 && elapsed < lastStart + settle) frameId = requestAnimationFrame(frame);
+    else arrangeTimer = setTimeout(arrangeAll, rest);
   }
-  requestAnimationFrame(frame);
+  frameId = requestAnimationFrame(frame);
 
   // 2. Arrange: all glide from the pile into the sentence
   function arrangeAll() {
@@ -797,7 +824,7 @@ function playEntrance() {
       copy.animate([{ transform: from }, { transform: 'none' }], { duration: arrange, delay, easing, fill: 'both' });
     });
     // 3. Everything is in place: show the real sentence
-    setTimeout(() => { layer.remove(); finish(); }, lastArrival + 30);
+    doneTimer = setTimeout(() => { stopListening(); layer.remove(); finish(); }, lastArrival + 30);
   }
 }
 
