@@ -1589,26 +1589,28 @@ body.home-page {
 }
 
 /* ----- Layout 3 (Frame 61) ----- */
-/* Index, About and Contact stack under the name, on the left margin,
-   and grow to the right */
+/* Index, About and Contact in one row right after the name, at its height,
+   with the same equal gap (--nav-gap) between all of them; each grows to the right.
+   Widths of the words in Helvetica Neue (Figma): the name 150, Index 43, About 46.
+   The name starts at x 25, so it ends at 175. */
 .layout-c .nav-index,
 .layout-c .nav-about,
 .layout-c .nav-contact {
-  left: calc(var(--margin-left) * var(--unit));
+  top: calc(22 * var(--unit)); /* like the name */
   --anchor: 0%;
   --spread: 0;
 }
 
-.layout-c .nav-index { top: calc(43 * var(--unit)); }
-.layout-c .nav-about { top: calc(68 * var(--unit)); }
-.layout-c .nav-contact { top: calc(90 * var(--unit)); }
+.layout-c .nav-index { left: calc((175 + var(--nav-gap)) * var(--unit)); }
+.layout-c .nav-about { left: calc((175 + 43 + 2 * var(--nav-gap)) * var(--unit)); }
+.layout-c .nav-contact { left: calc((175 + 43 + 46 + 3 * var(--nav-gap)) * var(--unit)); }
 
-/* Switch sits in the middle at the bottom and grows both ways */
+/* Switch (the red "~") sits in the middle of the page, in the same row */
 .layout-c .nav-switch {
   left: calc(720 * var(--unit));
-  top: calc(100dvh - (814 - 771) * var(--unit));
+  top: calc(22 * var(--unit));
   --anchor: -50%;
-  --spread: 0.5;
+  --spread: 0;
 }
 
 /* ---------- Moving between pages: the navigation glides ---------- */
