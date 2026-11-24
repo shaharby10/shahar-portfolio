@@ -329,7 +329,8 @@ button * {
    The page also has the class "home-page" for its navigation and images.
    ========================================================= */
 .index-page {
-  --color-index-nav: #000000; /* the name and the buttons */
+  --color-index-nav: #000000; /* the name (and the asterisk on a phone) */
+  --color-index-buttons: #ffffff; /* the navigation buttons: Index, About, Contact */
   --color-index-background: #ff1738;
   --color-index-text: #f5f5f5;
 
@@ -2099,6 +2100,11 @@ body.index-page {
 .index-page .nav-item {
   color: var(--color-index-nav);
   mix-blend-mode: normal;
+}
+
+/* The navigation buttons are white on this page */
+.index-page .nav-item {
+  color: var(--color-index-buttons);
 }
 
 /* A project that links to its page looks like the others */
