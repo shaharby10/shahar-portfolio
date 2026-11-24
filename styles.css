@@ -459,6 +459,10 @@ button * {
 @font-face { font-family: "HN Medium Italic"; src: local("HelveticaNeue-MediumItalic"), url("fonts/HelveticaNeue-MediumItalic.ttf"); }
 @font-face { font-family: "HN Bold"; src: local("HelveticaNeue-Bold"), url("fonts/HelveticaNeue-Bold.ttf"); }
 
+/* Ginto: only for the arrows (↗ ← →), which Helvetica Neue doesn't have (as in Figma) */
+@font-face { font-family: "Ginto Regular"; src: local("ABC Ginto Trial Regular"), url("fonts/ABCGintoTrial-Regular.otf"); }
+@font-face { font-family: "Ginto Light"; src: local("ABC Ginto Trial Light"), url("fonts/ABCGintoTrial-Light.otf"); }
+
 /* Baskerville SemiBold: only for the red "~" before Switch (Items has no "~") */
 @font-face { font-family: "Baskerville SemiBold Web"; src: local("Baskerville-SemiBold"), url("fonts/Baskerville-SemiBold.ttf"); }
 
@@ -479,6 +483,7 @@ button * {
   --font-project-label: "HN Medium", sans-serif;    /* Exhibition Design, 2026 */
   --font-project-description: "HN Regular", sans-serif; /* the word "Description" */
   --font-project-light: "HN Light", sans-serif;     /* the kind of work at the end of a phone page */
+  --font-project-arrow: "Ginto Regular", sans-serif; /* the red "↗" (Helvetica Neue has no arrows) */
 
   /* Font sizes and line heights */
   /* The title's letters start and end on the same lines as the description
@@ -2999,7 +3004,7 @@ body.about-page {
   --carousel-arrow-inset: 24;     /* the arrows' distance from the carousel's sides (Figma px) */
   --carousel-arrow-size: 48;      /* the circle around each arrow (Figma px) */
   --size-carousel-arrow: 28;      /* the arrow inside it (Figma px) */
-  --font-carousel-arrow: "HN Light", sans-serif; /* a little thinner than the text */
+  --font-carousel-arrow: "Ginto Light", sans-serif; /* Helvetica Neue has no arrows */ /* a little thinner than the text */
   --color-carousel-arrow: #ffffff;
   --color-carousel-arrow-milk: rgba(255, 255, 255, 0.35); /* the milky circle on hover */
   --carousel-arrow-hover-duration: 300ms;
@@ -3475,6 +3480,10 @@ body.about-page {
 }
 
 .project-next-arrow {
+  font-family: var(--font-project-arrow);
+}
+
+.project-next-arrow {
   font-size: calc(22 * var(--unit));
 }
 
@@ -3497,8 +3506,17 @@ body.about-page {
   font-size: var(--size-next-tag-big);
 }
 
+/* The arrow reaches from the top of the letters of VIEW PROJECT down to the
+   bottom of their underline (measured on screen): a little bigger than in Figma,
+   and a little higher than its Figma box */
 .project-desktop .project-next-arrow {
-  font-size: var(--size-next-arrow-big);
+  font-size: calc(var(--size-next-arrow-big) * var(--next-arrow-scale));
+  margin-top: calc(var(--next-arrow-shift) * var(--unit));
+}
+
+.project-page {
+  --next-arrow-scale: 1.145;
+  --next-arrow-shift: -4.5;
 }
 
 .project-desktop .project-next-view {
@@ -3710,6 +3728,10 @@ body.about-page {
   .phone-next-view {
     font-family: var(--font-project-text);
     color: var(--color-home-accent);
+  }
+
+  .phone-next-arrow {
+    font-family: var(--font-project-arrow);
   }
 
   .phone-next-arrow {
