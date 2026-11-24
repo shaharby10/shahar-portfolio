@@ -298,7 +298,7 @@ switchButton.addEventListener('click', () => {
 // Switch's small letters. It is checked on every frame, so it follows Switch when
 // Switch glides to another layout or its letters spread out on hover.
 const switchTilde = document.querySelector('.switch-tilde');
-let tildeMiddle = 0;  // from the top of the tilde's drawing to its middle
+let tildeMiddle = 0;  // from the top of the tilde's box to the middle of its "~"
 let switchMiddle = 0; // from the top of Switch to the middle of its small letters
 
 // Where the letters stand (the baseline), inside an element
@@ -313,8 +313,10 @@ function baselineIn(element) {
 
 function measureTilde() {
   const canvas = document.createElement('canvas').getContext('2d');
-  // The tilde is a drawing as tall as its ink, so its middle is the middle of its box
-  tildeMiddle = switchTilde.offsetHeight / 2;
+  const tildeStyle = getComputedStyle(switchTilde);
+  canvas.font = tildeStyle.fontSize + ' ' + tildeStyle.fontFamily;
+  const tildeInk = canvas.measureText('~');
+  tildeMiddle = baselineIn(switchTilde) - (tildeInk.actualBoundingBoxAscent - tildeInk.actualBoundingBoxDescent) / 2;
   const switchStyle = getComputedStyle(switchButton);
   canvas.font = switchStyle.fontSize + ' ' + switchStyle.fontFamily;
   const xHeight = canvas.measureText('x').actualBoundingBoxAscent;

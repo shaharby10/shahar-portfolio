@@ -440,6 +440,9 @@ button * {
 @font-face { font-family: "HN Medium Italic"; src: local("HelveticaNeue-MediumItalic"), url("fonts/HelveticaNeue-MediumItalic.ttf"); }
 @font-face { font-family: "HN Bold"; src: local("HelveticaNeue-Bold"), url("fonts/HelveticaNeue-Bold.ttf"); }
 
+/* Baskerville SemiBold: only for the red "~" before Switch (Items has no "~") */
+@font-face { font-family: "Baskerville SemiBold Web"; src: local("Baskerville-SemiBold"), url("fonts/Baskerville-SemiBold.ttf"); }
+
 /* =========================================================
    Project page tokens (Figma frame "דף פרוייקט-עיצוב תערוכה")
    The page also has the class "home-page", so it uses the home page's
@@ -1514,24 +1517,25 @@ body.home-page {
 }
 
 /* The red "~" before Switch: as big and as red as the punctuation of the big text.
-   Items has no "~", so it is a drawing (in index.html) in the style of the red periods
-   and commas; its size is in em, so it follows the big text's size.
+   Items has no "~", so it comes from Baskerville SemiBold, a serif with thick and
+   thin strokes like the red periods and commas.
    It is its own element, outside the button, so the button's X-ray
    (mix-blend-mode) doesn't change its color.
    home.js puts it just left of Switch, in every layout, also while Switch moves. */
+.home-page {
+  --font-switch-tilde: "Baskerville SemiBold Web", serif;
+}
+
 .switch-tilde {
   position: fixed;
   z-index: 2;
   left: 0;
   top: 0;
+  font-family: var(--font-switch-tilde);
   font-size: var(--size-intro);
-  line-height: 0;
+  line-height: 1;
   color: var(--color-home-accent);
   pointer-events: none;
-}
-
-.switch-tilde-drawing {
-  display: block;
 }
 
 /* On a phone Switch is not shown, so neither is the tilde */
