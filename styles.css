@@ -292,8 +292,8 @@ button * {
   --font-home-small: "HN Regular", sans-serif;
   --font-tagline-home: "HN Thin", sans-serif; /* "from the first words…" */
   /* The caption under each project: its name, then the kind of work */
-  --font-work-title: "HN Regular", sans-serif; /* the project's name, in capitals */
-  --font-work-tag: "HN Light", sans-serif;     /* the kind of work */
+  --font-work-title: "HN Light", sans-serif;   /* the project's name, in capitals */
+  --font-work-tag: "HN Regular", sans-serif;   /* the kind of work */
 
   /* Name and navigation on hover: the letters spread out to 22% */
   --nav-tracking-hover: 0.22em;
@@ -320,7 +320,7 @@ button * {
   --size-home-small: calc(17.111 * var(--unit));
   --size-work-title: calc(20 * var(--unit));
   --size-work-tag: calc(18 * var(--unit));
-  --spacing-work-title: calc(1.2 * var(--unit)); /* the letters of the name, a little apart */
+  --spacing-work-title: 0; /* the letters of the name: no extra space (as in Figma) */
   --line-work-caption: 1.33;
 
   /* Page and layers */
@@ -1250,14 +1250,6 @@ body.home-page {
   font-family: var(--font-work-tag);
   font-size: var(--size-work-tag);
   text-transform: capitalize;
-}
-
-/* Consumerism Crisis and The Fine Print of the Pill (Figma, computer): the name is
-   light and the kind of work regular; the Pill's name without the spaced letters */
-@media (min-width: 792px) {
-  .work-caption-light-title .work-title { font-family: var(--font-work-tag); }
-  .work-caption-light-title .work-tag { font-family: var(--font-work-title); }
-  .work-caption-no-spacing .work-title { letter-spacing: 0; }
 }
 
 /* ---------- "Let's talk." at the end of the home page (computer only) ---------- */
@@ -2751,7 +2743,6 @@ body.about-page {
     --size-home-small: calc(19 * var(--unit));
     --size-work-title: calc(16 * var(--unit)); /* the caption under each project */
     --size-work-tag: calc(14.4 * var(--unit)); /* (the same sizes, one to the other, as on a wide screen) */
-    --spacing-work-title: calc(0.96 * var(--unit));
     /* 20% smaller than the asterisk over the big name (at the full 64.4px size;
        measured from that number, because the intro size itself depends on the asterisk) */
     --menu-star-size: calc(64.4 * var(--unit) * 0.1565 / 0.152 * 0.8);
