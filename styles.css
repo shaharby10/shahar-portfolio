@@ -262,6 +262,16 @@ button * {
   --view-bracket-scale: 1.5;   /* the brackets are 1.5 times as big as the words */
   --view-gap: 0.3em;           /* a little space between each bracket and the words */
   --view-words-drop: 0.094em;  /* lowers the words so they sit in the middle of the brackets' straight part (measured) */
+  /* The white box behind it: it covers the brackets and the words, and ends exactly
+     at the brackets' outer edges (measured: the space inside the label's box around
+     the brackets' ink, in em of the words) */
+  --view-box-inset-top: 0.35em;
+  --view-box-inset-bottom: 0.125em;
+  --view-box-inset-side: 0.107em;
+  --view-box-bleed: calc(3 * var(--unit)); /* how far the white reaches past the brackets, on every side */
+  --color-view-box: #ffffff;
+  --color-view-words: #000000;
+  --color-view-brackets: var(--color-home-accent); /* red */
   /* It reacts at once: everything starts the moment the mouse comes in or goes out */
   --view-open-duration: 180ms;            /* the brackets opening */
   --view-close-duration: 150ms;           /* the brackets closing (home.js waits for it too) */
@@ -1753,15 +1763,11 @@ a.intro-name {
   transition: opacity 0s linear var(--view-close-duration);
 }
 
-/* It is drawn twice, exactly one over the other:
-   1. the red brackets (the words are there too, but invisible, to keep the space);
-   2. the words in "X-ray", like the navigation: white text that inverts whatever
-      is under it (black on white, light on a dark image). The brackets are
-      invisible in this copy. Two copies, because the X-ray must not touch the red. */
+/* The brackets */
 .cursor-view-bracket {
   font-family: var(--font-view-bracket);
   font-size: calc(var(--view-bracket-scale) * 1em);
-  color: var(--color-home-accent);
+  color: var(--color-view-brackets);
 }
 
 /* The space between the brackets and the words; it is inside the box
@@ -1774,21 +1780,17 @@ a.intro-name {
   padding-inline-end: calc(var(--view-gap) - var(--spacing-work-title));
 }
 
-.cursor-view .cursor-view-text {
-  visibility: hidden;
-}
-
-.cursor-view-xray {
-  mix-blend-mode: difference;
-}
-
-.cursor-view-xray .cursor-view-bracket {
-  visibility: hidden;
-}
-
-.cursor-view-xray .cursor-view-text {
-  visibility: visible;
-  color: #ffffff;
+/* The white box, behind the brackets and the words, a little past the brackets
+   on every side. It opens and closes with them, because it is as wide as the whole label. */
+.cursor-view::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset:
+    calc(var(--view-box-inset-top) - var(--view-box-bleed))
+    calc(var(--view-box-inset-side) - var(--view-box-bleed))
+    calc(var(--view-box-inset-bottom) - var(--view-box-bleed));
+  background: var(--color-view-box);
 }
 
 /* The words sit in a box that is closed (0 wide) and opens to their width:
@@ -1797,6 +1799,7 @@ a.intro-name {
   position: relative;
   top: var(--view-words-drop);
   display: inline-grid;
+  color: var(--color-view-words);
   grid-template-columns: 0fr;
   transition: grid-template-columns var(--view-close-duration) ease-in;
 }
