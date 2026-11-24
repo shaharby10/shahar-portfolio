@@ -419,6 +419,24 @@ button * {
   --about-phone-page-height: calc(2794 * var(--unit));
 }
 
+/* Contact page (Figma "contact page desktop", 1440 x 848).
+   Also on .contact-stage, so the sizes follow its own --unit on a phone. */
+.contact-page,
+.contact-stage {
+  --color-contact-background: #ffffff;
+  --color-contact-text: #000000;
+  --color-contact-red: #ff1738;
+  --font-contact-question: "Items Condensed Regular", serif;
+  --font-contact-talk: "Items Condensed Thin", serif;
+  --font-contact-bracket: "Items Condensed Medium", serif;
+  --size-contact-question: calc(127.582 * var(--unit));
+  --size-contact-talk: calc(333.465 * var(--unit));
+  --size-contact-lines: calc(58.328 * var(--unit));
+  --tracking-contact-question: -0.02em;
+  --line-contact: 1.21;
+  --contact-frame-height: 848; /* the Figma frame's height */
+}
+
 /* Moving between pages: how long the name and the buttons take to glide
    to their place on the new page (the same as Switch, below).
    Set on :root because the gliding words are drawn above the page. */
@@ -3746,3 +3764,78 @@ body.about-page {
   }
 }
 
+
+/* =========================================================
+   Contact page (Figma "contact page desktop", 1440 x 848)
+   Places and sizes: .project-placed (Figma numbers in style="").
+   ========================================================= */
+
+body.contact-page {
+  background: var(--color-contact-background);
+  color: var(--color-contact-text);
+}
+
+/* The page is one screen tall; nothing scrolls */
+.contact {
+  position: relative;
+  height: 100dvh;
+  overflow: clip;
+}
+
+/* The Figma frame, standing on the bottom of the screen */
+.contact-stage {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(var(--contact-frame-height) * var(--unit));
+}
+
+.contact-question,
+.contact-talk,
+.contact-lines {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+  line-height: var(--line-contact);
+  white-space: nowrap;
+}
+
+/* "Have a project in mind?" */
+.contact-question {
+  font-family: var(--font-contact-question);
+  font-size: var(--size-contact-question);
+  letter-spacing: var(--tracking-contact-question);
+}
+
+/* "Let's talk." */
+.contact-talk {
+  font-family: var(--font-contact-talk);
+  font-size: var(--size-contact-talk);
+}
+
+/* Email, Instagram, LinkedIn: one under the other */
+.contact-lines {
+  width: max-content;
+  list-style: none;
+  font-family: var(--font-contact-talk);
+  font-size: var(--size-contact-lines);
+}
+
+/* The "?", the apostrophe and the brackets of "(copy)" are red */
+.contact-red {
+  color: var(--color-contact-red);
+}
+
+.contact-lines .about-copy-bracket {
+  font-family: var(--font-contact-bracket);
+  color: var(--color-contact-red);
+}
+
+/* On a phone (no phone frame in Figma yet): the same picture, made smaller
+   to the width of the screen, still standing on the bottom */
+@media (max-width: 791px) {
+  .contact-stage {
+    --unit: calc(100vw / 1440);
+  }
+}

@@ -418,7 +418,7 @@ phoneMenu.querySelectorAll('.menu-link').forEach(link => {
     const lessMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const wait = lessMotion ? 0 : cssTime('--nav-hover-duration');
     setTimeout(() => {
-      if (link.href) window.location.href = link.href; // Contact has no page yet
+      if (link.href) window.location.href = link.href; 
       else link.classList.remove('is-spread');
     }, wait);
   });
