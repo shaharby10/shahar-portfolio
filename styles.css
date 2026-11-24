@@ -259,9 +259,10 @@ button * {
   /* 8. Over a project's image: "[ VIEW PROJECT ]" in place of the mouse.
      The words look like the projects' names (--font-work-title, --size-work-title) */
   --font-view-bracket: "HN Bold", sans-serif;
-  --view-bracket-scale: 1.5;   /* the brackets are 1.5 times as big as the words */
+  --view-bracket-scale: 1.5;   /* the brackets are 1.5 times as big as the project names */
+  --view-words-scale: 0.95;    /* the words: 5% smaller than the project names */
   --view-gap: 0.3em;           /* a little space between each bracket and the words */
-  --view-words-drop: 0.094em;  /* lowers the words so they sit in the middle of the brackets' straight part (measured) */
+  --view-words-drop: 0.125em;  /* lowers the words so they sit in the middle of the brackets' straight part (measured) */
   /* The white box behind it: it covers the brackets and the words, and ends exactly
      at the brackets' outer edges (measured: the space inside the label's box around
      the brackets' ink, in em of the words) */
@@ -320,7 +321,7 @@ button * {
   --size-home-small: calc(17.111 * var(--unit));
   --size-work-title: calc(20 * var(--unit));
   --size-work-tag: calc(18 * var(--unit));
-  --spacing-work-title: 0; /* the letters of the name: no extra space (as in Figma) */
+  --spacing-work-title: 0px; /* the letters of the name: no extra space (as in Figma; "px" so it also works inside calc) */
   --line-work-caption: 1.33;
 
   /* Page and layers */
@@ -1821,6 +1822,7 @@ a.intro-name {
   min-width: 0;
   overflow: hidden;
   font-family: var(--font-work-title);
+  font-size: calc(var(--view-words-scale) * 1em);
   letter-spacing: var(--spacing-work-title);
   text-transform: uppercase;
   opacity: 0;
