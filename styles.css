@@ -1513,24 +1513,25 @@ body.home-page {
   --spread: 1;
 }
 
-/* The red "~" before Switch: as big and as red as the punctuation of the big text,
-   in Helvetica Neue Medium (Items has no "~"). It is its own element, outside the
-   button, so the button's X-ray (mix-blend-mode) doesn't change its color.
+/* The red "~" before Switch: as big and as red as the punctuation of the big text.
+   Items has no "~", so it is a drawing (in index.html) in the style of the red periods
+   and commas; its size is in em, so it follows the big text's size.
+   It is its own element, outside the button, so the button's X-ray
+   (mix-blend-mode) doesn't change its color.
    home.js puts it just left of Switch, in every layout, also while Switch moves. */
-.home-page {
-  --font-switch-tilde: "HN Medium", sans-serif;
-}
-
 .switch-tilde {
   position: fixed;
   z-index: 2;
   left: 0;
   top: 0;
-  font-family: var(--font-switch-tilde);
   font-size: var(--size-intro);
-  line-height: 1;
+  line-height: 0;
   color: var(--color-home-accent);
   pointer-events: none;
+}
+
+.switch-tilde-drawing {
+  display: block;
 }
 
 /* On a phone Switch is not shown, so neither is the tilde */
