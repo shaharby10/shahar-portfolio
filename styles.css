@@ -1504,13 +1504,30 @@ body.home-page {
 .nav-contact { left: calc((var(--margin-left) + 42.906 + 47.781 + 2 * var(--nav-gap) + 61.609 / 2) * var(--unit)); }
 .nav-about, .nav-contact { --anchor: -50%; --spread: 0.5; }
 
-/* Bottom right: Switch ends where Shufuni's image ends (1410, a little in from the
-   right margin) and grows to the left; one pixel lower than the others, like in Figma */
+/* Top right corner: Switch ends on the right margin, at the height of the name,
+   and grows to the left. A red "~" stands before it (in all three layouts). */
 .nav-switch {
-  left: calc(1410 * var(--unit));
-  top: calc(100dvh - (814 - 770) * var(--unit));
+  left: calc(var(--margin-right) * var(--unit));
+  top: calc(22 * var(--unit)); /* like the name */
   --anchor: -100%;
   --spread: 1;
+}
+
+/* The red "~" before Switch. The button inverts whatever is under it ("X-ray",
+   mix-blend-mode: difference), so the tilde gets the opposite color of red:
+   on the white page it shows as the red #ff1738. */
+.switch-tilde {
+  color: var(--color-switch-tilde);
+}
+
+.home-page {
+  --color-switch-tilde: #00e8c7; /* white minus #ff1738: looks red through the X-ray */
+}
+
+@media (max-width: 791px) {
+  .switch-tilde {
+    display: none;
+  }
 }
 
 /* ----- Layout 2 (Frame 59) ----- */
