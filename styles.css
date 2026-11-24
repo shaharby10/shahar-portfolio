@@ -1507,8 +1507,7 @@ body.home-page {
 .nav-contact { left: calc((var(--margin-left) + 42.906 + 47.781 + 2 * var(--nav-gap) + 61.609 / 2) * var(--unit)); }
 .nav-about, .nav-contact { --anchor: -50%; --spread: 0.5; }
 
-/* Top right corner: Switch ends on the right margin, at the height of the name,
-   and grows to the left. A big red "~" stands before it (.switch-tilde, below). */
+/* Top right corner: Switch (the red "~") ends on the right margin, in the row of the name */
 .nav-switch {
   left: calc(var(--margin-right) * var(--unit));
   top: calc(22 * var(--unit)); /* like the name */
@@ -1516,34 +1515,57 @@ body.home-page {
   --spread: 1;
 }
 
-/* The red "~" before Switch: as big and as red as the punctuation of the big text.
+/* Switch is only a big red "~": as big and as red as the punctuation of the big text.
    Items has no "~", so it comes from Baskerville SemiBold, a serif with thick and
    thin strokes like the red periods and commas.
-   It is its own element, outside the button, so the button's X-ray
-   (mix-blend-mode) doesn't change its color.
-   home.js puts it just left of Switch, in every layout, also while Switch moves. */
+   It is always red: no X-ray here (mix-blend-mode), and no spreading on hover.
+   --tilde-shift moves it so its middle is on the middle of the small words
+   (the name, Index...) of the same row. */
 .home-page {
   --font-switch-tilde: "Baskerville SemiBold Web", serif;
+  --tilde-shift: calc(0.677 * var(--size-home-small) - 0.482 * var(--size-intro)); /* measured: the middle of the small words, minus the middle of the "~" */
+  --tilde-wiggle-duration: 4s; /* one wiggle, then a pause, again and again */
 }
 
-.switch-tilde {
-  position: fixed;
-  z-index: 2;
-  left: 0;
-  top: 0;
+.nav-switch {
+  margin-top: var(--tilde-shift);
   font-family: var(--font-switch-tilde);
   font-size: var(--size-intro);
   line-height: 1;
   color: var(--color-home-accent);
-  pointer-events: none;
+  mix-blend-mode: normal;
 }
 
-/* On a phone Switch is not shown, so neither is the tilde */
-@media (max-width: 791px) {
+.nav-switch:hover,
+.nav-switch:focus-visible {
+  letter-spacing: 0;
+  transform: translateX(var(--anchor));
+}
+
+/* The wiggle: a few quick tilts around its middle, then a long pause */
+.switch-tilde {
+  display: inline-block;
+  transform-origin: 50% 55%;
+  animation: tilde-wiggle var(--tilde-wiggle-duration) ease-in-out infinite;
+}
+
+@keyframes tilde-wiggle {
+  0%   { transform: rotate(0deg); }
+  4%   { transform: rotate(-14deg); }
+  8%   { transform: rotate(11deg); }
+  12%  { transform: rotate(-7deg); }
+  16%  { transform: rotate(3deg); }
+  20%  { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* For people who asked their computer for less motion: no wiggle */
+@media (prefers-reduced-motion: reduce) {
   .switch-tilde {
-    display: none;
+    animation: none;
   }
 }
+
 
 /* ----- Layout 2 (Frame 59) ----- */
 /* Top right: Contact ends on the right margin and grows to the left;
@@ -1558,11 +1580,9 @@ body.home-page {
 .layout-b .nav-about { left: calc((var(--margin-right) - 61.609 - var(--nav-gap) - 47.781 / 2) * var(--unit)); --anchor: -50%; --spread: 0.5; }
 .layout-b .nav-index { left: calc((var(--margin-right) - 61.609 - 47.781 - 2 * var(--nav-gap) - 42.906 / 2) * var(--unit)); --anchor: -50%; --spread: 0.5; }
 
-/* Bottom left: the red "~" starts on the left margin, Switch right after it
-   (--tilde-room: the tilde's width and the space after it, measured by home.js),
-   and Switch grows to the right */
+/* Bottom left: Switch (the red "~") starts on the left margin */
 .layout-b .nav-switch {
-  left: calc(var(--margin-left) * var(--unit) + var(--tilde-room, 0px));
+  left: calc(var(--margin-left) * var(--unit));
   top: calc(100dvh - (814 - 770) * var(--unit));
   --anchor: 0%;
   --spread: 0;

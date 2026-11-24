@@ -15,10 +15,10 @@
       document.documentElement.classList.add('is-entering');
     }
   </script>
-  <link rel="stylesheet" href="styles.css?v=14">
+  <link rel="stylesheet" href="styles.css?v=15">
   <script src="nav.js"></script>
   <script src="physics.js" defer></script>
-  <script src="home.js?v=5" defer></script>
+  <script src="home.js?v=6" defer></script>
   <script src="contact.js" defer></script>
 </head>
 <body class="home-page">
@@ -32,9 +32,9 @@
       <a class="nav-item nav-about" href="about.html">About</a>
       <span class="nav-item nav-contact">Contact</span>
       <!-- Switch moves through three layouts of the navigation and the intro -->
-      <button class="nav-item nav-switch" type="button">Switch</button>
-      <!-- The big red "~" before Switch (placed next to it by home.js) -->
-      <span class="switch-tilde" aria-hidden="true">~</span>
+      <!-- Switch: only a big red "~" that wiggles every few seconds
+           (screen readers still read "Switch") -->
+      <button class="nav-item nav-switch" type="button" aria-label="Switch"><span class="switch-tilde" aria-hidden="true">~</span></button>
     </nav>
   </header>
 
