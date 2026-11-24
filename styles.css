@@ -1285,6 +1285,11 @@ body.home-page {
   font-size: calc(58.328 * var(--unit));
 }
 
+/* The apostrophe of "Let's" is red */
+.home-talk-apostrophe {
+  color: var(--color-home-accent);
+}
+
 .home-contact .about-copy-bracket {
   font-family: var(--font-accent-medium);
   color: var(--color-home-accent);
