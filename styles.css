@@ -1734,6 +1734,27 @@ a.intro-name {
   animation: star-turn var(--star-turn-duration) linear infinite;
 }
 
+/* An image where only some parts react to the mouse (the plants of Etymology):
+   the image itself lets the mouse through, and only its .work-hit areas catch it.
+   On a phone (no mouse) the whole image still opens the project. */
+.work-hit {
+  position: absolute;
+  left: calc(var(--hit-left) * var(--unit));
+  top: calc(var(--hit-top) * var(--unit));
+  width: calc(var(--hit-width) * var(--unit));
+  height: calc(var(--hit-height) * var(--unit));
+}
+
+@media (min-width: 792px) and (hover: hover) {
+  .work-image-hit-areas {
+    pointer-events: none;
+  }
+
+  .work-image-hit-areas .work-hit {
+    pointer-events: auto;
+  }
+}
+
 /* ---------- "[ VIEW PROJECT ]" over a project's image ---------- */
 /* With a mouse on a wide screen, the arrow is hidden over the images
    and home.js shows "[ VIEW PROJECT ]" at the mouse instead */

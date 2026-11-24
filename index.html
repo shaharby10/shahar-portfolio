@@ -15,7 +15,7 @@
       document.documentElement.classList.add('is-entering');
     }
   </script>
-  <link rel="stylesheet" href="styles.css?v=44">
+  <link rel="stylesheet" href="styles.css?v=45">
   <script src="nav.js"></script>
   <script src="physics.js" defer></script>
   <script src="home.js?v=12" defer></script>
@@ -112,8 +112,14 @@
       <!-- Etymology of wild plants (the video and the caption lead to the project page). -->
       <div class="work-project">
         <!-- A video on a white background; its white lets what is behind it show through (styles.css) -->
-        <a class="progressive work-image work-image-see-through" href="etymology-exhibition.html" style="--left: -5.93; --top: 2024; --width: 955; --height: 609; --preview: url('images/home/etymology-plants-cropped-preview.jpg')">
+        <a class="progressive work-image work-image-see-through work-image-hit-areas" href="etymology-exhibition.html" style="--left: -5.93; --top: 2024; --width: 955; --height: 609; --preview: url('images/home/etymology-plants-cropped-preview.jpg')">
           <video class="progressive-image work-video-white" src="images/home/etymology-plants-cropped.mp4" poster="images/home/etymology-plants-cropped.jpg" autoplay muted loop playsinline aria-label="Three blue plants turning slowly: Mentha, Arbutus and Anchusa"></video>
+          <!-- With a mouse, only the plants themselves react (open the project, show [ VIEW PROJECT ]),
+               not the white around them: one area per plant, without its name
+               (in Figma pixels inside the video, measured while it plays a whole turn) -->
+          <span class="work-hit" style="--hit-left: 32; --hit-top: 108; --hit-width: 216; --hit-height: 346"></span>
+          <span class="work-hit" style="--hit-left: 294; --hit-top: 78; --hit-width: 174; --hit-height: 328"></span>
+          <span class="work-hit" style="--hit-left: 516; --hit-top: 100; --hit-width: 257; --hit-height: 356"></span>
         </a>
         <a class="work-caption" href="etymology-exhibition.html" style="--left: 784; --top: 2152; --width: 331">
           <span class="work-title">Etymology of wild plants</span>
