@@ -1505,7 +1505,7 @@ body.home-page {
 .nav-about, .nav-contact { --anchor: -50%; --spread: 0.5; }
 
 /* Top right corner: Switch ends on the right margin, at the height of the name,
-   and grows to the left. A red "~" stands before it (in all three layouts). */
+   and grows to the left. A big red "~" stands before it (.switch-tilde, below). */
 .nav-switch {
   left: calc(var(--margin-right) * var(--unit));
   top: calc(22 * var(--unit)); /* like the name */
@@ -1513,17 +1513,27 @@ body.home-page {
   --spread: 1;
 }
 
-/* The red "~" before Switch. The button inverts whatever is under it ("X-ray",
-   mix-blend-mode: difference), so the tilde gets the opposite color of red:
-   on the white page it shows as the red #ff1738. */
-.switch-tilde {
-  color: var(--color-switch-tilde);
-}
-
+/* The red "~" before Switch: as big and as red as the punctuation of the big text,
+   in Helvetica Neue Medium (Items has no "~"). It is its own element, outside the
+   button, so the button's X-ray (mix-blend-mode) doesn't change its color.
+   home.js puts it just left of Switch, in every layout, also while Switch moves. */
 .home-page {
-  --color-switch-tilde: #00e8c7; /* white minus #ff1738: looks red through the X-ray */
+  --font-switch-tilde: "HN Medium", sans-serif;
 }
 
+.switch-tilde {
+  position: fixed;
+  z-index: 2;
+  left: 0;
+  top: 0;
+  font-family: var(--font-switch-tilde);
+  font-size: var(--size-intro);
+  line-height: 1;
+  color: var(--color-home-accent);
+  pointer-events: none;
+}
+
+/* On a phone Switch is not shown, so neither is the tilde */
 @media (max-width: 791px) {
   .switch-tilde {
     display: none;
@@ -1543,9 +1553,11 @@ body.home-page {
 .layout-b .nav-about { left: calc((var(--margin-right) - 61.609 - var(--nav-gap) - 47.781 / 2) * var(--unit)); --anchor: -50%; --spread: 0.5; }
 .layout-b .nav-index { left: calc((var(--margin-right) - 61.609 - 47.781 - 2 * var(--nav-gap) - 42.906 / 2) * var(--unit)); --anchor: -50%; --spread: 0.5; }
 
-/* Bottom left: Switch starts on the left margin and grows to the right */
+/* Bottom left: the red "~" starts on the left margin, Switch right after it
+   (--tilde-room: the tilde's width and the space after it, measured by home.js),
+   and Switch grows to the right */
 .layout-b .nav-switch {
-  left: calc(var(--margin-left) * var(--unit));
+  left: calc(var(--margin-left) * var(--unit) + var(--tilde-room, 0px));
   top: calc(100dvh - (814 - 770) * var(--unit));
   --anchor: 0%;
   --spread: 0;

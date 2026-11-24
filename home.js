@@ -293,6 +293,61 @@ switchButton.addEventListener('click', () => {
   }, duration + 50);
 });
 
+// ---------- The big red "~" before Switch ----------
+// It stands just left of Switch in every layout. Its middle is on the middle of
+// Switch's small letters. It is checked on every frame, so it follows Switch when
+// Switch glides to another layout or its letters spread out on hover.
+const switchTilde = document.querySelector('.switch-tilde');
+let tildeMiddle = 0;  // from the top of the tilde's box to the middle of its "~"
+let switchMiddle = 0; // from the top of Switch to the middle of its small letters
+
+// Where the letters stand (the baseline), inside an element
+function baselineIn(element) {
+  const marker = document.createElement('span');
+  marker.style.cssText = 'display:inline-block;width:0;height:0';
+  element.append(marker);
+  const baseline = marker.getBoundingClientRect().top - element.getBoundingClientRect().top;
+  marker.remove();
+  return baseline;
+}
+
+function measureTilde() {
+  const canvas = document.createElement('canvas').getContext('2d');
+  const tildeStyle = getComputedStyle(switchTilde);
+  canvas.font = tildeStyle.fontSize + ' ' + tildeStyle.fontFamily;
+  const tildeInk = canvas.measureText('~');
+  tildeMiddle = baselineIn(switchTilde) - (tildeInk.actualBoundingBoxAscent - tildeInk.actualBoundingBoxDescent) / 2;
+  const switchStyle = getComputedStyle(switchButton);
+  canvas.font = switchStyle.fontSize + ' ' + switchStyle.fontFamily;
+  const xHeight = canvas.measureText('x').actualBoundingBoxAscent;
+  switchMiddle = baselineIn(switchButton) - xHeight / 2;
+  // How much room the tilde needs before Switch (used by the second layout, styles.css)
+  document.body.style.setProperty('--tilde-room', (switchTilde.offsetWidth + tildeGap()) + 'px');
+}
+
+// The space between the tilde and Switch: about one space of Switch's letters
+function tildeGap() {
+  return parseFloat(getComputedStyle(switchButton).fontSize) * 0.3;
+}
+
+function placeTilde() {
+  if (!phoneLayout.matches) {
+    const box = switchButton.getBoundingClientRect();
+    const left = box.left - tildeGap() - switchTilde.offsetWidth;
+    const top = box.top + switchMiddle - tildeMiddle;
+    switchTilde.style.transform = `translate(${left}px, ${top}px)`;
+  }
+  requestAnimationFrame(placeTilde);
+}
+
+if (switchTilde) {
+  document.fonts.ready.then(() => {
+    measureTilde();
+    window.addEventListener('resize', measureTilde);
+    placeTilde();
+  });
+}
+
 // ---------- 4. The long dash spins when clicked ----------
 
 // Two turns clockwise around its middle. First a small swing backwards
