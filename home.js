@@ -7,7 +7,7 @@
 // 7. The red periods bounce on hover and roll away and back when clicked
 //    (also over and on the words they end: "direction." and "look.").
 //    The red commas wiggle on hover; a click drops them to the line below and they bounce back up.
-// 8. Over a project, its images appear one by one in a grid next to it.
+// 8. (removed: the grid of a project's images on hover)
 // 9. The entrance: the words and the punctuation fall, then arrange themselves.
 // 10. On a phone, images go out of focus where they pass under Home and the asterisk.
 // The blur strength and timings are CSS variables at the top of styles.css.
@@ -604,86 +604,6 @@ introText.querySelectorAll('.accent-comma').forEach(comma => {
     ], { duration: total }).finished.then(() => {
       comma.classList.remove('is-falling');
     });
-  });
-});
-
-// ---------- 8. Over a project, its images appear in a grid next to it ----------
-
-// A project with data-gallery (index.html) lists its images. While the mouse is
-// over the project, they appear quickly one by one in a grid that fills the
-// empty space next to it (data-gallery-area, in Figma pixels), and stay there
-// until the mouse leaves. Only for a mouse on a wide screen.
-// With data-gallery-align="bottom" the grid sits at the bottom of the area
-// (its last row ends where the area ends) instead of at the top.
-document.querySelectorAll('.work-project[data-gallery]').forEach(project => {
-  const sources = project.dataset.gallery.split(' ');
-  const [areaLeft, areaTop, areaWidth, areaHeight] = project.dataset.galleryArea.split(' ').map(Number);
-  const alignBottom = project.dataset.galleryAlign === 'bottom';
-  let gallery = null;
-  let hideTimer = null;
-
-  // Every grid has square images of the same size (--gallery-image-size, styles.css).
-  // As many rows as fit in the area's height, and the columns needed for all the images,
-  // but never more columns than fit in the area's width (then the grid gets more rows)
-  // (or the number in data-gallery-columns, when the project asks for one)
-  const fixedColumns = Number(project.dataset.galleryColumns) || 0;
-  function layout(width, height, gap, size) {
-    if (fixedColumns) return { size, columns: fixedColumns };
-    const rows = Math.max(1, Math.floor((height + gap) / (size + gap)));
-    const widest = Math.max(1, Math.floor((width + gap) / (size + gap)));
-    return { size, columns: Math.min(Math.ceil(sources.length / rows), widest) };
-  }
-
-  function show() {
-    clearTimeout(hideTimer);
-    if (gallery) return;
-    const unit = document.body.clientWidth / 1440;
-    const gap = parseFloat(getComputedStyle(project).getPropertyValue('--gallery-gap')) * unit;
-    const width = areaWidth * unit;
-    const height = areaHeight * unit;
-    const imageSize = parseFloat(getComputedStyle(project).getPropertyValue('--gallery-image-size')) * unit;
-    const { size, columns } = layout(width, height, gap, imageSize);
-    const stagger = cssTime('--gallery-stagger');
-    const appear = wantsLessMotion() ? 0 : cssTime('--gallery-appear-duration');
-
-    gallery = document.createElement('div');
-    gallery.className = 'work-gallery';
-    gallery.setAttribute('aria-hidden', 'true');
-    gallery.style.left = areaLeft * unit + 'px';
-    const rows = Math.ceil(sources.length / columns);
-    const gridHeight = rows * size + (rows - 1) * gap;
-    const top = (areaTop - 814) * unit + (alignBottom ? height - gridHeight : 0); // this layer starts at 814
-    gallery.style.top = top + 'px';
-    sources.forEach((source, i) => {
-      const image = new Image();
-      image.className = 'work-gallery-image';
-      image.alt = '';
-      image.src = source;
-      image.style.width = image.style.height = size + 'px';
-      image.style.left = (i % columns) * (size + gap) + 'px';
-      image.style.top = Math.floor(i / columns) * (size + gap) + 'px';
-      gallery.append(image);
-      image.animate([{ opacity: 0, transform: 'scale(0.92)' }, { opacity: 1, transform: 'none' }], {
-        duration: appear, delay: wantsLessMotion() ? 0 : i * stagger, fill: 'both', easing: 'ease-out'
-      });
-    });
-    project.append(gallery);
-  }
-
-  function hide() {
-    if (!gallery) return;
-    gallery.remove();
-    gallery = null;
-  }
-
-  project.addEventListener('pointerenter', event => {
-    if (event.pointerType !== 'mouse' || phoneLayout.matches) return;
-    show();
-  });
-  // A short wait, so moving between the image and the caption doesn't start it again
-  project.addEventListener('pointerleave', () => {
-    clearTimeout(hideTimer);
-    hideTimer = setTimeout(hide, 150);
   });
 });
 

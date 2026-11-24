@@ -15,10 +15,10 @@
       document.documentElement.classList.add('is-entering');
     }
   </script>
-  <link rel="stylesheet" href="styles.css?v=36">
+  <link rel="stylesheet" href="styles.css?v=37">
   <script src="nav.js"></script>
   <script src="physics.js" defer></script>
-  <script src="home.js?v=10" defer></script>
+  <script src="home.js?v=11" defer></script>
   <script src="contact.js" defer></script>
 </head>
 <body class="home-page">
@@ -81,11 +81,8 @@
          The images and videos are already cut to what shows in Figma's frame. -->
     <div class="home-work">
 
-      <!-- Shufuni Cider (the image and the caption lead to the project page).
-           Over the project all the project page's photos appear in a grid under the caption
-           (4 columns, 5 rows: the space up to the photo fits 4), in the page's order;
-           the video is shown by its first frame (video-poster), like Cinema South's teaser (home.js). -->
-      <div class="work-project" data-gallery-area="27 954.1 337.2 556.9" data-gallery="images/shufuni/small/postcard-lychee.jpg images/shufuni/small/postcard-loquat.jpg images/shufuni/small/postcard-pitanga.jpg images/shufuni/small/postcard-sabra.jpg images/shufuni/small/cards-and-labels.jpg images/shufuni/small/crouching-with-bottle.jpg images/shufuni/small/holding-bottle.jpg images/shufuni/small/tote-bag.jpg images/shufuni/small/bottles-sun.jpg images/shufuni/small/bottle-back-label.jpg images/shufuni/small/sitting-with-bottle.jpg images/shufuni/small/drinking.jpg images/shufuni/small/pitanga-bottle.jpg images/shufuni/small/hand-at-beach.jpg images/shufuni/small/bottles-on-log.jpg images/shufuni/small/friends-sharing.jpg images/shufuni/small/holding-bottle-small.jpg images/shufuni/small/video-poster.jpg images/shufuni/small/postcards.jpg">
+      <!-- Shufuni Cider (the image and the caption lead to the project page). -->
+      <div class="work-project">
         <!-- On a phone: the whole tall photo of the hand holding the sabra bottle instead (<picture>, styles.css),
              zoomed in on the hand and the bottle (--phone-zoom, around --phone-zoom-at) -->
         <a class="progressive work-image work-image-phone-alt" href="shufuni-cider.html" style="--left: 414; --top: 795; --width: 996; --height: 696; --phone-ratio: 797 / 1196; --phone-zoom: 1.4; --phone-zoom-at: 53% 38%; --preview: url('images/home/shufuni-hand-preview.jpg'); --preview-phone: url('images/shufuni/hand-at-beach-preview.jpg')">
@@ -101,10 +98,8 @@
       </div>
 
       <!-- Cinema South Festival: the moving poster (a video without sound).
-           The poster and the caption lead to the project page.
-           Over the project its images appear in a grid under the caption, left of the poster:
-           its bottom sits 80 above the bottom of the poster (data-gallery-align). -->
-      <div class="work-project" data-gallery-area="423 1726 554 300" data-gallery-align="bottom" data-gallery="images/cinema-south/small/poster-on-wall.jpg images/cinema-south/small/etty-poster.jpg images/cinema-south/small/boy-poster.jpg images/cinema-south/small/posters-pair-poster.jpg images/cinema-south/small/instagram-on-phone.jpg images/cinema-south/small/instagram-story-1.jpg images/cinema-south/small/instagram-story-2.jpg images/cinema-south/small/instagram-story-3.jpg images/cinema-south/small/shorts-poster.jpg images/cinema-south/small/program-in-hands.jpg images/cinema-south/small/program-page.jpg images/cinema-south/small/program-micro-typography.jpg images/cinema-south/small/program-pages-poster.jpg images/cinema-south/small/program-schedule.jpg images/cinema-south/small/program-audience-page.jpg images/cinema-south/small/program-films.jpg images/cinema-south/small/tote-bag.jpg images/cinema-south/small/bus-stop.jpg images/cinema-south/small/teaser-poster.jpg">
+           The poster and the caption lead to the project page. -->
+      <div class="work-project">
         <a class="progressive work-image" href="cinema-south.html" style="--left: 1011; --top: 1537; --width: 402; --height: 569; --preview: url('images/home/cinema-south-etty-poster-preview.jpg')">
           <video class="progressive-image" src="images/home/cinema-south-etty-poster.mp4" poster="images/home/cinema-south-etty-poster.jpg" autoplay muted loop playsinline aria-label="An animated Cinema South Festival screening poster"></video>
         </a>
@@ -114,10 +109,8 @@
         </a>
       </div>
 
-      <!-- Etymology of wild plants (the video and the caption lead to the project page).
-           Over the project its images appear in a grid under the caption, right of the video;
-           the grid ends on the line the Hebrew plant names stand on (measured in the video: y 2519). -->
-      <div class="work-project" data-gallery-area="852 2313.1 561 205.9" data-gallery-align="bottom" data-gallery="images/etymology-exhibition/small/exhibition-hall.jpg images/etymology-exhibition/small/anchusa-video-poster.jpg images/etymology-exhibition/small/screen-and-books.jpg images/etymology-exhibition/small/noa-at-the-wall.jpg images/etymology-exhibition/small/book-pages.jpg images/etymology-exhibition/small/mint-wall.jpg images/etymology-exhibition/small/anchusa-wall.jpg images/etymology-exhibition/small/hillel-reading.jpg">
+      <!-- Etymology of wild plants (the video and the caption lead to the project page). -->
+      <div class="work-project">
         <!-- A video on a white background; its white lets what is behind it show through (styles.css) -->
         <a class="progressive work-image work-image-see-through" href="etymology-exhibition.html" style="--left: -5.93; --top: 2024; --width: 955; --height: 609; --preview: url('images/home/etymology-plants-cropped-preview.jpg')">
           <video class="progressive-image work-video-white" src="images/home/etymology-plants-cropped.mp4" poster="images/home/etymology-plants-cropped.jpg" autoplay muted loop playsinline aria-label="Three blue plants turning slowly: Mentha, Arbutus and Anchusa"></video>
@@ -129,10 +122,8 @@
       </div>
 
       <!-- The curious incident of the dog in the night-time: the caption above the video
-           (the video and the caption lead to the project page).
-           Over the project its images appear in a grid under the caption, left of the video;
-           its bottom sits on the line of the video's bottom (data-gallery-align). -->
-      <div class="work-project" data-gallery-area="27 2788 334 365" data-gallery-align="bottom" data-gallery="images/curious-incident/small/based-on-the-novel.jpg images/curious-incident/small/studio-scene-poster.jpg images/curious-incident/small/street-red-line.jpg images/curious-incident/small/street-credits.jpg images/curious-incident/small/dog-with-red-line.jpg images/curious-incident/small/store-before.jpg images/curious-incident/small/store-after.jpg images/curious-incident/small/teaser-poster.jpg images/curious-incident/small/dog-and-ball-poster.jpg images/curious-incident/small/last-scene-poster.jpg">
+           (the video and the caption lead to the project page). -->
+      <div class="work-project">
         <a class="progressive work-image" href="curious-incident.html" style="--left: 395; --top: 2788; --width: 651; --height: 365; --preview: url('images/home/curious-title-sequence-poster-preview.jpg')">
           <video class="progressive-image" src="images/home/curious-title-sequence.mp4" poster="images/home/curious-title-sequence-poster.jpg" autoplay muted loop playsinline aria-label="The title sequence: a hand-drawn map of streets, then a street with a small dog"></video>
         </a>
@@ -143,10 +134,8 @@
       </div>
 
       <!-- Football in Israel: the booklet's pages turning (a video without sound).
-           The video and the caption lead to the project page. 
-           Over the project its images appear in a grid in the empty space next to it,
-           aligned to the bottom of the image (data-gallery-align). -->
-      <div class="work-project" data-gallery-area="997 3570 416 398" data-gallery-align="bottom" data-gallery="images/football-in-israel/small/stadium-crowd.jpg images/football-in-israel/small/booklet-on-table.jpg images/football-in-israel/small/booklet-flip-poster.jpg images/football-in-israel/small/booklet-spread-photos.jpg images/football-in-israel/small/white-spread-15.jpg images/football-in-israel/small/white-spread-11.jpg images/football-in-israel/small/black-spread-13.jpg images/football-in-israel/small/black-spread-6.jpg images/football-in-israel/small/black-spread-12.jpg images/football-in-israel/small/black-spread-8.jpg">
+           The video and the caption lead to the project page. -->
+      <div class="work-project">
         <a class="progressive work-image" href="football-in-israel.html" style="--left: 24; --top: 3333; --width: 925; --height: 635; --preview: url('images/home/football-in-israel-flip-poster-preview.jpg')">
           <video class="progressive-image" src="images/home/football-in-israel-flip.mp4" poster="images/home/football-in-israel-flip-poster.jpg" autoplay muted loop playsinline aria-label="The Football in Israel booklet, its pages turning"></video>
         </a>
@@ -157,10 +146,8 @@
       </div>
 
       <!-- Consumerism Crisis: an animation (a video without sound), the caption on its left.
-           The video and the caption lead to the project page ("The Cost of Consumption"). 
-           Over the project its images appear in a grid in the empty space next to it,
-           aligned to the bottom of the image (data-gallery-align). -->
-      <div class="work-project" data-gallery-area="713 4170 283 164" data-gallery-align="bottom" data-gallery="images/cost-of-consumption/small/woman-with-bag-phone.jpg images/cost-of-consumption/small/work-less-poster.jpg images/cost-of-consumption/small/fashion-laundry-poster.jpg images/cost-of-consumption/small/recycling-poster.jpg">
+           The video and the caption lead to the project page ("The Cost of Consumption"). -->
+      <div class="work-project">
         <a class="progressive work-image" href="cost-of-consumption.html" style="--left: 1030; --top: 4100; --width: 339; --height: 234; --preview: url('images/home/consumerism-crisis-poster-preview.jpg')">
           <video class="progressive-image" src="images/home/consumerism-crisis.mp4" poster="images/home/consumerism-crisis-poster.jpg" autoplay muted loop playsinline aria-label="An illustrated man in a suit floating by a pool"></video>
         </a>
@@ -170,10 +157,8 @@
         </a>
       </div>
 
-      <!-- The Fine Print of the Pill (the image and the caption lead to the project page) 
-           Over the project its images appear in a grid in the empty space next to it,
-           aligned to the bottom of the image (data-gallery-align). -->
-      <div class="work-project" data-gallery-area="626 4590 787 522" data-gallery-align="bottom" data-gallery="images/fine-print-of-the-pill/small/broadsheet-flip-poster.jpg images/fine-print-of-the-pill/small/broadsheet-front-page.jpg images/fine-print-of-the-pill/small/broadsheet-held-up.jpg images/fine-print-of-the-pill/small/broadsheet-open-hands.jpg images/fine-print-of-the-pill/small/broadsheet-spread-1.jpg images/fine-print-of-the-pill/small/broadsheet-date-close-up.jpg images/fine-print-of-the-pill/small/broadsheet-spread-2.jpg images/fine-print-of-the-pill/small/broadsheet-spread-3.jpg">
+      <!-- The Fine Print of the Pill (the image and the caption lead to the project page) -->
+      <div class="work-project">
         <a class="progressive work-image" href="fine-print-of-the-pill.html" style="--left: 27; --top: 4467; --width: 566; --height: 645; --preview: url('images/home/the-pill-cropped-preview.jpg')">
           <img class="progressive-image" src="images/home/the-pill-cropped.jpg" alt="Hands holding open a broadsheet" loading="lazy" decoding="async">
         </a>
@@ -183,10 +168,8 @@
         </a>
       </div>
 
-      <!-- Dalia and Dov (the image and the caption lead to the project page) 
-           Over the project its images appear in a grid in the empty space next to it,
-           aligned to the bottom of the image (data-gallery-align). -->
-      <div class="work-project" data-gallery-area="1017 5350 396 544" data-gallery-align="bottom" data-gallery="images/dalia-and-dov/small/book-open-top.jpg images/dalia-and-dov/small/book-cover.jpg images/dalia-and-dov/small/family-tree.jpg images/dalia-and-dov/small/book-held-open.jpg images/dalia-and-dov/small/chapter-opening.jpg images/dalia-and-dov/small/photo-album-pages.jpg images/dalia-and-dov/small/spread-12-13.jpg images/dalia-and-dov/small/book-photo-page.jpg">
+      <!-- Dalia and Dov (the image and the caption lead to the project page) -->
+      <div class="work-project">
         <a class="progressive work-image" href="dalia-and-dov.html" style="--left: 27; --top: 5250; --width: 966; --height: 644; --preview: url('images/home/dalia-and-dov-cropped-preview.jpg')">
           <img class="progressive-image" src="images/home/dalia-and-dov-cropped.jpg" alt="Hands resting on an open book" loading="lazy" decoding="async">
         </a>
