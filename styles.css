@@ -267,6 +267,19 @@ button * {
   /* Each drop's round end (15.2% of the drawing) is as wide as the red period
      of the big text (measured: 0.1565 of the font size) */
   --star-size: calc(var(--size-intro) * 0.1565 / 0.152);
+  /* 8. Over a project's image: "[ VIEW PROJECT ]" in place of the mouse.
+     The words look like the projects' names (--font-work-title, --size-work-title) */
+  --font-view-bracket: "HN Bold", sans-serif;
+  --view-bracket-scale: 1.5;   /* the brackets are 1.5 times as big as the words */
+  --view-gap: 0.3em;           /* a little space between each bracket and the words */
+  --view-words-drop: 0.094em;  /* lowers the words so they sit in the middle of the brackets' straight part (measured) */
+  /* It reacts at once: everything starts the moment the mouse comes in or goes out */
+  --view-open-duration: 180ms;            /* the brackets opening */
+  --view-close-duration: 150ms;           /* the brackets closing (home.js waits for it too) */
+  --view-words-in-delay: 60ms;            /* the words appear just after the brackets start opening */
+  --view-words-duration: 120ms;           /* the words appearing or going */
+  --view-rise-duration: 180ms;            /* a short rise as it appears */
+  --view-rise-distance: calc(16 * var(--unit)); /* like the images of the About page */
 
   /* Colors */
   --color-home-background: #ffffff; /* one background for all three layouts */
@@ -1752,6 +1765,131 @@ a.intro-name {
   height: var(--star-size);
   fill: var(--color-home-accent);
   animation: star-turn var(--star-turn-duration) linear infinite;
+}
+
+/* ---------- "[ VIEW PROJECT ]" over a project's image ---------- */
+/* With a mouse on a wide screen, the arrow is hidden over the images
+   and home.js shows "[ VIEW PROJECT ]" at the mouse instead */
+@media (min-width: 792px) and (hover: hover) {
+  .js .work-image,
+  .js .work-image * {
+    cursor: none;
+  }
+}
+
+.cursor-view {
+  position: fixed;
+  left: var(--view-x, 0px);
+  top: var(--view-y, 0px);
+  z-index: 3; /* above everything, also the navigation */
+  pointer-events: none;
+  display: flex;
+  align-items: center; /* the words in the middle of the brackets' height */
+  font-size: var(--size-work-title);
+  line-height: normal;
+  white-space: nowrap;
+  /* its middle sits on the mouse */
+  transform: translate(-50%, -50%);
+  /* Leaving: the words go and the brackets close at once; when they have met,
+     it disappears in place (and only then the arrow comes back, home.js) */
+  opacity: 0;
+  transition: opacity 0s linear var(--view-close-duration);
+}
+
+/* It is drawn twice, exactly one over the other:
+   1. the red brackets (the words are there too, but invisible, to keep the space);
+   2. the words in "X-ray", like the navigation: white text that inverts whatever
+      is under it (black on white, light on a dark image). The brackets are
+      invisible in this copy. Two copies, because the X-ray must not touch the red. */
+.cursor-view-bracket {
+  font-family: var(--font-view-bracket);
+  font-size: calc(var(--view-bracket-scale) * 1em);
+  color: var(--color-home-accent);
+}
+
+/* The space between the brackets and the words; it is inside the box
+   that opens, so the brackets still meet when it is closed */
+.cursor-view-gap {
+  display: block;
+  padding-inline: var(--view-gap);
+  /* the letter spacing also adds a little after the last letter; take it off,
+     so the space is the same on both sides */
+  padding-inline-end: calc(var(--view-gap) - var(--spacing-work-title));
+}
+
+.cursor-view .cursor-view-text {
+  visibility: hidden;
+}
+
+.cursor-view-xray {
+  mix-blend-mode: difference;
+}
+
+.cursor-view-xray .cursor-view-bracket {
+  visibility: hidden;
+}
+
+.cursor-view-xray .cursor-view-text {
+  visibility: visible;
+  color: #ffffff;
+}
+
+/* The words sit in a box that is closed (0 wide) and opens to their width:
+   that is what pushes the brackets apart */
+.cursor-view-words {
+  position: relative;
+  top: var(--view-words-drop);
+  display: inline-grid;
+  grid-template-columns: 0fr;
+  transition: grid-template-columns var(--view-close-duration) ease-in;
+}
+
+.cursor-view-text {
+  min-width: 0;
+  overflow: hidden;
+  font-family: var(--font-work-title);
+  letter-spacing: var(--spacing-work-title);
+  text-transform: uppercase;
+  opacity: 0;
+  transition: opacity var(--view-words-duration) ease;
+}
+
+/* Shown, at once: it appears with a short rise, the brackets open
+   right away, and the words appear while they open */
+.cursor-view.is-shown {
+  opacity: 1;
+  transition: none;
+  animation: view-rise var(--view-rise-duration) ease-out;
+}
+
+@keyframes view-rise {
+  from { translate: 0 var(--view-rise-distance); }
+  to { translate: 0 0; }
+}
+
+.cursor-view.is-shown .cursor-view-words {
+  grid-template-columns: 1fr;
+  transition: grid-template-columns var(--view-open-duration) ease-out;
+}
+
+.cursor-view.is-shown .cursor-view-text {
+  opacity: 1;
+  transition: opacity var(--view-words-duration) ease var(--view-words-in-delay);
+}
+
+/* While it closes, the arrow stays hidden everywhere: it's either the arrow or the label */
+.is-view-closing,
+.is-view-closing * {
+  cursor: none !important;
+}
+
+/* People who ask for less motion: it simply appears and disappears */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-view,
+  .cursor-view * {
+    transition: none !important;
+    animation: none !important;
+  }
 }
 
 @keyframes star-turn {
