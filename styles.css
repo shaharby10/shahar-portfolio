@@ -3861,8 +3861,7 @@ body.about-page {
   .phone-text {
     font-family: var(--font-project-text);
     font-size: var(--size-phone-text);
-    line-height: normal;
-    text-wrap: pretty;
+    line-height: calc(19 / 16); /* 19px lines, as in the phone frames */
   }
 
   /* A video turned on its side, like in Figma (Cinema South's teaser): the wide video
