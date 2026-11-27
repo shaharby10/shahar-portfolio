@@ -101,24 +101,29 @@ emblemWatcher.observe(phoneEmblem);
 // home page's entrance (home.js, section 9), with the same physics (physics.js) and the
 // same timings (the --entrance-* tokens in styles.css). They fly a little to the right,
 // fall, hit each other and pile up at the bottom of the block, and then they stop.
-// Every moment of their fall is remembered, so a second click plays it backwards and
-// they fly back into the corner they came from. A third click throws them again.
+// A second click does exactly the same again: the same sentence falls once more
+// out of the same corner onto the pile. A third click sends them all back, one after
+// another, each in an arc into the corner it came from (sendBack, below).
+// The next click starts again from the beginning.
 // Not for people who ask their computer for less motion.
 const redBlock = document.querySelector('.about-desktop .about-red-block');
 const portrait = document.querySelector('.about-desktop .about-portrait');
 const lessMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 if (redBlock && portrait && typeof makeBody === 'function' && !lessMotion) {
-  const sentence = document.querySelector('.about-desktop .about-intro p').textContent;
-  const letters = [...sentence.split(/[.!?]/)[0]].filter(ch => ch.trim()); // the first sentence, without spaces
-  let state = 'empty';   // 'empty', 'throwing' (and falling), 'piled', or 'back' (flying back)
-  let layer = null, pieces = [], frames = [], frameId = 0;
+  const paragraphs = document.querySelectorAll('.about-desktop .about-intro p');
+  const withoutSpaces = text => [...text].filter(ch => ch.trim());
+  const firstSentence = withoutSpaces(paragraphs[0].textContent.split(/[.!?]/)[0]);
+  // 'empty'; 'first' and 'second' (falling, or already lying in the pile); or 'back' (flying back)
+  let state = 'empty';
+  let layer = null, world = null, pieces = [], frameId = 0;
 
   // A time token from styles.css ("30ms" or "2.6s") in milliseconds
   const cssTime = (name, css) => {
     const value = css.getPropertyValue(name).trim();
     return value.endsWith('ms') ? parseFloat(value) : parseFloat(value) * 1000 || 0;
   };
+  const random = (from, to) => from + Math.random() * (to - from);
 
   // Where a piece is drawn: where its body's center is now, and how much it is turned
   function pose(body) {
@@ -155,8 +160,8 @@ if (redBlock && portrait && typeof makeBody === 'function' && !lessMotion) {
     if (lift > 0) body.corners.forEach(p => { p.y -= lift; p.oldY -= lift; });
   }
 
-  function throwLetters() {
-    state = 'throwing';
+  // The layer the letters live in, and the sizes and forces of their small world
+  function startWorld() {
     layer?.remove();
     layer = document.createElement('div');
     layer.className = 'about-letters';
@@ -164,101 +169,143 @@ if (redBlock && portrait && typeof makeBody === 'function' && !lessMotion) {
     redBlock.append(layer);
 
     const css = getComputedStyle(document.body);
-    const stagger = cssTime('--entrance-stagger', css);
-    const settle = cssTime('--entrance-settle', css);
-    // Gravity as on the home page: how far a piece falls more each step (1/60 s)
-    const gravity = parseFloat(css.getPropertyValue('--entrance-gravity')) * window.innerHeight / 3600;
-    const random = (from, to) => from + Math.random() * (to - from);
-
     const unit = parseFloat(getComputedStyle(layer).fontSize) / 25; // the letters are 25 Figma px
-    const width = redBlock.clientWidth, floor = redBlock.clientHeight;
-    const corner = { x: (11 + 8) * unit, y: 8 * unit }; // the block starts 11px left of the page
+    world = {
+      stagger: cssTime('--entrance-stagger', css),
+      settle: cssTime('--entrance-settle', css),
+      // Gravity as on the home page: how far a piece falls more each step (1/60 s)
+      gravity: parseFloat(css.getPropertyValue('--entrance-gravity')) * window.innerHeight / 3600,
+      width: redBlock.clientWidth,
+      floor: redBlock.clientHeight,
+      corner: { x: (11 + 8) * unit, y: 8 * unit }, // the block starts 11px left of the page
+      measure: document.createElement('canvas').getContext('2d')
+    };
     // How many steps a letter needs to fall from the top to the bottom of the block,
     // so its push to the right lands it somewhere across the whole block
-    const fallSteps = Math.sqrt(2 * floor / gravity);
-    const measure = document.createElement('canvas').getContext('2d');
+    world.fallSteps = Math.sqrt(2 * world.floor / world.gravity);
+    pieces = [];
+  }
 
-    pieces = letters.map((ch, i) => {
-      const element = document.createElement('span');
-      element.className = 'about-letter';
-      element.textContent = ch;
-      layer.append(element);
+  // One letter, waiting in the corner (hidden) until its turn to fall
+  function makeLetter(ch, startAt) {
+    const { corner, width, fallSteps, measure } = world;
+    const element = document.createElement('span');
+    element.className = 'about-letter';
+    element.textContent = ch;
+    element.style.visibility = 'hidden';
+    layer.append(element);
 
-      // As on the home page, the body is only as tall as the letter's ink, so letters
-      // touch where they really touch, and lie right on the bottom of the block
-      const style = getComputedStyle(element);
-      const marker = document.createElement('span');
-      marker.style.cssText = 'display:inline-block;width:0;height:0';
-      element.append(marker);
-      const baseline = marker.offsetTop; // where the letter stands, inside its box
-      marker.remove();
-      measure.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
-      const ink = measure.measureText(ch);
-      const inkTop = baseline - ink.actualBoundingBoxAscent, inkBottom = baseline + ink.actualBoundingBoxDescent;
-      const w = element.offsetWidth, h = Math.max(inkBottom - inkTop, 4);
-      const centerX = w / 2, centerY = (inkTop + inkBottom) / 2;
-      element.style.transformOrigin = `${centerX}px ${centerY}px`;
+    // As on the home page, the body is only as tall as the letter's ink, so letters
+    // touch where they really touch, and lie right on the bottom of the block
+    const style = getComputedStyle(element);
+    const marker = document.createElement('span');
+    marker.style.cssText = 'display:inline-block;width:0;height:0';
+    element.append(marker);
+    const baseline = marker.offsetTop; // where the letter stands, inside its box
+    marker.remove();
+    measure.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+    const ink = measure.measureText(ch);
+    const inkTop = baseline - ink.actualBoundingBoxAscent, inkBottom = baseline + ink.actualBoundingBoxDescent;
+    const w = element.offsetWidth, h = Math.max(inkBottom - inkTop, 4);
+    const centerX = w / 2, centerY = (inkTop + inkBottom) / 2;
+    element.style.transformOrigin = `${centerX}px ${centerY}px`;
 
-      // It starts in the corner, a little turned, pushed to the right (the speed is
-      // the step from "old" to "now")
-      const body = makeBody(w, h, corner.x + w / 2, corner.y + h / 2, random(-0.25, 0.25));
-      const vx = random(0.05, 0.95) * (width - corner.x) / fallSteps;
-      body.corners.forEach(c => { c.oldX = c.x - vx; });
-      element.style.visibility = 'hidden';
-      return { element, body, w, h, centerX, centerY, startAt: i * stagger };
-    });
+    // It starts in the corner, a little turned, pushed to the right (the speed is
+    // the step from "old" to "now")
+    const body = makeBody(w, h, corner.x + w / 2, corner.y + h / 2, random(-0.25, 0.25));
+    const vx = random(0.05, 0.95) * (width - corner.x) / fallSteps;
+    body.corners.forEach(c => { c.oldX = c.x - vx; });
+    return { element, body, w, h, centerX, centerY, startAt };
+  }
 
-    // The fall: run the world (one step = 1/60 s) until the pile is still,
-    // or for at most --entrance-settle after the last letter starts. Then it stops.
-    frames = [];
+  // Lets these letters fall, one after another, onto whatever already lies in the block.
+  // The world runs (one step = 1/60 s) until the pile is still, or for at most
+  // --entrance-settle after the last letter starts. Then it stops.
+  function dropLetters(chars) {
+    cancelAnimationFrame(frameId);
+    const { stagger, settle, gravity, floor, width } = world;
     const started = performance.now();
-    const lastStart = (pieces.length - 1) * stagger;
+    // their turns are counted from this click (the letters already thrown keep moving)
+    const newPieces = chars.map((ch, i) => makeLetter(ch, i * stagger));
+    pieces = pieces.concat(newPieces);
+    const lastStart = (chars.length - 1) * stagger;
     let stepsDone = 0, stillFrames = 0;
     const tick = now => {
       const elapsed = now - started;
       const stepsDue = Math.min(Math.floor(elapsed / (1000 / 60)), stepsDone + 4); // never more than 4 at once
       for (; stepsDone < stepsDue; stepsDone++) {
         const time = stepsDone * 1000 / 60;
-        pieces.forEach(p => { if (time >= p.startAt) p.body.active = true; });
+        newPieces.forEach(p => { if (time >= p.startAt) p.body.active = true; });
         stepWorld(pieces.map(p => p.body), gravity, floor, width);
-        pieces.forEach(p => { if (p.body.active) keepShape(p.body, p.w, p.h, floor); });
+        // put every letter back into its shape, then push apart the ones that overlap
+        // because of it, a few times over
+        const live = pieces.filter(p => p.body.active);
+        for (let round = 0; round < 4; round++) {
+          live.forEach(p => keepShape(p.body, p.w, p.h, floor));
+          separateAll(live.map(p => p.body));
+        }
+        live.forEach(p => keepShape(p.body, p.w, p.h, floor));
       }
-      // remember this moment: where each letter is (or that it has not been thrown yet)
-      const moment = pieces.map(p => (p.body.active ? pose(p.body) : null));
-      frames.push(moment);
-      pieces.forEach((p, i) => {
-        if (moment[i]) { p.element.style.visibility = ''; place(p, moment[i]); }
+      // draw every letter that has been thrown where its body is now
+      pieces.forEach(p => {
+        if (p.body.active) { p.element.style.visibility = ''; place(p, pose(p.body)); }
       });
       // Still: no corner moved more than half a pixel in the last step
       const fastest = Math.max(...pieces.map(p => Math.max(...p.body.corners.map(c => Math.hypot(c.x - c.oldX, c.y - c.oldY)))));
-      stillFrames = elapsed > lastStart && fastest < 0.5 ? stillFrames + 1 : 0;
-      if (stillFrames < 20 && elapsed < lastStart + settle) frameId = requestAnimationFrame(tick);
-      else state = 'piled';
+      // (counted in steps of the world, not in clock time: on a slow computer the world
+      // runs behind the clock, and the letters must not stop in the air)
+      const worldTime = stepsDone * 1000 / 60;
+      stillFrames = worldTime > lastStart && fastest < 0.5 ? stillFrames + 1 : 0;
+      if (stillFrames < 20 && worldTime < lastStart + settle) frameId = requestAnimationFrame(tick);
     };
     frameId = requestAnimationFrame(tick);
   }
 
-  // Backwards, frame by frame, from where they are now to before they were thrown
+  // The way back: like the fall, the other way round. The letters leave the pile one
+  // after another (--entrance-stagger), from the last one that fell to the first, as one
+  // group. Each flies in an arc, under the same gravity, up into the corner it fell from:
+  // exactly as if it had been dropped from that corner, played backwards, so it slows
+  // down as it rises and stops there. Then it is gone.
   function sendBack() {
     cancelAnimationFrame(frameId);
     state = 'back';
-    let frame = frames.length - 1;
-    const tick = () => {
-      const moment = frames[frame];
-      pieces.forEach((p, i) => {
-        if (moment && moment[i]) { p.element.style.visibility = ''; place(p, moment[i]); }
-        else p.element.style.visibility = 'hidden';
+    const { stagger, gravity, corner } = world;
+    const stepTime = 1000 / 60; // one step of the world
+    const flights = pieces.filter(p => p.body.active).reverse().map((p, i) => {
+      const [x, y, angle] = pose(p.body);
+      const toX = corner.x + p.w / 2, toY = corner.y + p.h / 2;
+      // the time a drop from the corner takes to fall this far (in steps)
+      const steps = Math.max(Math.sqrt(2 * Math.max(y - toY, 0) / gravity), 20);
+      // the shortest turn back to straight (never more than half a turn)
+      const turn = ((-angle % (2 * Math.PI)) + 3 * Math.PI) % (2 * Math.PI) - Math.PI;
+      return { p, x, y, angle, toX, toY, steps, turn, startAt: i * stagger };
+    });
+    pieces.filter(p => !p.body.active).forEach(p => { p.element.style.visibility = 'hidden'; });
+    const started = performance.now();
+    const tick = now => {
+      const elapsed = now - started;
+      let flying = 0;
+      flights.forEach(f => {
+        const t = (elapsed - f.startAt) / stepTime; // steps since it left the pile
+        if (t < 0) { flying++; return; }
+        if (t >= f.steps) { f.p.element.style.visibility = 'hidden'; return; }
+        flying++;
+        // played backwards: r is how many steps it still has before reaching the corner
+        const r = f.steps - t, part = r / f.steps;
+        const x = f.toX + (f.x - f.toX) * part;           // across: at an even speed
+        const y = f.toY + gravity * r * r / 2;            // up: slowing down into the corner
+        place(f.p, [x, y, f.angle + f.turn * (1 - part)]);
       });
-      frame--;
-      if (frame >= 0) frameId = requestAnimationFrame(tick);
+      if (flying) frameId = requestAnimationFrame(tick);
       else { layer.remove(); layer = null; state = 'empty'; }
     };
     frameId = requestAnimationFrame(tick);
   }
 
   portrait.addEventListener('click', () => {
-    if (state === 'empty') throwLetters();
-    else if (state === 'throwing' || state === 'piled') sendBack();
+    if (state === 'empty') { startWorld(); state = 'first'; dropLetters(firstSentence); }
+    else if (state === 'first') { state = 'second'; dropLetters(firstSentence); }
+    else if (state === 'second') sendBack();
     // (while they fly back, a click waits for them to arrive)
   });
 }

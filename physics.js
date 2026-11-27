@@ -83,9 +83,21 @@ function stepWorld(bodies, gravity, floor, width) {
       if (c.x < 0) c.x = 0;
       if (c.x > width) c.x = width;
     }));
-    for (let i = 0; i < live.length; i++) {
-      for (let j = i + 1; j < live.length; j++) separate(live[i], live[j]);
-    }
+    separateAll(live);
   }
 }
 
+// Pushes apart every two bodies that overlap. Only bodies whose boxes overlap can touch:
+// sorted from left to right, each body is checked only against the next ones that start
+// before it ends (fast with many bodies)
+function separateAll(live) {
+  const boxes = live.map(body => {
+    const xs = body.corners.map(c => c.x), ys = body.corners.map(c => c.y);
+    return { body, left: Math.min(...xs), right: Math.max(...xs), top: Math.min(...ys), bottom: Math.max(...ys) };
+  }).sort((a, b) => a.left - b.left);
+  for (let i = 0; i < boxes.length; i++) {
+    for (let j = i + 1; j < boxes.length && boxes[j].left <= boxes[i].right; j++) {
+      if (boxes[j].top <= boxes[i].bottom && boxes[j].bottom >= boxes[i].top) separate(boxes[i].body, boxes[j].body);
+    }
+  }
+}
