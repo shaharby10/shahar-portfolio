@@ -3,6 +3,8 @@
 // 2. Recent work: hovering a work shows its images and its role.
 // 3. Education: the Bezalel emblem appears and turns once when it scrolls into view, and stays;
 //    on a computer it turns again each time the mouse comes over it.
+// 4. On a computer, a click on the portrait throws letters out of the red block's top left
+//    corner; they fall and pile up at its bottom. Another click plays it all backwards.
 // (The address lines that copy on a click are in contact.js.)
 // (The asterisk menu on a phone is in menu.js.)
 
@@ -92,3 +94,171 @@ const emblemWatcher = new IntersectionObserver(entries => {
   }
 }, { threshold: 0.6 });
 emblemWatcher.observe(phoneEmblem);
+
+// ---------- 4. The portrait throws letters into the red block ----------
+// A click on the portrait (computer) lets the letters of the first sentence next to it
+// fall, one after another, out of the red block's top left corner: the same fall as the
+// home page's entrance (home.js, section 9), with the same physics (physics.js) and the
+// same timings (the --entrance-* tokens in styles.css). They fly a little to the right,
+// fall, hit each other and pile up at the bottom of the block, and then they stop.
+// Every moment of their fall is remembered, so a second click plays it backwards and
+// they fly back into the corner they came from. A third click throws them again.
+// Not for people who ask their computer for less motion.
+const redBlock = document.querySelector('.about-desktop .about-red-block');
+const portrait = document.querySelector('.about-desktop .about-portrait');
+const lessMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+if (redBlock && portrait && typeof makeBody === 'function' && !lessMotion) {
+  const sentence = document.querySelector('.about-desktop .about-intro p').textContent;
+  const letters = [...sentence.split(/[.!?]/)[0]].filter(ch => ch.trim()); // the first sentence, without spaces
+  let state = 'empty';   // 'empty', 'throwing' (and falling), 'piled', or 'back' (flying back)
+  let layer = null, pieces = [], frames = [], frameId = 0;
+
+  // A time token from styles.css ("30ms" or "2.6s") in milliseconds
+  const cssTime = (name, css) => {
+    const value = css.getPropertyValue(name).trim();
+    return value.endsWith('ms') ? parseFloat(value) : parseFloat(value) * 1000 || 0;
+  };
+
+  // Where a piece is drawn: where its body's center is now, and how much it is turned
+  function pose(body) {
+    const [a, b] = body.corners;
+    const c = bodyCenter(body);
+    return [c.x, c.y, Math.atan2(b.y - a.y, b.x - a.x)];
+  }
+  function place(piece, [x, y, angle]) {
+    piece.element.style.transform =
+      `translate(${x - piece.centerX}px, ${y - piece.centerY}px) rotate(${angle}rad)`;
+  }
+
+  // Letters are small, and under the weight of the pile the physics can squash one flat
+  // or turn it inside out. After every step each letter is put back into its own true
+  // shape (the same size, turned the way its corners point), and lifted if that put it
+  // below the bottom of the block.
+  const template = [[-1, -1], [1, -1], [1, 1], [-1, 1]];
+  function keepShape(body, w, h, floor) {
+    const c = bodyCenter(body);
+    let dot = 0, cross = 0;
+    body.corners.forEach((p, i) => {
+      const lx = template[i][0] * w / 2, ly = template[i][1] * h / 2;
+      const rx = p.x - c.x, ry = p.y - c.y;
+      dot += lx * rx + ly * ry; cross += lx * ry - ly * rx;
+    });
+    const angle = Math.atan2(cross, dot), cos = Math.cos(angle), sin = Math.sin(angle);
+    let lift = 0;
+    body.corners.forEach((p, i) => {
+      const lx = template[i][0] * w / 2, ly = template[i][1] * h / 2;
+      p.x = c.x + lx * cos - ly * sin;
+      p.y = c.y + lx * sin + ly * cos;
+      lift = Math.max(lift, p.y - floor);
+    });
+    if (lift > 0) body.corners.forEach(p => { p.y -= lift; p.oldY -= lift; });
+  }
+
+  function throwLetters() {
+    state = 'throwing';
+    layer?.remove();
+    layer = document.createElement('div');
+    layer.className = 'about-letters';
+    layer.setAttribute('aria-hidden', 'true');
+    redBlock.append(layer);
+
+    const css = getComputedStyle(document.body);
+    const stagger = cssTime('--entrance-stagger', css);
+    const settle = cssTime('--entrance-settle', css);
+    // Gravity as on the home page: how far a piece falls more each step (1/60 s)
+    const gravity = parseFloat(css.getPropertyValue('--entrance-gravity')) * window.innerHeight / 3600;
+    const random = (from, to) => from + Math.random() * (to - from);
+
+    const unit = parseFloat(getComputedStyle(layer).fontSize) / 25; // the letters are 25 Figma px
+    const width = redBlock.clientWidth, floor = redBlock.clientHeight;
+    const corner = { x: (11 + 8) * unit, y: 8 * unit }; // the block starts 11px left of the page
+    // How many steps a letter needs to fall from the top to the bottom of the block,
+    // so its push to the right lands it somewhere across the whole block
+    const fallSteps = Math.sqrt(2 * floor / gravity);
+    const measure = document.createElement('canvas').getContext('2d');
+
+    pieces = letters.map((ch, i) => {
+      const element = document.createElement('span');
+      element.className = 'about-letter';
+      element.textContent = ch;
+      layer.append(element);
+
+      // As on the home page, the body is only as tall as the letter's ink, so letters
+      // touch where they really touch, and lie right on the bottom of the block
+      const style = getComputedStyle(element);
+      const marker = document.createElement('span');
+      marker.style.cssText = 'display:inline-block;width:0;height:0';
+      element.append(marker);
+      const baseline = marker.offsetTop; // where the letter stands, inside its box
+      marker.remove();
+      measure.font = `${style.fontStyle} ${style.fontWeight} ${style.fontSize} ${style.fontFamily}`;
+      const ink = measure.measureText(ch);
+      const inkTop = baseline - ink.actualBoundingBoxAscent, inkBottom = baseline + ink.actualBoundingBoxDescent;
+      const w = element.offsetWidth, h = Math.max(inkBottom - inkTop, 4);
+      const centerX = w / 2, centerY = (inkTop + inkBottom) / 2;
+      element.style.transformOrigin = `${centerX}px ${centerY}px`;
+
+      // It starts in the corner, a little turned, pushed to the right (the speed is
+      // the step from "old" to "now")
+      const body = makeBody(w, h, corner.x + w / 2, corner.y + h / 2, random(-0.25, 0.25));
+      const vx = random(0.05, 0.95) * (width - corner.x) / fallSteps;
+      body.corners.forEach(c => { c.oldX = c.x - vx; });
+      element.style.visibility = 'hidden';
+      return { element, body, w, h, centerX, centerY, startAt: i * stagger };
+    });
+
+    // The fall: run the world (one step = 1/60 s) until the pile is still,
+    // or for at most --entrance-settle after the last letter starts. Then it stops.
+    frames = [];
+    const started = performance.now();
+    const lastStart = (pieces.length - 1) * stagger;
+    let stepsDone = 0, stillFrames = 0;
+    const tick = now => {
+      const elapsed = now - started;
+      const stepsDue = Math.min(Math.floor(elapsed / (1000 / 60)), stepsDone + 4); // never more than 4 at once
+      for (; stepsDone < stepsDue; stepsDone++) {
+        const time = stepsDone * 1000 / 60;
+        pieces.forEach(p => { if (time >= p.startAt) p.body.active = true; });
+        stepWorld(pieces.map(p => p.body), gravity, floor, width);
+        pieces.forEach(p => { if (p.body.active) keepShape(p.body, p.w, p.h, floor); });
+      }
+      // remember this moment: where each letter is (or that it has not been thrown yet)
+      const moment = pieces.map(p => (p.body.active ? pose(p.body) : null));
+      frames.push(moment);
+      pieces.forEach((p, i) => {
+        if (moment[i]) { p.element.style.visibility = ''; place(p, moment[i]); }
+      });
+      // Still: no corner moved more than half a pixel in the last step
+      const fastest = Math.max(...pieces.map(p => Math.max(...p.body.corners.map(c => Math.hypot(c.x - c.oldX, c.y - c.oldY)))));
+      stillFrames = elapsed > lastStart && fastest < 0.5 ? stillFrames + 1 : 0;
+      if (stillFrames < 20 && elapsed < lastStart + settle) frameId = requestAnimationFrame(tick);
+      else state = 'piled';
+    };
+    frameId = requestAnimationFrame(tick);
+  }
+
+  // Backwards, frame by frame, from where they are now to before they were thrown
+  function sendBack() {
+    cancelAnimationFrame(frameId);
+    state = 'back';
+    let frame = frames.length - 1;
+    const tick = () => {
+      const moment = frames[frame];
+      pieces.forEach((p, i) => {
+        if (moment && moment[i]) { p.element.style.visibility = ''; place(p, moment[i]); }
+        else p.element.style.visibility = 'hidden';
+      });
+      frame--;
+      if (frame >= 0) frameId = requestAnimationFrame(tick);
+      else { layer.remove(); layer = null; state = 'empty'; }
+    };
+    frameId = requestAnimationFrame(tick);
+  }
+
+  portrait.addEventListener('click', () => {
+    if (state === 'empty') throwLetters();
+    else if (state === 'throwing' || state === 'piled') sendBack();
+    // (while they fly back, a click waits for them to arrive)
+  });
+}

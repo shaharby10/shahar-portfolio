@@ -414,6 +414,7 @@ button * {
   --about-desktop-page-height: calc(2314 * var(--unit)); /* the Figma frame (2399) minus its browser bar (85) */
   --font-about-title: "HN Light", sans-serif;          /* RECENT CLIENTS, EDUCATION */
   --size-about-intro: calc(25 * var(--unit));
+  --color-about-letters: #000000; /* the letters the portrait throws */
   --size-about-title: calc(79.879 * var(--unit));      /* the big headings */
   --size-about-cv: calc(136.65 * var(--unit));         /* VIEW CV */
   --about-red-line-weight: calc(3 * var(--unit));      /* the red lines and the red frame */
@@ -2473,6 +2474,33 @@ body.about-page {
 .about-red-block {
   height: calc(var(--height) * var(--unit));
   background: var(--color-about-red);
+}
+
+/* The letters the portrait throws (about.js): they stay inside the red block */
+.about-desktop .about-red-block {
+  overflow: hidden;
+}
+
+.about-letters {
+  position: absolute;
+  inset: 0;
+  font-size: var(--size-about-intro); /* as big as the paragraph next to it */
+}
+
+.about-letter {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-family: var(--font-about-intro-medium);
+  line-height: 0.9;
+  color: var(--color-about-letters);
+  white-space: pre;
+  will-change: transform;
+}
+
+/* A click on the portrait throws them */
+.about-desktop .about-portrait {
+  cursor: var(--cursor-arrow-hover);
 }
 
 .about-red {
