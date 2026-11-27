@@ -3414,7 +3414,8 @@ body.about-page {
    Uses the project page rules above; only what is different is here.
    ========================================================= */
 .football-page {
-  --project-page-height: calc(9778 * var(--unit));
+  --project-page-height: calc(8830 * var(--unit));
+  --color-black-band: #000000; /* behind the video and the spreads */
 }
 
 /* The title (two lines): its letters start on the description's first line,
