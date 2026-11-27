@@ -431,7 +431,9 @@ button * {
   --size-about-phone-cv: calc(99.306 * var(--unit));
   --size-about-phone-talk: calc(101.83 * var(--unit));
   --size-about-phone-contact: calc(47.9 * var(--unit));
-  --about-phone-page-height: calc(2794 * var(--unit));
+  --about-phone-page-height: calc(2854 * var(--unit));
+  --font-about-phone-bold: "HN Bold Italic", "HN Bold", sans-serif; /* one sentence in the paragraphs */
+  --about-phone-frame-weight: calc(1 * var(--unit));    /* the thin red frame around Education */
 }
 
 /* Contact page (Figma "contact page desktop", 1440 x 848).
@@ -491,6 +493,8 @@ button * {
 @font-face { font-family: "HN Medium"; src: local("HelveticaNeue-Medium"), url("fonts/HelveticaNeue-Medium.ttf"); }
 @font-face { font-family: "HN Medium Italic"; src: local("HelveticaNeue-MediumItalic"), url("fonts/HelveticaNeue-MediumItalic.ttf"); }
 @font-face { font-family: "HN Bold"; src: local("HelveticaNeue-Bold"), url("fonts/HelveticaNeue-Bold.ttf"); }
+/* (no file for the bold italic: the computer's own, or the bold slanted by the browser) */
+@font-face { font-family: "HN Bold Italic"; font-style: italic; src: local("HelveticaNeue-BoldItalic"); }
 
 /* Ginto: only for the arrows (↗ ← →), which Helvetica Neue doesn't have (as in Figma) */
 @font-face { font-family: "Ginto Regular"; src: local("ABC Ginto Trial Regular"), url("fonts/ABCGintoTrial-Regular.otf"); }
@@ -2642,6 +2646,40 @@ body.about-page {
   margin-top: 1lh;
 }
 
+/* One sentence in the paragraphs: bold and slanted */
+.about-phone-bold {
+  font-family: var(--font-about-phone-bold);
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* RECENT CLIENTS and EDUCATION: Helvetica Neue Light, black and underlined */
+.about-phone-title {
+  font-family: var(--font-about-title);
+  font-size: var(--size-about-text);
+  line-height: var(--line-about);
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-decoration-thickness: from-font;
+  white-space: nowrap;
+}
+
+/* Below the red block everything is black: the TOOLS heading */
+.about-mobile .about-heading {
+  color: var(--color-about-text);
+}
+
+/* ...except ABOUT & APPROACH, which is white on the red block */
+.about-mobile .about-heading:first-of-type {
+  color: var(--color-about-heading);
+}
+
+/* The thin red frame around the Education text */
+.about-phone-frame {
+  height: calc(var(--height) * var(--unit));
+  border: var(--about-phone-frame-weight) solid var(--color-about-red);
+}
+
 /* The work names: big, centered, two lines for the long one */
 .about-phone-work {
   font-family: var(--font-about-work);
@@ -2650,30 +2688,36 @@ body.about-page {
   text-align: center;
 }
 
-/* The roles, always showing on the phone, centered under each work */
+/* The roles, always showing on the phone, centered under each work (black) */
 .about-phone-role {
   font-family: var(--font-about-role-place);
   font-size: var(--size-about-role-place);
   line-height: var(--line-about-role);
-  color: var(--color-about-heading);
+  color: var(--color-about-text);
   text-align: center;
   text-transform: capitalize;
 }
 
-/* "View CV": big and black on the phone */
-.about-phone-cv {
+/* "View CV": big, red and underlined on the phone */
+.about .about-phone-cv {
   font-size: var(--size-about-phone-cv);
-  color: var(--color-about-text);
+  color: var(--color-about-red);
+  text-decoration-thickness: var(--about-underline-thickness); /* the line a little below the letters, as in Figma */
+  text-underline-offset: var(--about-underline-offset);
 }
 
-/* "Let's talk." is white on the phone */
+/* "Let's talk." is black (its apostrophe and period red) */
 .about-phone-talk {
   font-size: var(--size-about-phone-talk);
-  color: var(--color-about-heading);
 }
 
 .about .about-phone-contact {
   font-size: var(--size-about-phone-contact);
+}
+
+/* The brackets of "(copy)" are red on the phone */
+.about-phone-contact .about-copy-bracket {
+  color: var(--color-about-red);
 }
 
 /* The asterisk is black on the red pages (About, Index), and white on the red menu */
@@ -2697,6 +2741,11 @@ body.about-page {
 
   /* Some centered boxes are wider than the phone in Figma; the page cuts
      them at its edges, so there is no sideways scrolling */
+  /* On the phone the page is white; the red block covers its top */
+  body.about-page {
+    background: var(--color-about-desktop-background);
+  }
+
   .about-mobile {
     display: block;
     min-height: var(--about-phone-page-height);
@@ -3797,7 +3846,7 @@ body.about-page {
   .etymology-page { --project-page-height: calc(4136 * var(--unit)); }
   .cinema-south-page { --project-page-height: calc(8019 * var(--unit)); }
   .curious-page { --project-page-height: calc(4847 * var(--unit)); }
-  .football-page { --project-page-height: calc(3871 * var(--unit)); }
+  .football-page { --project-page-height: calc(3961 * var(--unit)); }
   .cost-page { --project-page-height: calc(2273 * var(--unit)); }
   .pill-page { --project-page-height: calc(4703 * var(--unit)); }
   .dalia-page { --project-page-height: calc(3901 * var(--unit)); }

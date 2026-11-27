@@ -10,7 +10,7 @@
   <title>About · Shahar Ben Yaacov</title>
   <!-- Tells the CSS that JavaScript is on (images wait for it before fading in) -->
   <script>document.documentElement.classList.add('js');</script>
-  <link rel="stylesheet" href="styles.css?v=65a">
+  <link rel="stylesheet" href="styles.css?v=66a">
   <script src="nav.js"></script>
   <script src="physics.js?v=2" defer></script>
   <script src="about.js?v=16" defer></script>
@@ -163,41 +163,45 @@
        Placed the same way, by the Figma numbers of the phone frame. -->
   <main class="about about-mobile">
 
+    <!-- The red block behind the top of the page (the rest of the page is white) -->
+    <div class="about-red-block project-placed" style="--left: 0; --top: 0; --width: 390; --height: 1084"></div>
+
     <!-- ===== About & approach ===== -->
     <div class="progressive project-placed" style="--left: 25; --top: 77; --width: 342; --height: 514; --preview: url('images/about/portrait-preview.jpg')">
       <img class="progressive-image" src="images/about/portrait.jpg" alt="Shahar Ben Yaacov, black and white portrait" width="684" height="1026" decoding="async">
     </div>
     <h2 class="about-heading about-centered project-placed" style="--left: -23; --top: 598; --width: 436">About &amp; Approach</h2>
     <div class="about-phone-text project-placed" style="--left: 23; --top: 665; --width: 343">
-      <p>I’m a graphic designer with a particular interest in visual identities, typography, and art direction. I enjoy research and concept development, as well as the challenge of building complex visual systems. I’m especially interested in working across languages, exploring their cultural contexts, and bringing them together within a shared visual system.</p>
+      <p>I’m a graphic designer with a particular interest in visual identities, typography, and art direction. <strong class="about-phone-bold">I enjoy research and concept development, as well as the challenge of building complex visual systems.</strong> I’m especially interested in working across languages, exploring their cultural contexts, and bringing them together within a shared visual system.</p>
       <p>Before moving into graphic design, I studied and practiced theatre directing. My background in the performing arts brings a different perspective to my design practice, shaping the way I approach storytelling, composition, space, and the relationships between different elements. While art direction feels like a natural continuation of that experience, this perspective influences my work across all areas of design.</p>
     </div>
 
-    <!-- ===== Clients: on the phone the roles always show (no images) ===== -->
-    <h2 class="about-heading about-centered project-placed" style="--left: -23; --top: 1084; --width: 436">Clients</h2>
-    <p class="about-phone-work project-placed" style="--left: -13; --top: 1137; --width: 412">Gadi Eisenkot Campaign</p>
-    <p class="about-phone-role project-placed" style="--left: -5; --top: 1280; --width: 400"><span class="about-role-name">Campaign designer</span><br>Re-Levant studio (2026)</p>
-    <p class="about-phone-work project-placed" style="--left: -13; --top: 1346; --width: 412">The Marker</p>
-    <p class="about-phone-role project-placed" style="--left: -6.5; --top: 1420; --width: 400"><span class="about-role-name">Digital marketing &amp;<br>motion designer</span><br>Freelance (2026)</p>
-    <p class="about-phone-work project-placed" style="--left: -13; --top: 1506; --width: 412">Carmelos</p>
-    <p class="about-phone-role project-placed" style="--left: -6.5; --top: 1577; --width: 400"><span class="about-role-name">Digital designer</span><br>Freelance (2026)</p>
+    <!-- ===== Recent clients: on the phone the roles always show (no images) ===== -->
+    <h2 class="about-phone-title about-centered project-placed" style="--left: -23; --top: 1104; --width: 436">Recent clients</h2>
+    <p class="about-phone-work project-placed" style="--left: -11; --top: 1157; --width: 412">Gadi Eisenkot Campaign</p>
+    <p class="about-phone-role project-placed" style="--left: -5; --top: 1300; --width: 400"><span class="about-role-name">Campaign designer</span><br>Re-Levant studio (2026)</p>
+    <p class="about-phone-work project-placed" style="--left: -11; --top: 1366; --width: 412">The Marker</p>
+    <p class="about-phone-role project-placed" style="--left: -5.5; --top: 1440; --width: 400"><span class="about-role-name">Digital marketing &amp;<br>motion designer</span><br>Freelance (2026)</p>
+    <p class="about-phone-work project-placed" style="--left: -11; --top: 1526; --width: 412">Carmelos</p>
+    <p class="about-phone-role project-placed" style="--left: -5; --top: 1597; --width: 400"><span class="about-role-name">Digital marketing designer</span><br>Freelance (2026)</p>
 
-    <!-- ===== Education: on the phone the emblem comes first, then the heading ===== -->
+    <!-- ===== Education: the emblem, the heading, then the text in a thin red frame ===== -->
     <!-- The Bezalel emblem: comes out of a blur when it scrolls into view, and stays (about.js) -->
     <img class="about-emblem project-placed" src="images/about/bezalel-logo.png" alt="Bezalel Academy of Arts and Design emblem" width="300" height="300" style="--left: 119.68; --top: 1672.68; --width: 149.64">
-    <h2 class="about-heading about-centered project-placed" style="--left: -23; --top: 1842; --width: 436">Education</h2>
-    <p class="about-text about-centered project-placed" style="--left: 35; --top: 1900; --width: 319">BA Candidate in Visual Communication<br>Bezalel Academy of Arts and Design</p>
+    <h2 class="about-phone-title about-centered project-placed" style="--left: -23; --top: 1842; --width: 436">Education</h2>
+    <div class="about-phone-frame project-placed" style="--left: 24; --top: 1899; --width: 342; --height: 204"></div>
+    <p class="about-text about-centered project-placed" style="--left: 35; --top: 1910; --width: 319">BA Candidate in Visual Communication<br>Bezalel Academy of Arts and Design</p>
 
     <!-- ===== Tools ===== -->
-    <h2 class="about-heading about-centered project-placed" style="--left: -23; --top: 2106; --width: 436">Tools</h2>
-    <p class="about-text about-centered project-placed" style="--left: 42.5; --top: 2163; --width: 304">InDesign · Claude Code · Photoshop · Lightroom · After Effects · Weavy · Illustrator</p>
+    <h2 class="about-heading about-centered project-placed" style="--left: -24; --top: 2151; --width: 436">Tools</h2>
+    <p class="about-text about-centered project-placed" style="--left: 42.5; --top: 2208; --width: 304">InDesign · Claude Code · Photoshop · Lightroom · After Effects · Weavy · Illustrator</p>
 
-    <!-- ===== CV (no link yet): big and black on the phone ===== -->
-    <p class="about-heading about-phone-cv project-placed" style="--left: 32; --top: 2354; --width: 330">View CV</p>
+    <!-- ===== CV (no link yet): big, red and underlined ===== -->
+    <p class="about-heading about-phone-cv project-placed" style="--left: 32; --top: 2404; --width: 330">View CV</p>
 
-    <!-- ===== Let's talk (white on the phone) ===== -->
-    <p class="about-talk about-phone-talk project-placed" style="--left: 32; --top: 2467; --width: 331">Let's talk.</p>
-    <ul class="about-contact about-phone-contact project-placed" style="--left: 32; --top: 2590; --width: 316">
+    <!-- ===== Let's talk: black, with a red apostrophe and period ===== -->
+    <p class="about-talk about-phone-talk project-placed" style="--left: 29; --top: 2522; --width: 333">Let<span class="about-red">'</span>s talk<span class="about-red">.</span></p>
+    <ul class="about-contact about-phone-contact project-placed" style="--left: 30; --top: 2655; --width: 316">
       <li><button class="about-copy" type="button" data-copy="shaharby10@gmail.com" aria-label="Copy email address">Email <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
       <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
       <li><button class="about-copy" type="button" data-copy="www.linkedin.com/in/shaharbenyaacov" aria-label="Copy LinkedIn link">LinkedIn <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
