@@ -3081,7 +3081,7 @@ body.about-page {
   --color-black-band: #000000;
   --color-teaser-band: #848675;   /* the olive band behind the teaser */
   --color-teaser-text: #ffffff;
-  --project-page-height: calc(9754 * var(--unit));
+  --project-page-height: calc(9784 * var(--unit));
   /* The program carousel: how long one spread takes to slide in */
   /* The magnifier over the program page */
   --magnifier-size: 208px;  /* the red frame's height (the enlargement inside it stays the same) */
@@ -3316,7 +3316,7 @@ body.about-page {
    from the Cinema South page); only what is different is here.
    ========================================================= */
 .shufuni-page {
-  --project-page-height: calc(10402 * var(--unit));
+  --project-page-height: calc(10489 * var(--unit));
   --color-shufuni-cream: #fbf4d7; /* behind the postcards at the top */
 }
 
@@ -3369,7 +3369,7 @@ body.about-page {
    Uses the project page rules above; only what is different is here.
    ========================================================= */
 .curious-page {
-  --project-page-height: calc(5871 * var(--unit));
+  --project-page-height: calc(5930 * var(--unit));
   --color-curious-band: rgba(0, 0, 0, 0.93); /* the black bands behind the videos */
   --font-project-intro-italic: "HN Medium", sans-serif; /* in Figma now the same as the text around it */
 }
@@ -3414,7 +3414,7 @@ body.about-page {
    Uses the project page rules above; only what is different is here.
    ========================================================= */
 .football-page {
-  --project-page-height: calc(9765 * var(--unit));
+  --project-page-height: calc(9778 * var(--unit));
 }
 
 /* The title (two lines): its letters start on the description's first line,
@@ -3443,7 +3443,7 @@ body.about-page {
    Uses the project page rules above; only what is different is here.
    ========================================================= */
 .cost-page {
-  --project-page-height: calc(3180 * var(--unit));
+  --project-page-height: calc(3201 * var(--unit));
   --size-cost-phone-caption-big: calc(17.111 * var(--unit)); /* one caption on the phone is a little bigger */
 }
 
@@ -3524,11 +3524,11 @@ body.about-page {
    They use the project page rules above; only what is different is here.
    ========================================================= */
 .pill-page {
-  --project-page-height: calc(6251 * var(--unit));
+  --project-page-height: calc(6261 * var(--unit));
 }
 
 .dalia-page {
-  --project-page-height: calc(7963 * var(--unit));
+  --project-page-height: calc(7899 * var(--unit));
 }
 
 /* Some images reach past the page's edges, like in Figma; the page cuts them there */
