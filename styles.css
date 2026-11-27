@@ -3561,7 +3561,7 @@ body.about-page {
 /* The Pill: the kind of work is on two lines, so the rest is lower */
 .pill-page .project-type,
 .pill-page .project-year,
-.pill-page .project-school { left: calc(756.5 * var(--unit)); } /* updated in Figma */
+.pill-page .project-school { left: calc(736.5 * var(--unit)); } /* updated in Figma */
 .dalia-page .project-type,
 .dalia-page .project-year,
 .dalia-page .project-school { left: calc(757.5 * var(--unit)); }
