@@ -2639,7 +2639,16 @@ body.about-page {
 .about-phone-text {
   font-family: var(--font-about-phone-text);
   font-size: var(--size-about-phone-text);
-  line-height: normal;
+  line-height: calc(19.7 / 16); /* the same on every phone (Figma: 20 lines in 394px) */
+}
+
+/* The red reaches 25px below the paragraphs, as in Figma, even if a phone
+   breaks the lines differently: a red band behind the text, as wide as the page */
+.about-mobile .about-phone-text {
+  padding-bottom: calc(25 * var(--unit));
+  background: var(--color-about-red);
+  box-shadow: 0 0 0 100vmax var(--color-about-red);
+  clip-path: inset(0 -100vmax); /* the band goes only sideways, not over the portrait */
 }
 
 .about-phone-text p + p {
