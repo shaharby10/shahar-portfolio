@@ -381,10 +381,13 @@ if (sectionItems.length) {
   }
 }
 
-// ---------- 7. Cinema South: a magnifier for the program page ----------
-// Over the program page and the close-up (each .magnifier-target) the mouse becomes,
-// by itself, a wide red rectangle that shows what is under it, enlarged (from a sharper
-// copy of the image, data-zoom-src). Only for a mouse.
+// ---------- 7. A magnifier (Cinema South's program, two photos of the Pill) ----------
+// Over each .magnifier-target the mouse becomes, by itself, a wide red rectangle that
+// shows what is under it, enlarged (from a sharper copy of the image, data-zoom-src).
+// Only for a mouse. An image with data-magnify-area ("left top right bottom", as parts
+// of the image from 0 to 1) is magnified only there - on the Pill, the white page held
+// in the hands: when the rectangle would reach past it, it goes away and the arrow
+// comes back, so the page can also be seen whole.
 
 const magnifierTargets = [...document.querySelectorAll('.magnifier-target')];
 
@@ -416,6 +419,19 @@ if (magnifierTargets.length) {
     lens.style.top = event.clientY - height / 2 + 'px';
     lens.style.backgroundSize = `${box.width * zoom}px ${box.height * zoom}px`;
     lens.style.backgroundPosition = `${width / 2 - x * box.width * zoom}px ${height / 2 - y * box.height * zoom}px`;
+
+    // Only inside the image's area (if it has one): the whole rectangle must fit in it
+    const area = event.currentTarget.dataset.magnifyArea;
+    if (area) {
+      const [l, t, r, b] = area.split(' ').map(Number);
+      const fits =
+        event.clientX - width / 2 >= box.left + l * box.width &&
+        event.clientX + width / 2 <= box.left + r * box.width &&
+        event.clientY - height / 2 >= box.top + t * box.height &&
+        event.clientY + height / 2 <= box.top + b * box.height;
+      lens.classList.toggle('is-showing', fits);
+      event.currentTarget.classList.toggle('is-lens-off', !fits);
+    }
   }
 
   magnifierTargets.forEach(target => {

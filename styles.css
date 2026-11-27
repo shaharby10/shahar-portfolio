@@ -3533,6 +3533,11 @@ body.about-page {
    ========================================================= */
 .pill-page {
   --project-page-height: calc(6261 * var(--unit));
+  /* The magnifier over two photos of the broadsheet (the same as on Cinema South) */
+  --magnifier-size: 208px;
+  --magnifier-width: 312px;
+  --magnifier-zoom: 2.1375;
+  --magnifier-stroke: 2px;
 }
 
 .dalia-page {
@@ -3707,11 +3712,16 @@ body.about-page {
   z-index: 1; /* above the words, so a click anywhere opens the next project */
 }
 
-/* ---------- The magnifier (Cinema South, project.js) ---------- */
-/* With a mouse (project.js), the mouse disappears over the program page:
+/* ---------- The magnifier (Cinema South and the Pill, project.js) ---------- */
+/* With a mouse (project.js), the mouse disappears over the image:
    the red rectangle takes its place */
 .is-magnifying .magnifier-target {
   cursor: none;
+}
+
+/* Where an image's magnifier is off (outside the white page, project.js), the arrow is back */
+.is-magnifying .magnifier-target.is-lens-off {
+  cursor: var(--cursor-arrow);
 }
 
 /* The red rectangle: it follows the mouse and shows the page enlarged inside it */
