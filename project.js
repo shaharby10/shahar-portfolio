@@ -8,6 +8,7 @@
 // 7. Cinema South: a magnifier for the program page.
 // 8. Project pages: each image comes into focus as it reaches the screen.
 // 9. Project pages: the next project's words fall and go back to their places.
+// 10. Cinema South: the name and the buttons turn plain white over the olive band.
 
 // ---------- 1. Progressive images and video ----------
 
@@ -706,4 +707,42 @@ if (typeof makeBody === 'function' && !window.matchMedia('(prefers-reduced-motio
     }, { threshold: 1 });
     blockWatcher.observe(title);
   }
+}
+
+// ---------- 10. White navigation over a colored band ----------
+
+// The name and the buttons are in "X-ray" (styles.css), which shows too little
+// contrast on the olive band behind the Cinema South teaser. Over a band marked
+// data-nav-white they turn plain white; over the video on that band (the band's
+// other pieces in the same data-section, with an image or video) they go back
+// to X-ray. Checked on every scroll, at most once per screen update.
+const whiteBands = document.querySelectorAll('[data-nav-white]');
+if (whiteBands.length) {
+  const navWords = document.querySelectorAll('.home-name, .nav-item');
+  // Is the point (x, y) inside the box?
+  const inside = (box, x, y) => x >= box.left && x <= box.right && y >= box.top && y <= box.bottom;
+
+  function colorNavOnBands() {
+    navWords.forEach(word => {
+      const r = word.getBoundingClientRect();
+      const x = r.left + r.width / 2;
+      const y = r.top + r.height / 2;
+      let white = false;
+      whiteBands.forEach(band => {
+        if (!inside(band.getBoundingClientRect(), x, y)) return;
+        const media = document.querySelectorAll(`.progressive[data-section="${band.dataset.section}"]`);
+        const overMedia = [...media].some(m => m.closest('main') === band.closest('main') && inside(m.getBoundingClientRect(), x, y));
+        if (!overMedia) white = true;
+      });
+      word.classList.toggle('is-on-band', white);
+    });
+  }
+
+  let bandCheck = 0;
+  const askBandCheck = () => {
+    if (!bandCheck) bandCheck = requestAnimationFrame(() => { bandCheck = 0; colorNavOnBands(); });
+  };
+  window.addEventListener('scroll', askBandCheck, { passive: true });
+  window.addEventListener('resize', askBandCheck);
+  colorNavOnBands();
 }

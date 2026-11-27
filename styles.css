@@ -3081,6 +3081,7 @@ body.about-page {
   --color-black-band: #000000;
   --color-teaser-band: #848675;   /* the olive band behind the teaser */
   --color-teaser-text: #ffffff;
+  --color-nav-on-band: #ffffff;    /* the name and the buttons over the olive band */
   --project-page-height: calc(9784 * var(--unit));
   /* The program carousel: how long one spread takes to slide in */
   /* The magnifier over the program page */
@@ -3241,6 +3242,14 @@ body.about-page {
 /* ---------- The teaser ---------- */
 .teaser-band {
   background: var(--color-teaser-band);
+}
+
+/* The name and the buttons over the olive band (not over the video): plain white
+   instead of X-ray, which shows too little there (project.js) */
+.home-name.is-on-band,
+.nav-item.is-on-band {
+  color: var(--color-nav-on-band);
+  mix-blend-mode: normal;
 }
 
 /* The sentence above the teaser: white, centered on its Figma center */
