@@ -1962,7 +1962,7 @@ a.nav-item {
 /* Etymology (updated in Figma): centered on x 741, lower */
 .etymology-page .project-type,
 .etymology-page .project-year,
-.etymology-page .project-school { left: calc(741 * var(--unit)); }
+.etymology-page .project-school { left: calc(735 * var(--unit)); }
 .etymology-page .project-type { top: calc(855 * var(--unit)); }
 .etymology-page .project-year { top: calc(882 * var(--unit)); }
 .etymology-page .project-school { top: calc(909 * var(--unit)); }
@@ -3296,7 +3296,7 @@ body.about-page {
 .cinema-south-page .project-type,
 .cinema-south-page .project-year,
 .project-school {
-  left: calc(791 * var(--unit));
+  left: calc(787 * var(--unit));
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -3353,14 +3353,14 @@ body.about-page {
 .shufuni-page .project-type,
 .shufuni-page .project-year,
 .shufuni-page .project-school {
-  left: calc(628 * var(--unit));
+  left: calc(622 * var(--unit));
   transform: translateX(-50%);
   white-space: nowrap;
 }
 
 .shufuni-page .project-type { top: calc(855 * var(--unit)); }
 .shufuni-page .project-year { top: calc(882 * var(--unit)); }
-.shufuni-page .project-school { top: calc(908 * var(--unit)); left: calc(631 * var(--unit)); }
+.shufuni-page .project-school { top: calc(908 * var(--unit)); left: calc(625 * var(--unit)); }
 
 /* =========================================================
    The Curious Incident of the Dog in the Night-Time (Figma frame
@@ -3392,7 +3392,7 @@ body.about-page {
 .curious-page .project-type,
 .curious-page .project-year,
 .curious-page .project-school {
-  left: calc(789 * var(--unit));
+  left: calc(783 * var(--unit));
   transform: translateX(-50%);
   text-align: center;
   white-space: nowrap;
@@ -3428,7 +3428,7 @@ body.about-page {
 .football-page .project-type,
 .football-page .project-year,
 .football-page .project-school {
-  left: calc(642 * var(--unit));
+  left: calc(642.5 * var(--unit));
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -3464,7 +3464,7 @@ body.about-page {
 .cost-page .project-type,
 .cost-page .project-year,
 .cost-page .project-school {
-  left: calc(720 * var(--unit));
+  left: calc(724.5 * var(--unit));
   transform: translateX(-50%);
   white-space: nowrap;
 }
@@ -3561,10 +3561,10 @@ body.about-page {
 /* The Pill: the kind of work is on two lines, so the rest is lower */
 .pill-page .project-type,
 .pill-page .project-year,
-.pill-page .project-school { left: calc(750.5 * var(--unit)); } /* updated in Figma (was 760) */
+.pill-page .project-school { left: calc(756.5 * var(--unit)); } /* updated in Figma */
 .dalia-page .project-type,
 .dalia-page .project-year,
-.dalia-page .project-school { left: calc(758 * var(--unit)); }
+.dalia-page .project-school { left: calc(757.5 * var(--unit)); }
 
 .pill-page .project-type { top: calc(853 * var(--unit)); }
 .pill-page .project-year { top: calc(908 * var(--unit)); }
