@@ -3570,13 +3570,13 @@ body.about-page {
 /* The Pill: the kind of work is on two lines, so the rest is lower */
 .pill-page .project-type,
 .pill-page .project-year,
-.pill-page .project-school { left: calc(736.5 * var(--unit)); } /* updated in Figma */
+.pill-page .project-school { left: calc(732.5 * var(--unit)); } /* updated in Figma */
 .dalia-page .project-type,
 .dalia-page .project-year,
 .dalia-page .project-school { left: calc(757.5 * var(--unit)); }
 
 .pill-page .project-type { top: calc(853 * var(--unit)); }
-.pill-page .project-year { top: calc(908 * var(--unit)); }
+.pill-page .project-year { top: calc(909 * var(--unit)); }
 .pill-page .project-school { top: calc(934 * var(--unit)); }
 
 .dalia-page .project-type { top: calc(855 * var(--unit)); }
