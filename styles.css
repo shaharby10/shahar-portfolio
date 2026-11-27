@@ -3444,7 +3444,7 @@ body.about-page {
    Uses the project page rules above; only what is different is here.
    ========================================================= */
 .cost-page {
-  --project-page-height: calc(3201 * var(--unit));
+  --project-page-height: calc(3171 * var(--unit));
   --size-cost-phone-caption-big: calc(17.111 * var(--unit)); /* one caption on the phone is a little bigger */
 }
 
@@ -3475,21 +3475,19 @@ body.about-page {
 .cost-page .project-year { top: calc(882 * var(--unit)); }
 .cost-page .project-school { top: calc(908 * var(--unit)); }
 
-/* Cost of Consumption on the computer (Figma): the description is light,
-   "Description" is medium, and the episode names are bold */
+/* Cost of Consumption on the computer (Figma): the description and the
+   episode names are light, "Description" is medium */
 .cost-page {
   --font-cost-light: "HN Light", sans-serif;
-  --font-cost-bold: "HN Bold", sans-serif;
 }
 
 .cost-page .project-intro { font-family: var(--font-cost-light); }
 .cost-page .project-description-label { font-family: var(--font-project-label); }
 
-/* The episode names, centered above their videos */
+/* The episode names, above their videos, on the left edge of the video */
 .cost-caption {
-  font-family: var(--font-cost-bold);
+  font-family: var(--font-cost-light);
   width: auto;
-  transform: translateX(-50%);
   white-space: nowrap;
 }
 
