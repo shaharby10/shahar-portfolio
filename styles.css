@@ -3741,6 +3741,18 @@ body.about-page {
   visibility: visible;
 }
 
+/* Inside the lens, for a turned page (project.js): the enlarged page, turned like it */
+.magnifier-lens {
+  overflow: hidden;
+}
+
+.magnifier-turned {
+  position: absolute;
+  display: none;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
 /* =========================================================
    Project pages on a phone (Figma frames "... project page mobile", 390 wide)
    On a phone (--unit = one pixel of a 390-wide frame) a page that has a phone

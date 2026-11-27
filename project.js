@@ -395,6 +395,10 @@ if (magnifierTargets.length) {
   const lens = document.createElement('div');
   lens.className = 'magnifier-lens';
   lens.setAttribute('aria-hidden', 'true');
+  // For a turned image: the enlarged image, turned the same way as on the page
+  const turnedView = document.createElement('div');
+  turnedView.className = 'magnifier-turned';
+  lens.append(turnedView);
   document.body.append(lens);
   // On only where there is a mouse (a phone or a tablet has no mouse to turn into a lens)
   const mouse = window.matchMedia('(hover: hover) and (pointer: fine)');
@@ -406,10 +410,21 @@ if (magnifierTargets.length) {
   });
   let current = null; // the image the lens is over now
 
+  // The first background color behind an element (white if there is none)
+  function colorBehind(element) {
+    for (let e = element.parentElement; e; e = e.parentElement) {
+      const color = getComputedStyle(e).backgroundColor;
+      if (color && color !== 'transparent' && color !== 'rgba(0, 0, 0, 0)') return color;
+    }
+    return '#ffffff';
+  }
+
   function moveLens(event) {
     if (!on) return;
     const box = event.currentTarget.getBoundingClientRect();
-    const zoom = parseFloat(getComputedStyle(document.body).getPropertyValue('--magnifier-zoom')) || 2.5;
+    // how much it enlarges (styles.css); an image with data-zoom-scale enlarges less or more
+    const zoom = (parseFloat(getComputedStyle(document.body).getPropertyValue('--magnifier-zoom')) || 2.5)
+      * (parseFloat(event.currentTarget.dataset.zoomScale) || 1);
     const width = lens.offsetWidth, height = lens.offsetHeight;
     // where the mouse is on the image, as a part of its width and height (0 to 1)
     const x = (event.clientX - box.left) / box.width;
@@ -417,8 +432,29 @@ if (magnifierTargets.length) {
     // the lens is centered on the mouse, and so is the enlarged spot inside it
     lens.style.left = event.clientX - width / 2 + 'px';
     lens.style.top = event.clientY - height / 2 + 'px';
-    lens.style.backgroundSize = `${box.width * zoom}px ${box.height * zoom}px`;
-    lens.style.backgroundPosition = `${width / 2 - x * box.width * zoom}px ${height / 2 - y * box.height * zoom}px`;
+    // An image turned a little on the page (its --turn in style="", in degrees): find the
+    // mouse's place on it as if it were not turned, and turn the enlargement the same way,
+    // so the lens always shows what is on the page, without crooked lines
+    const turn = (parseFloat(getComputedStyle(event.currentTarget).getPropertyValue('--turn')) || 0) * Math.PI / 180;
+    if (turn) {
+      const w = event.currentTarget.offsetWidth, h = event.currentTarget.offsetHeight;
+      const dx = event.clientX - (box.left + box.width / 2);
+      const dy = event.clientY - (box.top + box.height / 2);
+      const px = (w / 2 + Math.cos(turn) * dx + Math.sin(turn) * dy) * zoom;
+      const py = (h / 2 - Math.sin(turn) * dx + Math.cos(turn) * dy) * zoom;
+      lens.style.backgroundImage = 'none';
+      turnedView.style.display = 'block';
+      turnedView.style.width = w * zoom + 'px';
+      turnedView.style.height = h * zoom + 'px';
+      turnedView.style.left = width / 2 - px + 'px';
+      turnedView.style.top = height / 2 - py + 'px';
+      turnedView.style.transformOrigin = `${px}px ${py}px`;
+      turnedView.style.transform = `rotate(${turn}rad)`;
+    } else {
+      turnedView.style.display = 'none';
+      lens.style.backgroundSize = `${box.width * zoom}px ${box.height * zoom}px`;
+      lens.style.backgroundPosition = `${width / 2 - x * box.width * zoom}px ${height / 2 - y * box.height * zoom}px`;
+    }
 
     // Only inside the image's area (if it has one): the whole rectangle must fit in it
     const area = event.currentTarget.dataset.magnifyArea;
@@ -439,6 +475,10 @@ if (magnifierTargets.length) {
       if (!on || event.pointerType !== 'mouse') return;
       // the sharper copy of this image (it loads the first time the lens is over it)
       lens.style.backgroundImage = `url('${target.dataset.zoomSrc}')`;
+      turnedView.style.backgroundImage = `url('${target.dataset.zoomSrc}')`;
+      // Around the image (where the lens reaches past its edge) the lens shows the
+      // color that is really there on the page: black in the carousel, white elsewhere
+      lens.style.backgroundColor = colorBehind(target);
       current = target;
       lens.classList.add('is-showing');
       moveLens(event);

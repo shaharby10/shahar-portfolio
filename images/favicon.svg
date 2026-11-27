@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- The site's red asterisk: six drop-shaped arms (the same drawing as the phone menu) -->
+  <defs>
+    <path id="arm" d="M50 50 C47.6 41 42.2 25 42.6 16.5 A7.4082 7.4082 0 1 1 57.4 16.5 C57.8 25 52.4 41 50 50 Z"/>
+  </defs>
+  <g fill="#ff1738">
+    <use href="#arm"/>
+    <use href="#arm" transform="rotate(60 50 50)"/>
+    <use href="#arm" transform="rotate(120 50 50)"/>
+    <use href="#arm" transform="rotate(180 50 50)"/>
+    <use href="#arm" transform="rotate(240 50 50)"/>
+    <use href="#arm" transform="rotate(300 50 50)"/>
+  </g>
+</svg>

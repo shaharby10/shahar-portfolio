@@ -3,13 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The tab icon: the red asterisk -->
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+  <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <title>The Fine Print of the Pill · Shahar Ben Yaacov</title>
   <!-- Tells the CSS that JavaScript is on (images wait for it before fading in) -->
   <script>document.documentElement.classList.add('js');</script>
-  <link rel="stylesheet" href="styles.css?v=60a">
+  <link rel="stylesheet" href="styles.css?v=61a">
   <script src="nav.js"></script>
   <script src="physics.js" defer></script>
-  <script src="project.js?v=7" defer></script>
+  <script src="project.js?v=10" defer></script>
   <script src="menu.js" defer></script>
 </head>
 <!-- "home-page" gives this page the same sizes, fonts and navigation as the home page.
@@ -82,12 +86,11 @@
     <div class="progressive project-placed" style="--left: 640; --top: 1120; --width: 781; --height: 684; --preview: url('images/fine-print-of-the-pill/broadsheet-held-up-preview.jpg')">
       <img class="progressive-image" src="images/fine-print-of-the-pill/broadsheet-held-up.jpg" alt="The broadsheet open, its dense columns of text" width="1562" height="1041" loading="lazy" decoding="async">
     </div>
-    <!-- Turned a little and cut like in Figma (the picture is saved already cut).
-         The magnifier (project.js) works only on the white page held in the hands. -->
-    <div class="progressive project-placed magnifier-target" data-zoom-src="images/fine-print-of-the-pill/broadsheet-open-hands-desktop.jpg" data-magnify-area="0.075 0.04 0.935 0.945" style="--left: 0; --top: 1844; --width: 1440; --height: 1040; --preview: url('images/fine-print-of-the-pill/broadsheet-open-hands-desktop-preview.jpg')">
+    <!-- Turned a little and cut like in Figma (the picture is saved already cut) -->
+    <div class="progressive project-placed" style="--left: 0; --top: 1844; --width: 1440; --height: 1040; --preview: url('images/fine-print-of-the-pill/broadsheet-open-hands-desktop-preview.jpg')">
       <img class="progressive-image" src="images/fine-print-of-the-pill/broadsheet-open-hands-desktop.jpg" alt="Hands holding the broadsheet open" width="2400" height="1733" loading="lazy" decoding="async">
     </div>
-    <div class="progressive project-placed magnifier-target" data-zoom-src="images/fine-print-of-the-pill/broadsheet-spread-1.jpg" style="--left: 557; --top: 2911; --width: 882.57; --height: 588.38; --preview: url('images/fine-print-of-the-pill/broadsheet-spread-1-preview.jpg')">
+    <div class="progressive project-placed magnifier-target" data-zoom-src="images/fine-print-of-the-pill/broadsheet-spread-1.jpg" data-zoom-scale="0.85" style="--left: 557; --top: 2911; --width: 882.57; --height: 588.38; --preview: url('images/fine-print-of-the-pill/broadsheet-spread-1-preview.jpg')">
       <img class="progressive-image" src="images/fine-print-of-the-pill/broadsheet-spread-1.jpg" alt="A spread of the broadsheet with old medical illustrations" width="1766" height="1177" loading="lazy" decoding="async">
     </div>
     <p class="project-text project-placed" style="--left: 38; --top: 2963; --width: 395">A typographic system combining historical Hebrew typefaces, transparency, dashed rules, and white space organizes large amounts of information through subtle hierarchies. Rather than relying on dramatic changes in type size or weight, rhythm and flow emerge through the relationships between text, imagery, and negative space. Closer reading reveals additional layers of information and meaning.</p>
