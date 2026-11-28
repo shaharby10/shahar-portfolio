@@ -9,6 +9,7 @@
 // 8. Project pages: each image comes into focus as it reaches the screen.
 // 9. Project pages: the next project's words fall and go back to their places.
 // 10. Cinema South: the name and the buttons turn plain white over the olive band.
+// 11. Project pages: the case study's paragraphs rise gently into place as they scroll in.
 
 // ---------- 1. Progressive images and video ----------
 
@@ -112,6 +113,7 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     const leaving = slides[current];
     const coming = neighbor(direction);
     current = slides.indexOf(coming);
+    showPlace();
     carousel.classList.add('has-moved');
     moving = true;
     leaving.classList.add('is-moving');
@@ -140,6 +142,31 @@ document.querySelectorAll('.carousel').forEach(carousel => {
     const back = other.animate([{ translate: `${from + direction * width}px 0` }, { translate: `${direction * width}px 0` }], { duration: duration / 2, easing });
     back.onfinish = () => other.classList.remove('is-moving');
   }
+
+  // On the phone, like on Instagram: a row of dots under the images (the current one red)
+  // and "2/4" in the top corner. The dots sit under the carousel, by its Figma numbers.
+  let dots = [], counter = null;
+  if (carousel.classList.contains('phone-carousel') && slides.length > 1) {
+    const number = name => parseFloat(carousel.style.getPropertyValue(name)) || 0;
+    const row = document.createElement('div');
+    row.className = 'carousel-dots project-placed';
+    row.setAttribute('aria-hidden', 'true');
+    row.style.setProperty('--left', number('--left'));
+    row.style.setProperty('--top', number('--top') + number('--height'));
+    row.style.setProperty('--width', number('--width'));
+    if (number('--dots-space')) row.style.setProperty('--dots-space', number('--dots-space')); // a carousel can have its dots further down
+    dots = slides.map(() => row.appendChild(document.createElement('span')));
+    carousel.after(row);
+    counter = document.createElement('span');
+    counter.className = 'carousel-counter';
+    counter.setAttribute('aria-hidden', 'true');
+    carousel.appendChild(counter);
+  }
+  function showPlace() {
+    dots.forEach((dot, i) => dot.classList.toggle('is-current', i === current));
+    if (counter) counter.textContent = `${current + 1}/${slides.length}`;
+  }
+  showPlace();
 
   carousel.querySelector('.carousel-next').addEventListener('click', () => go(1));
   carousel.querySelector('.carousel-previous').addEventListener('click', () => go(-1));
@@ -180,6 +207,32 @@ document.querySelectorAll('.carousel').forEach(carousel => {
   };
   carousel.addEventListener('pointerup', letGo);
   carousel.addEventListener('pointercancel', letGo);
+});
+
+// On the phone the videos play by themselves without sound. A tap on a video (or on
+// "Tap here for full screen" above one) plays it on the whole screen, with its sound;
+// back on the page it goes on without sound.
+function playOnFullScreen(video) {
+  const silence = () => { video.muted = true; video.play().catch(() => {}); };
+  video.muted = false;
+  video.play().catch(() => {});
+  if (video.requestFullscreen) video.requestFullscreen().catch(silence);
+  else if (video.webkitEnterFullscreen) video.webkitEnterFullscreen(); // iPhone
+  if (!video.dataset.fullScreenWatched) {
+    video.dataset.fullScreenWatched = 'yes';
+    document.addEventListener('fullscreenchange', () => { if (!document.fullscreenElement) silence(); });
+    video.addEventListener('webkitendfullscreen', silence); // iPhone
+  }
+}
+
+document.querySelectorAll('.project-mobile video').forEach(video => {
+  video.muted = true;
+  video.addEventListener('click', () => playOnFullScreen(video));
+});
+
+document.querySelectorAll('[data-fullscreen-for]').forEach(label => {
+  const video = document.getElementById(label.dataset.fullscreenFor);
+  if (video) label.addEventListener('click', () => playOnFullScreen(video));
 });
 
 // The teaser plays by itself without sound. "sound on" starts it again from
@@ -801,4 +854,33 @@ if (whiteBands.length) {
   window.addEventListener('scroll', askBandCheck, { passive: true });
   window.addEventListener('resize', askBandCheck);
   colorNavOnBands();
+}
+
+// ---------- 11. The case study's paragraphs rise into place ----------
+
+// Each paragraph of the text (on the computer and on the phone) starts a little lower
+// and see-through, and glides up into its place as it comes onto the screen while
+// scrolling (once). The distance and the time are in styles.css (--rise-...).
+// Not the episode names (Cost of Consumption), the title, the details or "next project".
+const risingTexts = document.querySelectorAll(
+  '.project-text:not(.cost-caption), .phone-text:not([class*="caption"]):not([data-no-rise])'
+);
+
+if (risingTexts.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  const riseObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-risen');
+      riseObserver.unobserve(entry.target);
+    });
+  }, {
+    // once it is a little way onto the screen (on the computer further up: a quarter of
+    // the screen above its bottom, so the rise happens where the eye already is)
+    rootMargin: window.matchMedia('(min-width: 792px)').matches ? '0px 0px -25% 0px' : '0px 0px -10% 0px'
+  });
+
+  risingTexts.forEach(text => {
+    text.classList.add('rise-text');
+    riseObserver.observe(text);
+  });
 }

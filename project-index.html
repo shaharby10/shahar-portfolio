@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The phone browser's own bars in the page's red (so no light line shows at their edge) -->
+  <meta name="theme-color" content="#ff1738">
   <!-- The tab icon: the red asterisk -->
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
@@ -10,11 +12,12 @@
   <title>Index · Shahar Ben Yaacov</title>
   <!-- Tells the CSS that JavaScript is on (images wait for it before fading in) -->
   <script>document.documentElement.classList.add('js');</script>
-  <link rel="stylesheet" href="styles.css?v=68a">
+  <link rel="stylesheet" href="styles.css?v=113">
   <script src="nav.js"></script>
-  <script src="project.js?v=5" defer></script>
-  <script src="menu.js" defer></script>
-  <script src="contact.js" defer></script>
+  <script src="project.js?v=16" defer></script>
+  <script src="view-cursor.js" defer></script>
+  <script src="menu.js?v=2" defer></script>
+  <script src="contact.js?v=2" defer></script>
 </head>
 <!-- "home-page" gives this page the same sizes, fonts and navigation as the home page.
      "layout-b" puts Index, About and Contact at the top right, like on the project pages. -->
@@ -55,83 +58,94 @@
     <a class="menu-link" href="contact.html">Contact</a>
   </nav>
 
-  <!-- The list of projects (Figma "Frame 72"). The numbers in style="" are Figma pixels.
+  <!-- The list of projects (Figma "Frame 72", 1440 x 2283). The numbers in style="" are Figma pixels.
        A project with its own page is a link; the others become links when their pages exist. -->
   <main class="index index-desktop">
-    <h1 class="index-heading">Index</h1>
+    <h1 class="index-hidden-heading">Index</h1>
 
       <a class="index-project" href="shufuni-cider.html">
-      <div class="progressive index-image" style="--left: 101; --top: 330; --width: 340.192; --height: 453; --preview: url('images/index/shufuni-cider-preview.jpg')">
-        <img class="progressive-image" src="images/index/shufuni-cider.jpg" alt="A man crouching on the grass with a bottle of Shufuni cider" loading="lazy" decoding="async">
+      <div class="progressive index-image" style="--left: 87; --top: 140; --width: 340.19; --height: 453; --preview: url('images/index/shufuni-cider-bottle-preview.jpg')">
+        <img class="progressive-image" src="images/index/shufuni-cider-bottle.jpg" alt="A bottle of Shufuni cider on a cactus" loading="lazy" decoding="async">
       </div>
-      <h2 class="index-title" style="--left: 101; --top: 788.671">Shufuni Cider</h2>
-      <p class="index-year" style="--left: 403; --top: 788.671">2024</p>
-      <p class="index-tag" style="--left: 101; --top: 817.671">Branding, Art direction</p>
+      <h2 class="index-title" style="--left: 87; --top: 601">Shufuni Cider</h2>
+      <p class="index-year" style="--left: 389; --top: 601">2024</p>
+      <p class="index-tag index-tag-wrap" style="--left: 87; --top: 634; --width: 290">Brand Identity, Art Direction, Packaging Design</p>
       </a>
       <a class="index-project" href="etymology-exhibition.html">
-      <div class="progressive index-image" style="--left: 488; --top: 330; --width: 464; --height: 261; --preview: url('images/index/etymology-plants-preview.jpg')">
-        <img class="progressive-image" src="images/index/etymology-plants.jpg" alt="Three blue plants" loading="lazy" decoding="async">
+      <div class="progressive index-image index-image-white" style="--left: 474; --top: 140; --width: 464; --height: 261; --crop-left: 15.95%; --crop-top: 19.92%; --crop-width: 67.67%; --crop-height: 63.98%">
+        <video class="progressive-image is-cropped" src="images/home/etymology-plants.mp4" poster="images/home/etymology-plants.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Three blue plants"></video>
       </div>
-      <h2 class="index-title" style="--left: 488; --top: 596.671">Etymology of wild plants</h2>
-      <p class="index-year" style="--left: 912; --top: 596.671">2026</p>
-      <p class="index-tag" style="--left: 488; --top: 625.671">Exhibition design</p>
+      <h2 class="index-title" style="--left: 474; --top: 409">Etymology of wild plants</h2>
+      <p class="index-year" style="--left: 898; --top: 409">2026</p>
+      <p class="index-tag" style="--left: 474; --top: 442">Exhibition design</p>
       </a>
       <a class="index-project" href="cinema-south.html">
-      <div class="progressive index-image" style="--left: 1001; --top: 330; --width: 362.4; --height: 453; --preview: url('images/index/cinema-south-poster-preview.jpg')">
-        <img class="progressive-image" src="images/index/cinema-south-poster.jpg" alt="Cinema South Festival poster" loading="lazy" decoding="async">
+      <div class="progressive index-image" style="--left: 987; --top: 140; --width: 362.4; --height: 453; --preview: url('images/index/cinema-south-main-poster-preview.jpg')">
+        <img class="progressive-image" src="images/index/cinema-south-main-poster.jpg" alt="The main poster of the Cinema South Festival" loading="lazy" decoding="async">
       </div>
-      <h2 class="index-title" style="--left: 1001; --top: 788.671">Cinema South Festival 26’</h2>
-      <p class="index-year" style="--left: 1327; --top: 788.671">2026</p>
-      <p class="index-tag" style="--left: 1001; --top: 817.671">Branding, Culture</p>
+      <h2 class="index-title" style="--left: 985; --top: 601">Cinema South Festival 26’</h2>
+      <p class="index-year" style="--left: 1313; --top: 601">2026</p>
+      <p class="index-tag" style="--left: 987; --top: 634">Visual Identity, Editorial Design, Motion</p>
       </a>
       <a class="index-project" href="football-in-israel.html">
-      <div class="progressive index-image" style="--left: 103; --top: 956; --width: 412.597; --height: 293.129; --preview: url('images/index/football-in-israel-preview.jpg')">
+      <div class="progressive index-image" style="--left: 89; --top: 729; --width: 412.6; --height: 293.13; --preview: url('images/index/football-in-israel-preview.jpg')">
         <img class="progressive-image" src="images/index/football-in-israel.jpg" alt="An open booklet about football in Israel" loading="lazy" decoding="async">
       </div>
-      <h2 class="index-title" style="--left: 101; --top: 1254.8">Football in Israel</h2>
-      <p class="index-year" style="--left: 476; --top: 1254.8">2024</p>
-      <p class="index-tag" style="--left: 101; --top: 1283.8">Typography, Booklet &amp; Poster design</p>
+      <h2 class="index-title" style="--left: 87; --top: 1030.13">Football in Israel</h2>
+      <p class="index-year" style="--left: 462; --top: 1030.13">2024</p>
+      <p class="index-tag" style="--left: 87; --top: 1063.13">Editorial Design, Typography</p>
       </a>
       <div class="index-project">
-      <div class="progressive index-image" style="--left: 562; --top: 956; --width: 323; --height: 487; --preview: url('images/index/cards-of-peace-preview.jpg')">
+      <div class="progressive index-image" style="--left: 563; --top: 726; --width: 294; --height: 443; --preview: url('images/index/cards-of-peace-preview.jpg')">
         <img class="progressive-image" src="images/index/cards-of-peace.jpg" alt="A blessing card with a couple kissing" loading="lazy" decoding="async">
       </div>
-      <h2 class="index-title" style="--left: 562; --top: 1448.67">Cards of peace</h2>
-      <p class="index-year" style="--left: 845; --top: 1448.67">2026</p>
-      <p class="index-tag" style="--left: 562; --top: 1477.67">Typography, Imagemaking</p>
+      <h2 class="index-title" style="--left: 563; --top: 1177">Cards of peace</h2>
+      <p class="index-year" style="--left: 817; --top: 1177">2026</p>
+      <p class="index-tag" style="--left: 563; --top: 1210">Imagemaking, Typography</p>
       </div>
       <a class="index-project" href="cost-of-consumption.html">
-      <div class="progressive index-image" style="--left: 931; --top: 956; --width: 436; --height: 150.329; --crop: 50% 49.05%; --preview: url('images/index/consumerism-crisis-preview.jpg')">
-        <img class="progressive-image" src="images/index/consumerism-crisis.jpg" alt="An illustrated man in a suit floating by a pool" loading="lazy" decoding="async">
+      <div class="progressive index-image" style="--left: 918; --top: 726; --width: 432; --height: 198; --crop: 50% 49.05%; --preview: url('images/cost-of-consumption/work-less-poster-preview.jpg')">
+        <video class="progressive-image" src="images/cost-of-consumption/work-less.mp4" poster="images/cost-of-consumption/work-less-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="An illustrated man in a suit floating by a pool"></video>
       </div>
-      <h2 class="index-title" style="--left: 929; --top: 1112">Consumerism Crisis</h2>
-      <p class="index-year" style="--left: 1327; --top: 1112">2024</p>
-      <p class="index-tag" style="--left: 929; --top: 1141">Motion, Illustration</p>
+      <h2 class="index-title" style="--left: 918; --top: 932">Consumerism Crisis</h2>
+      <p class="index-year" style="--left: 1309; --top: 932">2024</p>
+      <p class="index-tag" style="--left: 920; --top: 965">Illustration, Motion Design</p>
       </a>
-      <a class="index-project" href="dalia-and-dov.html">
-      <div class="progressive index-image" style="--left: 103; --top: 1611; --width: 367; --height: 307; --crop: 54.9% 50%; --preview: url('images/index/dalia-and-dov-book-preview.jpg')">
-        <img class="progressive-image" src="images/index/dalia-and-dov-book.jpg" alt="A family photograph from the seventies" loading="lazy" decoding="async">
+      <!-- Turned a little, like in Figma -->
+      <a class="index-project" href="fine-print-of-the-pill.html">
+      <div class="progressive index-image" style="--left: 89.59; --top: 1294.41; --width: 334.768; --height: 473.954; transform: rotate(-0.14deg); --preview: url('images/index/fine-print-of-the-pill-preview.jpg')">
+        <img class="progressive-image" src="images/index/fine-print-of-the-pill.jpg" alt="A person holding up an open broadsheet" loading="lazy" decoding="async">
       </div>
-      <h2 class="index-title" style="--left: 103; --top: 1923.67">Dalia &amp; Dov</h2>
-      <p class="index-year" style="--left: 431; --top: 1923.67">2025</p>
-      <p class="index-tag" style="--left: 103; --top: 1952.67">Typography, Book design</p>
+      <h2 class="index-title" style="--left: 89; --top: 1776.36">The Fine Print of the Pill</h2>
+      <p class="index-year" style="--left: 385; --top: 1776.36">2026</p>
+      <p class="index-tag index-tag-wrap" style="--left: 90; --top: 1809.36; --width: 295">Broadsheet Design, Complex Typography, Editorial Research</p>
       </a>
       <a class="index-project" href="curious-incident.html">
-      <div class="progressive index-image" style="--left: 516; --top: 1611; --width: 445; --height: 248; --crop: 50% 61.87%; --preview: url('images/index/dalia-and-dov-motion-preview.jpg')">
-        <img class="progressive-image" src="images/index/dalia-and-dov-motion.jpg" alt="A yellow car with red lines drawn over a street" loading="lazy" decoding="async">
+      <!-- The title sequence (a video without sound), as on the phone -->
+      <div class="progressive index-image" style="--left: 478; --top: 1294; --width: 445; --height: 248; --preview: url('images/home/curious-title-sequence-poster-preview.jpg')">
+        <video class="progressive-image" src="images/home/curious-title-sequence.mp4" poster="images/home/curious-title-sequence-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The title sequence: a hand-drawn map of streets, then a street with a small dog"></video>
       </div>
-      <h2 class="index-title index-title-block" style="--left: 516; --top: 1864.67; --width: 445">The Curious Incident of the<span class="index-title-last-line">Dog in the Night-Time<span class="index-tag-inline">Title Sequence, Motion design</span></span></h2>
-      <p class="index-year" style="--left: 921; --top: 1864.67">2026</p>
+      <h2 class="index-title index-title-wrap" style="--left: 477; --top: 1550; --width: 374">the curious incident of the dog in the night-time</h2>
+      <p class="index-year" style="--left: 883; --top: 1550">2026</p>
+      <p class="index-tag" style="--left: 478; --top: 1612">Title sequence, Motion design</p>
       </a>
-      <div class="index-project">
-      <div class="progressive index-image" style="--left: 1025.521; --top: 1611; --width: 334.768; --height: 473.954; --preview: url('images/index/travel-diaries-preview.jpg')">
-        <img class="progressive-image" src="images/index/travel-diaries.jpg" alt="Pink and blue scribbles on paper" loading="lazy" decoding="async">
+      <a class="index-project" href="dalia-and-dov.html">
+      <div class="progressive index-image" style="--left: 975; --top: 1294; --width: 367; --height: 399; --preview: url('images/index/dalia-and-dov-mockup-preview.jpg')">
+        <img class="progressive-image" src="images/index/dalia-and-dov-mockup.jpg" alt="The Dalia and Dov book, open on a family photograph" loading="lazy" decoding="async">
       </div>
-      <h2 class="index-title" style="--left: 1025.521; --top: 2090.625">Travel Diaries</h2>
-      <p class="index-year" style="--left: 1320.3; --top: 2090.625">2026</p>
-      <p class="index-tag" style="--left: 1025.521; --top: 2119.625">Imagemaking</p>
-      </div>
+      <h2 class="index-title" style="--left: 975; --top: 1701">Dalia &amp; Dov</h2>
+      <p class="index-year" style="--left: 1303; --top: 1701">2025</p>
+      <p class="index-tag" style="--left: 975; --top: 1734">Editorial Design, Book Design</p>
+      </a>
 
+    <!-- Let's talk (black, with a white apostrophe and white brackets).
+         A click on a line copies the address, without opening it (contact.js) -->
+    <p class="index-talk index-talk-desktop" style="--left: 27; --top: 1880">Let<span class="index-talk-apostrophe">'</span>s talk.</p>
+    <ul class="index-contact index-contact-desktop" style="--left: 1060.17; --top: 1953.24">
+      <li><button class="about-copy" type="button" data-copy="shaharby10@gmail.com" aria-label="Copy email address">Email <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+      <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" data-copy-phone="by_shahar_" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+      <li><button class="about-copy" type="button" data-copy="www.linkedin.com/in/shaharbenyaacov" aria-label="Copy LinkedIn link">LinkedIn <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+    </ul>
   </main>
 
   <!-- ==================== Phone (Figma "index page mobile", 390 wide) ====================
@@ -140,89 +154,84 @@
   <main class="index index-mobile">
     <h1 class="index-heading">Index</h1>
 
+      <!-- The projects, one under the other (Figma "index page mobile"). The photos are cut
+           like in the frame; the names and the kinds of work are in capitals. -->
       <a class="index-project" href="shufuni-cider.html">
-      <div class="progressive index-image" style="--left: 24; --top: 283; --width: 340.19; --height: 453; --preview: url('images/index/shufuni-cider-preview.jpg')">
-        <img class="progressive-image" src="images/index/shufuni-cider.jpg" alt="A man crouching with a Shufuni bottle" loading="lazy" decoding="async">
+      <div class="progressive index-image" style="--left: 24; --top: 283; --width: 342; --height: 456; --preview: url('images/index/shufuni-phone-preview.jpg')">
+        <img class="progressive-image" src="images/index/shufuni-phone.jpg" alt="A Shufuni bottle standing on a round cactus" loading="lazy" decoding="async">
       </div>
-      <h2 class="index-title" style="--left: 24; --top: 746">Shufuni Cider</h2>
-      <p class="index-year" style="--left: 326; --top: 746">2024</p>
-      <p class="index-tag" style="--left: 24; --top: 775">Branding, Art direction</p>
+      <h2 class="index-title" style="--left: 24; --top: 742">Shufuni Cider</h2>
+      <p class="index-year" style="--left: 326; --top: 742">2024</p>
+      <p class="index-tag" style="--left: 24; --top: 776">Brand Identity, Art Direction, Packaging</p>
       </a>
       <a class="index-project" href="etymology-exhibition.html">
-      <div class="progressive index-image" style="--left: 24.44; --top: 814; --width: 339.56; --height: 191; --preview: url('images/home/etymology-plants-preview.jpg')">
-        <video class="progressive-image" src="images/home/etymology-plants.mp4" poster="images/home/etymology-plants.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Three blue plants"></video>
+      <div class="progressive index-image" style="--left: 24.45; --top: 814; --width: 339.56; --height: 191; --preview: url('images/etymology-exhibition/plants-turning-poster-preview.jpg')">
+        <video class="progressive-image" src="images/etymology-exhibition/plants-turning.mp4" poster="images/etymology-exhibition/plants-turning-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Three blue plants turning, with their names"></video>
       </div>
-      <h2 class="index-title" style="--left: 24; --top: 1017">Etymology of wild plants</h2>
-      <p class="index-year" style="--left: 324; --top: 1017">2026</p>
-      <p class="index-tag" style="--left: 24; --top: 1046">Exhibition design</p>
+      <h2 class="index-title" style="--left: 24; --top: 1008">Etymology of wild plants</h2>
+      <p class="index-year" style="--left: 326; --top: 1008">2026</p>
+      <p class="index-tag" style="--left: 24; --top: 1042">Exhibition design</p>
       </a>
       <a class="index-project" href="cinema-south.html">
-      <div class="progressive index-image" style="--left: 24; --top: 1085; --width: 341.6; --height: 427; --preview: url('images/index/cinema-south-poster-preview.jpg')">
-        <img class="progressive-image" src="images/index/cinema-south-poster.jpg" alt="Cinema South Festival poster" loading="lazy" decoding="async">
+      <div class="progressive index-image" style="--left: 24; --top: 1085; --width: 341.6; --height: 427; --preview: url('images/index/cinema-phone-preview.jpg')">
+        <img class="progressive-image" src="images/index/cinema-phone.jpg" alt="The Cinema South Festival main poster" loading="lazy" decoding="async">
       </div>
-      <h2 class="index-title" style="--left: 24; --top: 1522">Cinema South Festival 26’</h2>
-      <p class="index-year" style="--left: 327; --top: 1522">2026</p>
-      <p class="index-tag" style="--left: 24; --top: 1552">Branding, Culture</p>
+      <h2 class="index-title" style="--left: 24; --top: 1515">Cinema South Festival</h2>
+      <p class="index-year" style="--left: 326; --top: 1515">2026</p>
+      <p class="index-tag" style="--left: 24; --top: 1549">Visual Identity, Editorial Design, Motion</p>
       </a>
       <a class="index-project" href="football-in-israel.html">
-      <div class="progressive index-image" style="--left: 26; --top: 1598; --width: 339.4; --height: 241.13; --preview: url('images/index/football-in-israel-preview.jpg')">
-        <img class="progressive-image" src="images/index/football-in-israel.jpg" alt="An open booklet about football in Israel" loading="lazy" decoding="async">
+      <div class="progressive index-image" style="--left: 26; --top: 1592; --width: 339.4; --height: 241.13; --preview: url('images/index/football-phone-preview.jpg')">
+        <img class="progressive-image" src="images/index/football-phone.jpg" alt="A black spread of the Football in Israel booklet" loading="lazy" decoding="async">
       </div>
-      <h2 class="index-title" style="--left: 24; --top: 1850">Football in Israel</h2>
-      <p class="index-year" style="--left: 325; --top: 1850">2024</p>
-      <p class="index-tag" style="--left: 24; --top: 1879">Typography, Booklet &amp; Poster design</p>
+      <h2 class="index-title" style="--left: 24; --top: 1836">Football in Israel</h2>
+      <p class="index-year" style="--left: 326; --top: 1836">2024</p>
+      <p class="index-tag" style="--left: 26; --top: 1870">Editorial Design, Typography</p>
       </a>
-      <div class="index-project">
-      <div class="progressive index-image" style="--left: 70; --top: 1935.06; --width: 250; --height: 376.94; --preview: url('images/index/cards-of-peace-preview.jpg')">
-        <img class="progressive-image" src="images/index/cards-of-peace.jpg" alt="A blessing card with a couple kissing" loading="lazy" decoding="async">
-      </div>
-      <h2 class="index-title" style="--left: 70; --top: 2323">Cards of peace</h2>
-      <p class="index-year" style="--left: 280; --top: 2323">2026</p>
-      <p class="index-tag" style="--left: 70; --top: 2352">Typography, Imagemaking</p>
-      </div>
       <a class="index-project" href="cost-of-consumption.html">
-      <div class="progressive index-image" style="--left: 26; --top: 2421; --width: 339; --height: 117; --preview: url('images/cost-of-consumption/work-less-poster-preview.jpg')">
+      <div class="progressive index-image" style="--left: 24; --top: 1913; --width: 342; --height: 118; --preview: url('images/cost-of-consumption/work-less-poster-preview.jpg')">
         <video class="progressive-image" src="images/cost-of-consumption/work-less.mp4" poster="images/cost-of-consumption/work-less-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="An illustrated man in a suit floating by a pool"></video>
       </div>
-      <h2 class="index-title" style="--left: 24; --top: 2544">Consumerism Crisis</h2>
-      <p class="index-year" style="--left: 326; --top: 2544">2024</p>
-      <p class="index-tag" style="--left: 24; --top: 2573">Motion, Illustration</p>
+      <h2 class="index-title" style="--left: 26; --top: 2035">The Cost of Consumption</h2>
+      <p class="index-year" style="--left: 327; --top: 2035">2024</p>
+      <p class="index-tag" style="--left: 26; --top: 2069">Illustration, Motion Design</p>
       </a>
       <a class="index-project" href="dalia-and-dov.html">
-      <div class="progressive index-image" style="--left: 26; --top: 2633; --width: 339; --height: 283; --preview: url('images/index/dalia-and-dov-book-preview.jpg'); --crop-left: -10.87%; --crop-top: 0%; --crop-width: 119.8%; --crop-height: 99.99%">
-        <img class="progressive-image is-cropped" src="images/index/dalia-and-dov-book.jpg" alt="A family photograph from the seventies" loading="lazy" decoding="async">
+      <div class="progressive index-image" style="--left: 24; --top: 2112; --width: 342; --height: 286; --preview: url('images/index/dalia-phone-preview.jpg')">
+        <img class="progressive-image" src="images/index/dalia-phone.jpg" alt="The Dalia and Dov book open on a spread with family photographs" loading="lazy" decoding="async">
       </div>
-      <h2 class="index-title" style="--left: 26; --top: 2926">Dalia &amp; Dov</h2>
-      <p class="index-year" style="--left: 327; --top: 2921">2025</p>
-      <p class="index-tag" style="--left: 26; --top: 2959">Typography, Book design</p>
+      <h2 class="index-title" style="--left: 26; --top: 2401">Dalia and Dov</h2>
+      <p class="index-year" style="--left: 327; --top: 2401">2025</p>
+      <p class="index-tag" style="--left: 26; --top: 2435">Editorial Design, Book Design</p>
       </a>
       <a class="index-project" href="curious-incident.html">
-      <div class="progressive index-image" style="--left: 24; --top: 3007; --width: 341; --height: 190; --preview: url('images/index/dalia-and-dov-motion-preview.jpg'); --crop-left: 0%; --crop-top: -10.2%; --crop-width: 100%; --crop-height: 116.49%">
-        <img class="progressive-image is-cropped" src="images/index/dalia-and-dov-motion.jpg" alt="A yellow car with red lines drawn over a street" loading="lazy" decoding="async">
+      <div class="progressive index-image" style="--left: 24; --top: 2478; --width: 342; --height: 191; --preview: url('images/home/curious-title-sequence-poster-preview.jpg')">
+        <video class="progressive-image" src="images/home/curious-title-sequence.mp4" poster="images/home/curious-title-sequence-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The title sequence: a hand-drawn map of streets, then a street with a small dog"></video>
       </div>
-      <!-- The long name on two lines (as on the computer); the year on the first -->
-      <h2 class="index-title" style="--left: 24; --top: 3204">The Curious Incident of the</h2>
-      <p class="index-year" style="--left: 326; --top: 3204">2026</p>
-      <h2 class="index-title" style="--left: 24; --top: 3233">Dog in the Night-Time</h2>
-      <p class="index-tag" style="--left: 24; --top: 3269">Title Sequence, Motion design</p>
+      <h2 class="index-title index-title-wrap" style="--left: 24; --top: 2671; --width: 289">the curious incident of the dog in the night-time</h2>
+      <p class="index-year" style="--left: 326; --top: 2672">2026</p>
+      <p class="index-tag" style="--left: 24; --top: 2736">Title sequence, Motion design</p>
       </a>
-      <div class="index-project">
-      <!-- Turned a little, like in Figma -->
-      <div class="progressive index-image" style="--left: 75.66; --top: 3310.17; --width: 236.69; --height: 335.09; --preview: url('images/index/travel-diaries-preview.jpg'); --crop-left: -5.62%; --crop-top: -3.99%; --crop-width: 109%; --crop-height: 108.55%; transform: rotate(-0.57deg)">
-        <img class="progressive-image is-cropped" src="images/index/travel-diaries.jpg" alt="Pink and blue scribbles on paper" loading="lazy" decoding="async">
+      <a class="index-project" href="fine-print-of-the-pill.html">
+      <div class="progressive index-image" style="--left: 24.09; --top: 2778.69; --width: 342; --height: 426.68; --preview: url('images/index/pill-phone-preview.jpg')">
+        <img class="progressive-image" src="images/index/pill-phone.jpg" alt="The broadsheet held open" loading="lazy" decoding="async">
       </div>
-      <h2 class="index-title" style="--left: 74; --top: 3658">Travel Diaries</h2>
-      <p class="index-year" style="--left: 274; --top: 3658">2026</p>
-      <p class="index-tag" style="--left: 75; --top: 3687">Imagemaking</p>
-      </div>
+      <h2 class="index-title" style="--left: 24; --top: 3208">The Fine Print of the Pill</h2>
+      <p class="index-year" style="--left: 326; --top: 3208">2026</p>
+      <p class="index-tag" style="--left: 24.04; --top: 3242.22">Broadsheet Design, Complex Typography</p>
+      </a>
 
     <!-- Let's talk: a click on a line copies the address, without opening it (contact.js) -->
-    <p class="index-talk" style="--left: 26; --top: 3735">Let's talk.</p>
-    <ul class="index-contact" style="--left: 26; --top: 3865">
+    <p class="index-talk" style="--left: 21; --top: 3277">Let's talk.</p>
+    <ul class="index-contact" style="--left: 21; --top: 3407">
       <li><button class="about-copy" type="button" data-copy="shaharby10@gmail.com" aria-label="Copy email address">Email <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
-      <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+      <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" data-copy-phone="by_shahar_" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
       <li><button class="about-copy" type="button" data-copy="www.linkedin.com/in/shaharbenyaacov" aria-label="Copy LinkedIn link">LinkedIn <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
     </ul>
   </main>
+  <!-- Over a project's image, the mouse turns into "[ VIEW PROJECT ]" (home.js):
+       the red brackets open, then the words appear.
+       The words sit on a white box that opens with the brackets. -->
+  <div class="cursor-view" aria-hidden="true"><span class="cursor-view-bracket">[</span><span class="cursor-view-words"><span class="cursor-view-text"><span class="cursor-view-gap">View project</span></span></span><span class="cursor-view-bracket">]</span></div>
 </body>
 </html>

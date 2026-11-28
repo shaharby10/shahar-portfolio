@@ -206,10 +206,6 @@ button * {
   /* 2. Images go from a blurred preview to sharp when they load */
   --image-blur: 20px;
   --image-reveal-duration: 500ms;
-  /* 3. The images in the grids next to the projects (home page) are blurred,
-     and so are the images on the index page until the mouse is over a project */
-  --soft-blur: 4px;
-  --soft-blur-duration: 400ms; /* the index image coming into focus, and back */
   /* 5. Project pages: each image is blurred when it first reaches the screen and
      comes into focus (project.js): in this time (videos in the shorter one), or faster
      when the page is scrolled fast (in focus once the image has moved up this share
@@ -340,7 +336,8 @@ button * {
    The page also has the class "home-page" for its navigation and images.
    ========================================================= */
 .index-page {
-  --color-index-nav: #000000; /* the asterisk on a phone */
+  --color-index-nav: #000000; /* the name and the buttons */
+  --color-index-star: #ffffff; /* the asterisk on a phone */
   --color-index-buttons: #ffffff; /* the name and the navigation buttons: Index, About, Contact */
   --color-index-background: #ff1738;
   --color-index-text: #f5f5f5;
@@ -355,8 +352,8 @@ button * {
   --line-index-title: 1.21;
   --line-index-tag: 0.98815;
 
-  --index-page-height: calc(2306 * var(--unit));
-  --index-phone-page-height: calc(4078 * var(--unit)); /* the phone frame */
+  --index-page-height: calc(2283 * var(--unit)); /* the Figma frame (computer) */
+  --index-phone-page-height: calc(3632 * var(--unit)); /* the phone frame */
 
   /* "Let's talk" and the contact lines at the bottom of the phone version */
   --color-index-talk: #ffffff;
@@ -365,6 +362,20 @@ button * {
   --font-index-bracket: "Items Condensed Medium", serif;
   --size-index-talk: calc(107.643 * var(--unit));
   --size-index-contact: calc(50.634 * var(--unit));
+  /* "Let's talk." at the bottom of the computer version: black, with a white apostrophe and brackets */
+  --color-index-talk-desktop: #000000;
+  --color-index-talk-accent: #ffffff;
+  --size-index-talk-desktop: calc(333.465 * var(--unit));
+  --size-index-contact-desktop: calc(58.328 * var(--unit));
+  --line-index-tag-desktop: 1.245;      /* the kind of work, in capitals, on the computer */
+  --line-index-tag-desktop-wrap: calc(24 / 13.851); /* ... when it takes two lines: its second line as far
+     below the first as the first is below the project's name (24px from line to line) */
+  /* "[ VIEW PROJECT ]" over an image: a red box, white words, black brackets */
+  --color-view-box: #ff1738;
+  --color-view-words: #ffffff;
+  --color-view-brackets: #000000;
+  /* The flower video sits smaller inside its white box, like in Figma */
+  --color-index-video-white: #ffffff;
 }
 
 /* =========================================================
@@ -431,7 +442,14 @@ button * {
   --size-about-phone-cv: calc(99.306 * var(--unit));
   --size-about-phone-talk: calc(101.83 * var(--unit));
   --size-about-phone-contact: calc(47.9 * var(--unit));
-  --about-phone-page-height: calc(2854 * var(--unit));
+  --about-phone-page-height: calc(2828 * var(--unit)); /* (the frame's 2732, room for the three red "v", and 24 more before Education) */
+  /* The small galleries under the roles (about.js) */
+  --about-gallery-height: 300;      /* the red frame's height, in phone pixels */
+  --about-gallery-gap: 14;          /* from the "v" to the frame, and from the frame to what follows */
+  --about-gallery-padding: 16;      /* inside the frame, around the images */
+  --about-gallery-duration: 600ms;  /* opening and closing */
+  --about-gallery-interval: 2400ms; /* how long each image shows */
+  --about-gallery-fade: 700ms;      /* one image fading into the next */
   --font-about-phone-bold: "HN Bold Italic", "HN Bold", sans-serif; /* one sentence in the paragraphs */
   --about-phone-frame-weight: calc(1 * var(--unit));    /* the thin red frame around Education */
 }
@@ -1291,6 +1309,17 @@ body.home-page {
   color: var(--color-home-accent);
 }
 
+/* Line breaks that only the phone has (in a caption, and in the intro) */
+.break-phone-caption,
+.break-phone-intro {
+  display: none;
+}
+
+/* The phone's "Let's talk." block (shown only on a phone, below) */
+.home-phone-talk {
+  display: none;
+}
+
 @media (max-width: 791px) {
   .home-talk,
   .home-contact {
@@ -1464,6 +1493,15 @@ body.home-page {
   pointer-events: none;
 }
 
+/* On a phone the entrance's falling words have a layer of their own, fixed over the
+   intro's place on the screen (home.js), under "Home" and the asterisk */
+.morph-layer.is-above-page {
+  position: fixed;
+  inset: auto;
+  z-index: 1;
+  overflow: visible;
+}
+
 /* The entrance (home.js): until the words have arrived, the real sentence
    is hidden (the inline script in index.html adds "is-entering").
    If anything goes wrong, the sentence still appears after a few seconds. */
@@ -1475,6 +1513,13 @@ body.home-page {
 
 @keyframes entrance-safety {
   to { visibility: visible; }
+}
+
+/* Once the script runs the entrance, it shows everything itself at the end (home.js) */
+.is-entrance-running .home-intro .intro-text,
+.is-entrance-running .home-intro .intro-tagline,
+.is-entrance-running .home-work {
+  animation: none;
 }
 
 /* The projects (Shufuni's photo already peeks in on the first screen) are hidden
@@ -1758,7 +1803,9 @@ a.intro-name {
    and home.js shows "[ VIEW PROJECT ]" at the mouse instead */
 @media (min-width: 792px) and (hover: hover) {
   .js .work-image,
-  .js .work-image * {
+  .js .work-image *,
+  .js a.index-project .index-image,
+  .js a.index-project .index-image * {
     cursor: none;
   }
 }
@@ -2156,21 +2203,6 @@ body.index-page {
   object-position: var(--crop, 50% 50%);
 }
 
-/* With a mouse, the images are blurred (as in the grids on the home page); the mouse
-   over a project brings its image into focus, and it blurs again when the mouse leaves.
-   Only the image: the name, the year and the kind of work stay sharp.
-   (On a phone there is no mouse, so the images are simply sharp.) */
-@media (hover: hover) and (min-width: 792px) {
-  .js .index-image.is-loaded .progressive-image {
-    filter: blur(var(--soft-blur));
-    transition: filter var(--soft-blur-duration) ease;
-  }
-
-  .js .index-project:hover .index-image.is-loaded .progressive-image {
-    filter: blur(0px);
-  }
-}
-
 .index-title,
 .index-year {
   font-family: var(--font-index-title);
@@ -2180,29 +2212,59 @@ body.index-page {
   white-space: nowrap;
 }
 
-/* A long project name takes two lines. The small description continues on the
-   second line and ends on the right edge of the block: under the year,
-   at the end of the image. */
-.index-title-block {
-  width: calc(var(--width) * var(--unit));
-}
-
-.index-title-last-line {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
-.index-tag-inline {
-  font-family: var(--font-index-tag);
-  font-size: var(--size-index-tag);
-}
-
 .index-tag {
   font-family: var(--font-index-tag);
   font-size: var(--size-index-tag);
   line-height: var(--line-index-tag);
   white-space: nowrap;
+}
+
+/* ---------- The computer version (Figma "Frame 72") ----------
+   No big "Index" title (the heading is there only for screen readers).
+   The names and the kinds of work are in capitals. The page is as tall as the
+   Figma frame, which cuts the bottom of "Let's talk." */
+.index-desktop {
+  height: var(--index-page-height);
+  overflow: clip;
+}
+
+.index-hidden-heading {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.index-desktop .index-title,
+.index-desktop .index-tag {
+  text-transform: uppercase;
+}
+
+.index-desktop .index-tag {
+  line-height: var(--line-index-tag-desktop);
+}
+
+/* A long name or kind of work wraps inside its Figma width */
+.index-title-wrap,
+.index-tag-wrap {
+  width: calc(var(--width) * var(--unit));
+  white-space: normal;
+}
+
+.index-desktop .index-tag-wrap {
+  line-height: var(--line-index-tag-desktop-wrap);
+}
+
+/* The flower video: a white box, with the video smaller inside it (its place and size
+   come from Figma, in --crop-left/top/width/height); no blurred preview around it */
+.index-image-white {
+  background: var(--color-index-video-white);
+}
+
+.index-image-white::before {
+  display: none;
 }
 
 /* ---------- The index on a phone (Figma "index page mobile", 390 wide) ----------
@@ -2241,6 +2303,21 @@ body.index-page {
   color: var(--color-index-bracket);
 }
 
+/* The computer version: big and black */
+.index-talk-desktop {
+  font-size: var(--size-index-talk-desktop);
+  color: var(--color-index-talk-desktop);
+}
+
+.index-talk-apostrophe {
+  color: var(--color-index-talk-accent);
+}
+
+.index-contact-desktop {
+  font-size: var(--size-index-contact-desktop);
+  color: var(--color-index-talk-desktop);
+}
+
 @media (max-width: 791px) {
   .index-page .index-desktop {
     display: none;
@@ -2254,6 +2331,12 @@ body.index-page {
   /* "Index" centered on the phone frame */
   .index-mobile .index-heading {
     left: calc(194.5 * var(--unit));
+  }
+
+  /* The names and the kinds of work in capitals (as in the phone frame) */
+  .index-mobile .index-title,
+  .index-mobile .index-tag {
+    text-transform: uppercase;
   }
 
   /* The red band at the top: the page scrolls under it, "Home" and the asterisk stay above it */
@@ -2412,6 +2495,11 @@ body.about-page {
 /* On the computer the emblem just appears, without blur, and turns once
    clockwise (about.js); it turns again each time the mouse comes over it.
    It is above the invisible Education area, so the mouse can reach it. */
+.js .about-mobile .about-emblem {
+  filter: none;
+  transition: opacity var(--image-reveal-duration) var(--image-reveal-easing);
+}
+
 .js .about-desktop .about-emblem {
   z-index: 1;
   filter: none;
@@ -2679,8 +2767,91 @@ body.about-page {
 }
 
 /* ...except ABOUT & APPROACH, which is white on the red block */
-.about-mobile .about-heading:first-of-type {
+.about-mobile .about-heading.about-phone-approach {
   color: var(--color-about-heading);
+}
+
+/* ---------- The small galleries under the roles (phone, about.js) ---------- */
+/* The red "v" under each role; it turns upside down while its gallery is open */
+.about-phone-more {
+  padding: 0;
+  border: 0;
+  background: none;
+  height: calc(var(--height) * var(--unit));
+  cursor: pointer;
+}
+
+.about-phone-more svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  fill: none;
+  stroke: var(--color-about-red);
+  stroke-width: 1.6px;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform var(--about-gallery-duration) ease;
+}
+
+.about-phone-more[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+/* Everything under an open gallery glides down to make room for it */
+.about-mobile .project-placed {
+  translate: 0 calc(var(--about-push, 0) * var(--unit));
+  transition: translate var(--about-gallery-duration) ease;
+}
+
+/* The gallery: a thin red frame (like Education's) that opens downwards; the images
+   sit inside it, each whole (not cut), one at a time, fading into each other */
+.about-gallery {
+  height: 0;
+  overflow: hidden;
+  transition: height var(--about-gallery-duration) ease;
+}
+
+.about-gallery.is-open {
+  height: calc(var(--about-gallery-height) * var(--unit));
+}
+
+.about-gallery-frame {
+  position: absolute;
+  inset: 0 0 auto;
+  height: calc(var(--about-gallery-height) * var(--unit));
+  border: 1px solid var(--color-about-red);
+}
+
+.about-gallery-image {
+  position: absolute;
+  inset: calc(var(--about-gallery-padding) * var(--unit));
+  width: calc(100% - 2 * var(--about-gallery-padding) * var(--unit));
+  height: calc(100% - 2 * var(--about-gallery-padding) * var(--unit));
+  object-fit: contain;
+  opacity: 0;
+  transition: opacity var(--about-gallery-fade) ease;
+}
+
+.about-gallery-image.is-shown {
+  opacity: 1;
+}
+
+/* An image cut to another shape in the gallery (the minibus: square, so it shows bigger):
+   as tall as the frame's inside, centered, filled and cut around its focus point */
+.about-gallery-image.is-cut {
+  inset: auto;
+  top: calc(var(--about-gallery-padding) * var(--unit));
+  left: 50%;
+  width: auto;
+  aspect-ratio: var(--gallery-crop);
+  translate: -50% 0;
+  object-fit: cover;
+  object-position: var(--gallery-focus);
+}
+
+/* ABOUT & APPROACH is bigger on the phone (43.35, as in the phone frame) */
+.about-mobile .about-phone-approach {
+  font-size: calc(43.35 * var(--unit));
 }
 
 /* The thin red frame around the Education text */
@@ -2735,7 +2906,7 @@ body.about-page {
 }
 
 .index-page .menu-button svg {
-  color: var(--color-index-nav);
+  color: var(--color-index-star);
 }
 
 .about-page .menu-button.is-open svg,
@@ -2757,7 +2928,8 @@ body.about-page {
 
   .about-mobile {
     display: block;
-    min-height: var(--about-phone-page-height);
+    min-height: calc(var(--about-phone-page-height) + var(--about-push-total, 0) * var(--unit));
+    transition: min-height var(--about-gallery-duration) ease;
     overflow-x: clip;
   }
 
@@ -2796,173 +2968,107 @@ body.about-page {
 
 /* =========================================================
    Home page on a phone (narrower than 792px, where the wide layout
-   would no longer fit). Not from Figma yet: a suggestion.
+   would no longer fit). From Figma "home page mobile" (390 x 4125).
    --unit = one pixel of a 390px-wide phone screen.
    ========================================================= */
 @media (max-width: 791px) {
   .home-page {
     --unit: calc(100cqw / 390);
-    --margin-left: 16;
+    --margin-left: 24;  /* the images start here */
     --margin-right: 374;
-    --font-intro: "Items Condensed Regular", serif; /* two weights up from Thin, easier to read small */
-    /* The intro starts under the name and the asterisk. Under it, the first
-       project's image already peeks in from the bottom of the screen,
-       to show that the page goes on. */
-    /* The big sentence and the paragraph under it, as one block, sit halfway
-       between the asterisk (bottom edge) and the running small line:
-       the same space above and below them */
-    --intro-block-space: calc((112 * var(--unit) - var(--menu-star-size)) / 2);
-    --intro-margin: calc(12 * var(--unit) + var(--menu-star-size) + var(--intro-block-space)); /* from the top of the screen to the intro */
-    --first-project-peek: calc(96 * var(--unit)); /* how much of the first image shows */
-    --intro-to-peek: calc(24 * var(--unit));     /* between the intro and that image */
-    /* Up to 64.4px, smaller on most screens, so the whole intro always fits above
-       the peeking image. 7: about the intro's height (the text and the running
-       small line) in font sizes; home.js then makes the size exact. */
-    --size-intro: min(calc(64.4 * var(--unit)), (100svh - var(--intro-margin) - var(--intro-to-peek) - var(--first-project-peek)) / 7);
-    /* "I'm Shahar Ben Yaacov, a graphic designer…", under the big sentence */
-    --font-intro-lead-phone: "Items Condensed Regular", serif; /* the big first sentence */
-    --font-intro-phone-small: "HN Light", sans-serif;
-    --font-intro-name-phone: "HN Medium", sans-serif; /* the name in it, thicker: it can be tapped */
-    --size-intro-phone-small: calc(20 * var(--unit));
-    --line-intro-phone-small: 1.25;
-    --intro-marquee-duration: 10s; /* one full round of the running small line */
-    --intro-marquee-gap: 1.5em;     /* between the end of the line and its next start */
-    --line-intro: 1.12;
-    --size-tagline-home: calc(17 * var(--unit));
-    --size-home-small: calc(19 * var(--unit));
+    --size-intro: calc(39 * var(--unit));        /* the intro, centered (Items Condensed Thin) */
+    --line-intro: 1.21;
+    --size-tagline-home: calc(21.504 * var(--unit)); /* "from the first words…" */
+    --size-home-small: calc(19 * var(--unit)); /* "Home" (a little bigger than the 17.11 in Figma) */
     --size-work-title: calc(16 * var(--unit)); /* the caption under each project */
-    --size-work-tag: calc(14.4 * var(--unit)); /* (the same sizes, one to the other, as on a wide screen) */
-    /* 20% smaller than the asterisk over the big name (at the full 64.4px size;
-       measured from that number, because the intro size itself depends on the asterisk) */
-    --menu-star-size: calc(64.4 * var(--unit) * 0.1565 / 0.152 * 0.8);
-    --size-menu-link: calc(32 * var(--unit));
+    --size-work-tag: calc(14.4 * var(--unit));
+    --home-phone-intro-height: calc(502 * var(--unit)); /* the first image starts here */
+    --home-phone-caption-space: calc(12 * var(--unit)); /* from an image to its caption */
+    --font-intro-name-phone: "Items Condensed Regular", serif;
+    --size-home-phone-talk: calc(108.488 * var(--unit));
+    --size-home-phone-contact: calc(50.215 * var(--unit));
+    --color-home-phone-talk-background: transparent; /* (on the white page) */
+    --color-home-phone-talk: #000000;
+    --color-home-phone-talk-accent: #ff1738; /* the apostrophe, the period and the brackets */
+    /* The asterisk at the top right of every phone page. In the phone frame it is 43 x 43,
+       17 from the top and from the right edge. Here it grows with "Home" (19 / 17.111),
+       around the same middle, so it stays in the same place */
+    --menu-star-size: calc(43 * 19 / 17.111 * var(--unit));
+    --menu-star-inset: calc((17 + 21.5) * var(--unit) - var(--menu-star-size) / 2);
+    --menu-star-nudge: calc(3 * var(--unit)); /* the asterisk sits 3px lower than "Home"'s middle */
+    --size-menu-link: calc(32 * 1.2 * var(--unit)); /* the menu's words: 20% bigger than before */
+    --font-menu-link: "Items Condensed Regular", serif;
+    --tracking-menu-link: -0.02em; /* letters 2% closer together */
+    --tilde-phone-top: 6.7; /* where the "~" box starts (its ink at 32, as in the frame) */
+    --tilde-fade-blur: 8px; /* how blurry the "~" gets as the intro scrolls away (home.js) */
+    --punctuation-stagger: 140ms; /* a tap on the "~": the time between one red mark starting and the next (home.js) */
   }
 
-  /* ---- Intro: at the top of the first screen ---- */
+  /* ---- Intro: the two sentences centered, and the small line under them ---- */
   .home-intro {
-    height: 100svh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap: calc(24 * var(--unit));
-    padding: var(--intro-margin) calc(var(--margin-left) * var(--unit)) 0;
+    height: var(--home-phone-intro-height);
   }
 
-  .home-page .intro-text,
-  .home-page .intro-tagline {
-    position: static;
-    width: auto;
-  }
-
-  /* The big text starts on the left margin */
   .home-page .intro-text {
-    text-align: left;
+    left: 50%;
+    top: calc(81 * var(--unit));
+    width: calc(343 * var(--unit));
+    transform: translateX(-50%);
+    text-align: center;
   }
 
-  /* On a phone "I shape what ideas say…" comes first, big (a copy made by
-     home.js, .intro-lead). The real sentence is only for screen readers. */
-  .home-page .intro-lead {
-    display: block;
-    font-family: var(--font-intro-lead-phone);
-    font-size: var(--size-intro);
-    line-height: var(--line-intro);
-    letter-spacing: var(--tracking-intro);
+  .home-page .intro-tagline {
+    left: 50%;
+    top: calc(418 * var(--unit));
+    width: calc(312.05 * var(--unit));
+    transform: translateX(-50%);
+    text-align: center;
   }
 
-  .home-page .intro-rest-b {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  .home-page .break-ab,
+  /* The two sentences, each starting on its own line; the other line breaks are for the computer */
   .home-page .break-a,
-  .home-page .break-ac {
+  .home-page .break-ac,
+  .home-page .break-c,
+  .home-page .break-phone {
     display: none;
   }
 
-  .home-page .intro-lead .break-phone {
+  .home-page .break-ab,
+  .home-page .break-phone-caption,
+  .home-page .break-phone-intro {
     display: inline;
   }
 
-  /* Then "I'm Shahar Ben Yaacov, a graphic designer…", smaller, in Helvetica Neue Light
-     (the name in Medium). The punctuation is black here, in the same font. */
-  .home-page .intro-text {
-    letter-spacing: normal; /* the small text keeps its spacing */
-    font-family: var(--font-intro-phone-small);
-    font-size: var(--size-intro-phone-small);
-    line-height: var(--line-intro-phone-small);
+  /* The red periods and commas can move on the phone too (the "~" sets them going, home.js):
+     a box of their own, and the rolling period leaves the screen without sideways scrolling */
+  .home-page .intro-text .accent-period,
+  .home-page .intro-text .accent-comma {
+    display: inline-block;
+    position: relative;
+    z-index: 1;
   }
 
-  .home-page .intro-text .accent {
-    font-family: inherit;
-    color: inherit;
+  .home-intro {
+    overflow-x: clip;
   }
 
+  /* The name on its own line, a little thicker (Items Condensed Regular, as in the phone frame) */
   .home-page .intro-text .intro-name {
     font-family: var(--font-intro-name-phone);
   }
 
-  /* A phone has no hover, so the dash keeps tilting by itself, inviting a tap
-     (a tap spins it, home.js) */
-  .home-page .intro-lead .accent-dash::after {
-    animation: dash-invite var(--dash-invite-duration) ease-in-out infinite;
-  }
-
-  /* The small line: the real one is only for screen readers,
-     and its running copy (home.js) is shown instead */
-  .home-page .intro-tagline {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
-  }
-
-  /* One line under the big text. The words come in at the right margin
-     and go out at the left margin (overflow: hidden). */
+  /* (the phone's earlier intro: a big copy of the second sentence and a running small line) */
+  .home-page .intro-lead,
   .home-page .intro-marquee {
-    display: block;
-    margin-top: calc(var(--intro-block-space) - 24 * var(--unit)); /* instead of the usual 24px gap */
-    overflow: hidden;
-    white-space: nowrap;
-    font-family: var(--font-tagline-home);
-    font-size: var(--size-tagline-home);
-    line-height: var(--line-tagline-home);
-  }
-
-  .intro-marquee-track {
-    display: inline-flex;
-    animation: intro-marquee var(--intro-marquee-duration) linear infinite;
-  }
-
-  /* The small red arrow at the end of the running line (instead of the period),
-     pointing on to the next round. It sits in the middle of the gap
-     between the end of the line and its next start. */
-  .intro-marquee-arrow {
-    width: 0.75em;
-    height: 0.6em;
-    margin: 0 calc(var(--intro-marquee-gap) / 2);
-    fill: none;
-    stroke: var(--color-home-accent);
-    stroke-width: 1.2px;
-    vector-effect: non-scaling-stroke;
-  }
-
-  .intro-marquee-arrow path {
-    vector-effect: non-scaling-stroke;
+    display: none;
   }
 
   /* ---- Navigation: the name at the top left, the red asterisk at the top right.
      The other words are inside the asterisk's menu (below). ---- */
   /* "Home" instead of the full name, in line with the middle of the asterisk */
   .home-page .home-name {
-    left: calc(var(--margin-left) * var(--unit)); /* on the phone it stays on the margin */
-    top: calc(12 * var(--unit) + var(--menu-star-size) / 2 - 0.6em);
+    left: calc(23 * var(--unit)); /* as in the phone frame */
+    top: calc(var(--menu-star-inset) + var(--menu-star-size) / 2 - 0.6em);
     line-height: 1.2;
   }
 
@@ -2974,8 +3080,20 @@ body.about-page {
     display: inline;
   }
 
-  .home-nav {
+  /* Of the navigation only Switch shows: the red "~" next to "Home" (the rest is in the menu) */
+  .home-nav .nav-index,
+  .home-nav .nav-about,
+  .home-nav .nav-contact,
+  .home-nav .nav-back-to-top {
     display: none;
+  }
+
+  .home-page .nav-switch {
+    left: calc(172 * var(--unit)); /* its "~" in the middle of the top, as in the phone frame */
+    top: calc(var(--tilde-phone-top) * var(--unit));
+    margin-top: 0;
+    font-size: calc(70.7 * var(--unit)); /* its "~" is 38 wide */
+    transform: none;
   }
 
   .home-page .menu-button {
@@ -2988,20 +3106,21 @@ body.about-page {
     min-height: 0;
   }
 
-  /* The projects start before the end of the first screen, so the top of the
-     first image peeks in under the intro */
+  /* The projects start under the intro (the first image at 459, as in the phone frame) */
   .home-work {
     height: auto;
-    margin-top: calc(-1 * var(--first-project-peek));
-    padding: 0 calc(var(--margin-left) * var(--unit)) calc(120 * var(--unit));
+    margin-top: 0;
+    padding: 0 calc(var(--margin-left) * var(--unit));
   }
 
-  /* One project under the other: the image across the width, the caption under it. */
+  /* One project under the other: the image across the width, the caption under it,
+     centered. The space to the next project is the phone frame's (--phone-gap on the project,
+     37.5 unless set) */
   .work-project {
     display: grid;
     grid-template-columns: 1fr 1fr;
     column-gap: calc(8 * var(--unit));
-    margin-bottom: calc(72 * var(--unit));
+    margin-bottom: calc(var(--phone-gap, 37.5) * var(--unit));
   }
 
   .work-image,
@@ -3037,9 +3156,63 @@ body.about-page {
     transform-origin: var(--phone-zoom-at, 50% 50%);
   }
 
+  /* A video cut like in the phone frame (the plants): bigger than its box, from its
+     top left corner, so the box shows only part of it (--phone-media-width/-height) */
+  .work-image[style*="--phone-media-width"] .progressive-image {
+    inset: auto;
+    left: 0;
+    top: 0;
+    width: var(--phone-media-width);
+    height: var(--phone-media-height);
+  }
+
   .work-caption {
     width: auto;
-    margin-top: calc(12 * var(--unit));
+    margin-top: var(--home-phone-caption-space);
+    text-align: center;
+  }
+
+  /* ---- Let's talk: black with red punctuation, at the end of the page ---- */
+
+
+  .home-phone-talk {
+    display: block;
+    position: relative;
+    height: calc(348 * var(--unit));
+    background: var(--color-home-phone-talk-background);
+    color: var(--color-home-phone-talk);
+  }
+
+  .home-phone-talk-title,
+  .home-phone-contact {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    font-family: var(--font-intro);
+    line-height: 1.21;
+    white-space: nowrap;
+  }
+
+  .home-phone-talk-title {
+    left: calc(20 * var(--unit));
+    top: calc(-3 * var(--unit));
+    font-size: var(--size-home-phone-talk);
+  }
+
+  .home-phone-contact {
+    left: calc(21 * var(--unit));
+    top: calc(136.4 * var(--unit));
+    list-style: none;
+    font-size: var(--size-home-phone-contact);
+  }
+
+  .home-phone-talk-black,
+  .home-phone-contact .about-copy-bracket {
+    color: var(--color-home-phone-talk-accent);
+  }
+
+  .home-phone-contact .about-copy-bracket {
+    font-family: var(--font-accent-medium);
   }
 }
 
@@ -3081,8 +3254,8 @@ body.about-page {
   display: none;
   position: fixed;
   z-index: 4; /* above the menu */
-  top: calc(12 * var(--unit));
-  right: calc(var(--margin-left) * var(--unit));
+  top: calc(var(--menu-star-inset) + var(--menu-star-nudge, 0px));
+  right: var(--menu-star-inset);
   width: var(--menu-star-size);
   height: var(--menu-star-size);
   padding: 0;
@@ -3126,8 +3299,9 @@ body.about-page {
 
 .menu-link {
   align-self: flex-start;
-  font-family: var(--font-home-small);
+  font-family: var(--font-menu-link, var(--font-home-small));
   font-size: var(--size-menu-link);
+  letter-spacing: var(--tracking-menu-link, normal);
   line-height: normal;
   color: var(--color-menu-text);
   text-decoration: none;
@@ -3586,10 +3760,11 @@ body.about-page {
   white-space: nowrap;
 }
 
-/* On the phone: the description is in the light weight, a little bigger (as in Figma) */
-.cost-page .cost-phone-intro {
-  font-family: var(--font-cost-light);
-  font-size: var(--size-cost-phone-caption-big);
+/* On the phone the description is like the other project pages' paragraphs
+   (Helvetica Neue Regular 16, as in the updated phone frame); only the episode names are light */
+.cost-page .project-mobile .phone-text.cost-phone-intro {
+  font-family: var(--font-project-text);
+  font-size: var(--size-phone-text);
 }
 
 /* Two of the episode names are centered in their boxes; one of them a little bigger */
@@ -3851,14 +4026,14 @@ body.about-page {
 
 @media (max-width: 791px) {
   /* The height of each phone frame */
-  .shufuni-page { --project-page-height: calc(5816 * var(--unit)); }
-  .etymology-page { --project-page-height: calc(4136 * var(--unit)); }
-  .cinema-south-page { --project-page-height: calc(8019 * var(--unit)); }
-  .curious-page { --project-page-height: calc(4847 * var(--unit)); }
-  .football-page { --project-page-height: calc(3961 * var(--unit)); }
-  .cost-page { --project-page-height: calc(2273 * var(--unit)); }
-  .pill-page { --project-page-height: calc(4703 * var(--unit)); }
-  .dalia-page { --project-page-height: calc(3901 * var(--unit)); }
+  .shufuni-page { --project-page-height: calc(6345 * var(--unit)); }
+  .etymology-page { --project-page-height: calc(4154 * var(--unit)); }
+  .cinema-south-page { --project-page-height: calc(7237 * var(--unit)); }
+  .curious-page { --project-page-height: calc(4125 * var(--unit)); }
+  .football-page { --project-page-height: calc(3861 * var(--unit)); }
+  .cost-page { --project-page-height: calc(2175 * var(--unit)); }
+  .pill-page { --project-page-height: calc(4637 * var(--unit)); }
+  .dalia-page { --project-page-height: calc(4046 * var(--unit)); }
 
   /* The title's subtitle on the phone (Dalia and Dov): 38 next to 52 */
   .phone-title .project-title-edition {
@@ -3878,6 +4053,15 @@ body.about-page {
     --size-phone-next-view: calc(26.853 * var(--unit));
     --size-phone-next-arrow: calc(34.526 * var(--unit));
     --phone-next-line-weight: calc(1.513 * var(--unit)); /* the red line above "VIEW PROJECT" */
+    /* The carousels' dots and counter on the phone (like on Instagram) */
+    --carousel-dot-size: calc(6 * var(--unit));
+    --carousel-dot-gap: calc(5 * var(--unit));
+    --color-carousel-dot: #d9d9d9;                    /* the other dots: light gray */
+    --size-carousel-counter: calc(12 * var(--unit));
+    --carousel-counter-inset: calc(10 * var(--unit));
+    --carousel-counter-padding: calc(5 * var(--unit)) calc(8 * var(--unit));
+    --color-carousel-counter: #ffffff;
+    --color-carousel-counter-background: rgba(0, 0, 0, 0.55); /* a dark see-through pill */
     /* The carousels' arrows on the phone (the circle's size and its distance from the sides) */
     --phone-carousel-arrow-size: 36;
     --phone-carousel-arrow-inset: 10;
@@ -3946,6 +4130,78 @@ body.about-page {
     --color-carousel-arrow: var(--color-home-accent); /* on the phone: a red circle and arrow */
   }
 
+  /* The carousels on the phone, like on Instagram: no arrows (a finger swipes them),
+     a row of dots under the images (the current one red) and "2/4" in the top corner */
+  .phone-carousel .carousel-arrow {
+    display: none;
+  }
+
+  .carousel-dots {
+    display: flex;
+    justify-content: center;
+    gap: var(--carousel-dot-gap);
+    z-index: 1; /* above the image under it */
+    margin-top: calc(var(--dots-space, 5) * var(--unit)); /* from the bottom of the images (Shufuni's close-ups have only 15px below them) */
+  }
+
+  .carousel-dots span {
+    width: var(--carousel-dot-size);
+    height: var(--carousel-dot-size);
+    border-radius: 50%;
+    background: var(--color-carousel-dot);
+    transition: background-color var(--carousel-duration) ease;
+  }
+
+  .carousel-dots span.is-current {
+    background: var(--color-home-accent);
+  }
+
+  .carousel-counter {
+    position: absolute;
+    z-index: 2;
+    top: calc(var(--counter-top, 10) * var(--unit)); /* a carousel can set it lower (Cinema South: under the post's top bar) */
+    right: var(--carousel-counter-inset);
+    padding: var(--carousel-counter-padding);
+    border-radius: 999px;
+    background: var(--color-carousel-counter-background);
+    color: var(--color-carousel-counter);
+    font-family: "HN Regular", sans-serif;
+    font-size: var(--size-carousel-counter);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  /* "Tap here for full screen" above a video (The Curious Incident): red, underlined */
+  .phone-fullscreen-label {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-family: var(--font-project-text);
+    font-size: var(--size-phone-text);
+    line-height: normal;
+    color: var(--color-home-accent);
+    text-decoration: underline;
+    text-align: center;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  /* A tap on any video plays it on the whole screen, with sound (project.js) */
+  .project-mobile video {
+    cursor: pointer;
+  }
+
+  /* Cinema South: the black band across the width behind the program's pages */
+  .cinema-phone-black-band {
+    height: calc(var(--height) * var(--unit));
+    background: #000000;
+  }
+
+  /* A logo drawn as an SVG (Dalia and Dov): as tall as its width makes it */
+  .phone-logo {
+    height: auto;
+  }
+
   /* Next project (as in the phone frame) */
   .phone-next-label,
   .phone-next-title {
@@ -4002,6 +4258,35 @@ body.about-page {
   }
 }
 
+
+/* ---------- The case study's paragraphs rise gently into place (project.js) ----------
+   Each starts a little lower and see-through, and glides up as it scrolls onto the screen */
+.project-page {
+  --rise-distance: 28px;
+  --rise-duration: 900ms;
+  --rise-easing: cubic-bezier(0.22, 1, 0.36, 1); /* fast at first, then slowing down softly */
+}
+
+/* On the computer: slower and from a little further down, so it is still moving when seen */
+@media (min-width: 792px) {
+  .project-page {
+    --rise-distance: 44px;
+    --rise-duration: 1600ms;
+  }
+}
+
+.rise-text {
+  opacity: 0;
+  translate: 0 var(--rise-distance);
+  transition:
+    opacity var(--rise-duration) ease-out,
+    translate var(--rise-duration) var(--rise-easing);
+}
+
+.rise-text.is-risen {
+  opacity: 1;
+  translate: 0 0;
+}
 
 /* =========================================================
    Contact page (Figma "contact page desktop", 1440 x 848)
@@ -4070,10 +4355,82 @@ body.contact-page {
   color: var(--color-contact-red);
 }
 
-/* On a phone (no phone frame in Figma yet): the same picture, made smaller
-   to the width of the screen, still standing on the bottom */
+/* ---------- Contact on a phone (Figma "contact page mobile", 390 x 731) ----------
+   Its own <main>, placed by the phone frame's numbers (--unit: one pixel of the 390 frame) */
+.contact-page {
+  --size-contact-phone-big: calc(103.486 * var(--unit)); /* "Have a project in mind?" and "Let's talk." */
+  --size-contact-phone-lines: calc(47.899 * var(--unit));
+  --line-contact-phone-question: 0.99;
+  --contact-phone-page-height: calc(731 * var(--unit));
+}
+
+.contact-mobile,
+.contact-phone-band {
+  display: none;
+}
+
+/* "Have a project in mind?": thin, on three lines; the red "?" a little thicker */
+.contact-phone-question,
+.contact-phone-talk {
+  margin: 0;
+  font-family: var(--font-contact-talk);
+  font-weight: normal;
+  font-size: var(--size-contact-phone-big);
+}
+
+.contact-phone-question {
+  line-height: var(--line-contact-phone-question);
+}
+
+.contact-phone-question-mark {
+  font-family: var(--font-contact-question);
+}
+
+/* "Let's talk.": thin, its apostrophe and period red */
+.contact-phone-talk {
+  line-height: var(--line-contact);
+  white-space: nowrap;
+}
+
+.contact-phone-lines {
+  font-size: var(--size-contact-phone-lines);
+}
+
 @media (max-width: 791px) {
-  .contact-stage {
-    --unit: calc(100vw / 1440);
+  .contact {
+    display: none;
+  }
+
+  .contact-mobile {
+    display: block;
+    position: relative;
+    min-height: var(--contact-phone-page-height);
+  }
+
+  /* The red band at the top: above the page, under "Home" and the asterisk (as on About) */
+  .contact-phone-band {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: calc(77 * var(--unit));
+    background: var(--color-contact-red);
+  }
+
+  /* "Home" is plain black on the red band (as on About) */
+  .contact-page .home-name {
+    color: var(--color-contact-text);
+    mix-blend-mode: normal;
+  }
+
+  /* The asterisk is black on the red band */
+  .contact-page .menu-button svg {
+    color: var(--color-contact-text);
+  }
+
+  .contact-page .menu-button.is-open svg {
+    color: var(--color-menu-text);
   }
 }

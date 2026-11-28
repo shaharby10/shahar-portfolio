@@ -10,12 +10,12 @@
   <title>About · Shahar Ben Yaacov</title>
   <!-- Tells the CSS that JavaScript is on (images wait for it before fading in) -->
   <script>document.documentElement.classList.add('js');</script>
-  <link rel="stylesheet" href="styles.css?v=68a">
+  <link rel="stylesheet" href="styles.css?v=113">
   <script src="nav.js"></script>
   <script src="physics.js?v=2" defer></script>
-  <script src="about.js?v=16" defer></script>
-  <script src="contact.js" defer></script>
-  <script src="menu.js" defer></script>
+  <script src="about.js?v=21" defer></script>
+  <script src="contact.js?v=2" defer></script>
+  <script src="menu.js?v=2" defer></script>
 </head>
 <!-- The About page (Figma "about page desktop" and "about page mobile").
      "home-page" gives it the same sizes and navigation as the home page;
@@ -109,7 +109,7 @@
 
     <!-- The images of each work (on the right), in the order of the parts of its name -->
     <div class="about-work-image progressive project-placed" data-work="eisenkot" style="--left: 1149; --top: 872; --width: 231; --height: 351; --crop: 0 0; --preview: url('images/about/eisenkot-minibus-preview.jpg')">
-      <img class="progressive-image" src="images/about/eisenkot-minibus.jpg" alt="Gadi Eisenkot campaign on a minibus" width="470" height="835" decoding="async">
+      <img class="progressive-image" src="images/about/eisenkot-minibus.jpg" alt="Gadi Eisenkot campaign on a minibus" width="470" height="835" decoding="async" data-gallery-crop="1 / 1" data-gallery-focus="50% 47%">
     </div>
     <div class="about-work-image progressive project-placed" data-work="eisenkot" style="--left: 1150; --top: 872; --width: 230; --height: 172.5; --preview: url('images/about/eisenkot-netanyahu-ayalon-preview.jpg')">
       <img class="progressive-image" src="images/about/eisenkot-netanyahu-ayalon.jpg" alt="Gadi Eisenkot campaign billboard on the Ayalon highway" width="460" height="345" decoding="async">
@@ -146,15 +146,15 @@
     <h2 class="about-heading project-placed" style="--left: 45; --top: 1777; --width: 154">Tools</h2>
     <p class="about-text about-one-line project-placed" style="--left: 45; --top: 1835; --width: 547">InDesign · Claude Code · Photoshop ·<br>Lightroom · After Effects · Weavy · Illustrator</p>
 
-    <!-- ===== CV (no link yet): big, red and underlined ===== -->
-    <p class="about-cv project-placed" style="--left: 923; --top: 1741; --width: 447">View CV</p>
+    <!-- ===== CV: big, red and underlined; opens the CV (PDF) in a new tab ===== -->
+    <a class="about-cv project-placed" href="shahar-ben-yaacov-cv.pdf" target="_blank" rel="noopener" style="--left: 923; --top: 1741; --width: 447">View CV</a>
 
     <!-- ===== Let's talk ===== -->
     <p class="about-talk project-placed" style="--left: 27; --top: 1930; --width: 1080">Let<span class="about-red">'</span>s talk.</p>
     <!-- A click on a line (the word or "(copy)") copies the address, without opening it (contact.js) -->
     <ul class="about-contact project-placed" style="--left: 1060.17; --top: 2003.24; --width: 384.5">
       <li><button class="about-copy" type="button" data-copy="shaharby10@gmail.com" aria-label="Copy email address">Email <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
-      <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+      <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" data-copy-phone="by_shahar_" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
       <li><button class="about-copy" type="button" data-copy="www.linkedin.com/in/shaharbenyaacov" aria-label="Copy LinkedIn link">LinkedIn <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
     </ul>
   </main>
@@ -164,46 +164,51 @@
   <main class="about about-mobile">
 
     <!-- The red block behind the top of the page (the rest of the page is white) -->
-    <div class="about-red-block project-placed" style="--left: 0; --top: 0; --width: 390; --height: 1084"></div>
+    <div class="about-red-block project-placed" style="--left: 0; --top: 0; --width: 390; --height: 962"></div>
 
     <!-- ===== About & approach ===== -->
-    <div class="progressive project-placed" style="--left: 25; --top: 77; --width: 342; --height: 514; --preview: url('images/about/portrait-preview.jpg')">
+    <div class="progressive project-placed" style="--left: 98; --top: 98; --width: 199.61; --height: 300; --preview: url('images/about/portrait-preview.jpg')">
       <img class="progressive-image" src="images/about/portrait.jpg" alt="Shahar Ben Yaacov, black and white portrait" width="684" height="1026" decoding="async">
     </div>
-    <h2 class="about-heading about-centered project-placed" style="--left: -23; --top: 598; --width: 436">About &amp; Approach</h2>
-    <div class="about-phone-text project-placed" style="--left: 23; --top: 665; --width: 343">
+    <h2 class="about-heading about-phone-approach about-centered project-placed" style="--left: 23; --top: 438; --width: 344">About &amp; Approach</h2>
+    <div class="about-phone-text project-placed" style="--left: 23; --top: 515; --width: 343">
       <p>I’m a graphic designer with a particular interest in visual identities, typography, and art direction. <strong class="about-phone-bold">I enjoy research and concept development, as well as the challenge of building complex visual systems.</strong> I’m especially interested in working across languages, exploring their cultural contexts, and bringing them together within a shared visual system.</p>
       <p>Before moving into graphic design, I studied and practiced theatre directing. My background in the performing arts brings a different perspective to my design practice, shaping the way I approach storytelling, composition, space, and the relationships between different elements. While art direction feels like a natural continuation of that experience, this perspective influences my work across all areas of design.</p>
     </div>
 
-    <!-- ===== Recent clients: on the phone the roles always show (no images) ===== -->
-    <h2 class="about-phone-title about-centered project-placed" style="--left: -23; --top: 1104; --width: 436">Recent clients</h2>
-    <p class="about-phone-work project-placed" style="--left: -11; --top: 1157; --width: 412">Gadi Eisenkot Campaign</p>
-    <p class="about-phone-role project-placed" style="--left: -5; --top: 1300; --width: 400"><span class="about-role-name">Campaign designer</span><br>Re-Levant studio (2026)</p>
-    <p class="about-phone-work project-placed" style="--left: -11; --top: 1366; --width: 412">The Marker</p>
-    <p class="about-phone-role project-placed" style="--left: -5.5; --top: 1440; --width: 400"><span class="about-role-name">Digital marketing &amp;<br>motion designer</span><br>Freelance (2026)</p>
-    <p class="about-phone-work project-placed" style="--left: -11; --top: 1526; --width: 412">Carmelos</p>
-    <p class="about-phone-role project-placed" style="--left: -5; --top: 1597; --width: 400"><span class="about-role-name">Digital marketing designer</span><br>Freelance (2026)</p>
+    <!-- ===== Recent clients: on the phone the roles always show. Under each role a red "v":
+         a tap opens a small gallery of the work's images right there (it pushes the rest
+         down), the images changing by themselves; another tap closes it (about.js) ===== -->
+    <h2 class="about-phone-title about-centered project-placed" style="--left: -23; --top: 982; --width: 436">Recent clients</h2>
+    <p class="about-phone-work project-placed" style="--left: -11; --top: 1035; --width: 412">Gadi Eisenkot Campaign</p>
+    <p class="about-phone-role project-placed" style="--left: -5; --top: 1178; --width: 400"><span class="about-role-name">Campaign designer</span><br>Re-Levant studio (2026)</p>
+    <button class="about-phone-more project-placed" type="button" data-work="eisenkot" aria-expanded="false" aria-label="Show images: Gadi Eisenkot Campaign" style="--left: 179; --top: 1239; --width: 32; --height: 20"><svg viewBox="0 0 32 20" aria-hidden="true"><path d="M6 6 L16 15 L26 6"/></svg></button>
+    <p class="about-phone-work project-placed" style="--left: -11; --top: 1268; --width: 412">The Marker</p>
+    <p class="about-phone-role project-placed" style="--left: -5.5; --top: 1342; --width: 400"><span class="about-role-name">Digital marketing &amp;<br>motion designer</span><br>Freelance (2026)</p>
+    <button class="about-phone-more project-placed" type="button" data-work="the-marker" aria-expanded="false" aria-label="Show images: The Marker" style="--left: 179; --top: 1430; --width: 32; --height: 20"><svg viewBox="0 0 32 20" aria-hidden="true"><path d="M6 6 L16 15 L26 6"/></svg></button>
+    <p class="about-phone-work project-placed" style="--left: -11; --top: 1452; --width: 412">Carmelos</p>
+    <p class="about-phone-role project-placed" style="--left: -5; --top: 1523; --width: 400"><span class="about-role-name">Digital marketing designer</span><br>Freelance (2026)</p>
+    <button class="about-phone-more project-placed" type="button" data-work="carmelos" aria-expanded="false" aria-label="Show images: Carmelos" style="--left: 179; --top: 1584; --width: 32; --height: 20"><svg viewBox="0 0 32 20" aria-hidden="true"><path d="M6 6 L16 15 L26 6"/></svg></button>
 
     <!-- ===== Education: the emblem, the heading, then the text in a thin red frame ===== -->
     <!-- The Bezalel emblem: comes out of a blur when it scrolls into view, and stays (about.js) -->
-    <img class="about-emblem project-placed" src="images/about/bezalel-logo.png" alt="Bezalel Academy of Arts and Design emblem" width="300" height="300" style="--left: 119.68; --top: 1672.68; --width: 149.64">
-    <h2 class="about-phone-title about-centered project-placed" style="--left: -23; --top: 1842; --width: 436">Education</h2>
-    <div class="about-phone-frame project-placed" style="--left: 24; --top: 1899; --width: 342; --height: 204"></div>
-    <p class="about-text about-centered project-placed" style="--left: 35; --top: 1910; --width: 319">BA Candidate in Visual Communication<br>Bezalel Academy of Arts and Design</p>
+    <img class="about-emblem project-placed" src="images/about/bezalel-logo.png" alt="Bezalel Academy of Arts and Design emblem" width="300" height="300" style="--left: 119.68; --top: 1646.68; --width: 149.64">
+    <h2 class="about-phone-title about-centered project-placed" style="--left: -23; --top: 1816; --width: 436">Education</h2>
+    <div class="about-phone-frame project-placed" style="--left: 24; --top: 1883; --width: 342; --height: 204"></div>
+    <p class="about-text about-centered project-placed" style="--left: 35; --top: 1901; --width: 319">BA Candidate in Visual Communication<br>Bezalel Academy of Arts and Design</p>
 
     <!-- ===== Tools ===== -->
-    <h2 class="about-heading about-centered project-placed" style="--left: -24; --top: 2151; --width: 436">Tools</h2>
-    <p class="about-text about-centered project-placed" style="--left: 42.5; --top: 2208; --width: 304">InDesign · Claude Code · Photoshop · Lightroom · After Effects · Weavy · Illustrator</p>
+    <h2 class="about-heading about-centered project-placed" style="--left: -24; --top: 2125; --width: 436">Tools</h2>
+    <p class="about-text about-centered project-placed" style="--left: 42.5; --top: 2182; --width: 304">InDesign · Claude Code · Photoshop · Lightroom · After Effects · Weavy · Illustrator</p>
 
-    <!-- ===== CV (no link yet): big, red and underlined ===== -->
-    <p class="about-heading about-phone-cv project-placed" style="--left: 32; --top: 2404; --width: 330">View CV</p>
+    <!-- ===== CV: big, red and underlined; opens the CV (PDF) in a new tab ===== -->
+    <a class="about-heading about-phone-cv project-placed" href="shahar-ben-yaacov-cv.pdf" target="_blank" rel="noopener" style="--left: 32; --top: 2378; --width: 330">View CV</a>
 
     <!-- ===== Let's talk: black, with a red apostrophe and period ===== -->
-    <p class="about-talk about-phone-talk project-placed" style="--left: 29; --top: 2522; --width: 333">Let<span class="about-red">'</span>s talk<span class="about-red">.</span></p>
-    <ul class="about-contact about-phone-contact project-placed" style="--left: 30; --top: 2655; --width: 316">
+    <p class="about-talk about-phone-talk project-placed" style="--left: 29; --top: 2496; --width: 333">Let<span class="about-red">'</span>s talk<span class="about-red">.</span></p>
+    <ul class="about-contact about-phone-contact project-placed" style="--left: 30; --top: 2629; --width: 316">
       <li><button class="about-copy" type="button" data-copy="shaharby10@gmail.com" aria-label="Copy email address">Email <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
-      <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+      <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" data-copy-phone="by_shahar_" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
       <li><button class="about-copy" type="button" data-copy="www.linkedin.com/in/shaharbenyaacov" aria-label="Copy LinkedIn link">LinkedIn <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
     </ul>
   </main>

@@ -9,10 +9,10 @@
   <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
   <title>Contact · Shahar Ben Yaacov</title>
   <script>document.documentElement.classList.add('js');</script>
-  <link rel="stylesheet" href="styles.css?v=68a">
+  <link rel="stylesheet" href="styles.css?v=113">
   <script src="nav.js"></script>
-  <script src="contact.js" defer></script>
-  <script src="menu.js" defer></script>
+  <script src="contact.js?v=2" defer></script>
+  <script src="menu.js?v=2" defer></script>
 </head>
 <!-- The Contact page (Figma "contact page desktop").
      "home-page" gives it the same sizes and navigation as the home page;
@@ -50,7 +50,7 @@
     <a class="menu-link" href="contact.html">Contact</a>
   </nav>
 
-  <!-- The page fills the screen; the text sits at its bottom, as in Figma.
+  <!-- The computer version. The page fills the screen; the text sits at its bottom, as in Figma.
        Everything is placed by its Figma numbers in style=""
        (--left, --top, --width in Figma pixels of the 1440 x 848 frame). -->
   <main class="contact">
@@ -60,10 +60,25 @@
       <!-- A click on a line (the word or "(copy)") copies the address, without opening it (contact.js) -->
       <ul class="contact-lines project-placed" style="--left: 1067; --top: 518; --width: 338">
         <li><button class="about-copy" type="button" data-copy="shaharby10@gmail.com" aria-label="Copy email address">Email <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
-        <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+        <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" data-copy-phone="by_shahar_" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
         <li><button class="about-copy" type="button" data-copy="www.linkedin.com/in/shaharbenyaacov" aria-label="Copy LinkedIn link">LinkedIn <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
       </ul>
     </div>
+  </main>
+
+  <!-- ==================== Phone (Figma "contact page mobile", 390 x 731) ====================
+       Placed by the Figma numbers of the phone frame. The red band at the top stays
+       under "Home" and the asterisk while the page scrolls. -->
+  <div class="contact-phone-band"></div>
+  <main class="contact-mobile">
+    <h1 class="contact-phone-question project-placed" style="--left: 29; --top: 92; --width: 337">Have a project in mind<span class="contact-red contact-phone-question-mark">?</span></h1>
+    <p class="contact-phone-talk project-placed" style="--left: 28; --top: 394; --width: 333">Let<span class="contact-red">'</span>s talk<span class="contact-red">.</span></p>
+    <!-- A tap on a line copies the address (contact.js) -->
+    <ul class="contact-lines contact-phone-lines project-placed" style="--left: 29; --top: 526.98; --width: 315.75">
+      <li><button class="about-copy" type="button" data-copy="shaharby10@gmail.com" aria-label="Copy email address">Email <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+      <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" data-copy-phone="by_shahar_" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+      <li><button class="about-copy" type="button" data-copy="www.linkedin.com/in/shaharbenyaacov" aria-label="Copy LinkedIn link">LinkedIn <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+    </ul>
   </main>
 </body>
 </html>

@@ -80,6 +80,7 @@ function askForFade() {
 // The running small line (marquee, below) is the last thing in the intro.
 function fitIntroOnPhone() {
   intro.style.removeProperty('--size-intro');
+  return; // (the phone frame in Figma now sets the intro's size itself: 39px, styles.css)
   if (!phoneLayout.matches) return;
   const firstImage = document.querySelector('.work-image');
   const gap = 24 * document.body.clientWidth / 390; // --intro-to-peek in styles.css (24 phone pixels)
@@ -239,6 +240,7 @@ let morphLayer = null; // the moving copies of the words, while Switch is animat
 
 switchButton.addEventListener('click', () => {
   if (document.documentElement.classList.contains('is-entering')) return; // wait for the entrance
+  if (phoneLayout.matches) { playPunctuation(); return; } // on the phone: the punctuation, once (section 7)
   const duration = cssTime('--switch-duration');
   const easing = getComputedStyle(document.body).getPropertyValue('--switch-easing').trim() || 'ease';
   const words = [...intro.querySelectorAll('.intro-text .word, .intro-tagline .word')];
@@ -292,6 +294,31 @@ switchButton.addEventListener('click', () => {
     watchIntro();
   }, duration + 50);
 });
+
+// ---------- 3b. On a phone the "~" blurs and fades away as the intro scrolls past ----------
+
+// From the top of the page until the small line under the intro reaches the line
+// under "Home", the "~" grows blurrier and fainter; after that it is gone (and can't
+// be tapped). Scrolling back up brings it back. The strongest blur is in styles.css.
+function fadeTilde() {
+  const style = switchButton.style;
+  if (!phoneLayout.matches) {
+    style.opacity = style.filter = style.visibility = '';
+    return;
+  }
+  const unit = document.body.clientWidth / 390;
+  const tagline = intro.querySelector('.intro-tagline');
+  const end = tagline.offsetTop + tagline.offsetHeight - 77 * unit; // 77: the line under "Home"
+  const progress = Math.min(1, Math.max(0, window.scrollY / end));
+  const blur = parseFloat(getComputedStyle(document.body).getPropertyValue('--tilde-fade-blur')) || 0;
+  style.opacity = 1 - progress;
+  style.filter = `blur(${progress * blur}px)`;
+  style.visibility = progress >= 1 ? 'hidden' : '';
+}
+
+window.addEventListener('scroll', fadeTilde, { passive: true });
+window.addEventListener('resize', fadeTilde);
+fadeTilde();
 
 // ---------- 4. The long dash spins when clicked ----------
 
@@ -453,10 +480,8 @@ function measureDot(period) {
 
 // The whole word ("direction." and "look.") acts like its period:
 // over it the period bounces (styles.css), a click rolls the period
-intro.querySelectorAll('.intro-text .accent-period').forEach(period => {
-  const word = period.closest('.word') || period;
-  word.addEventListener('click', () => {
-    if (phoneLayout.matches || wantsLessMotion() || period.classList.contains('is-rolling')) return;
+function rollPeriod(period) {
+    if (wantsLessMotion() || period.classList.contains('is-rolling')) return;
     const box = period.getBoundingClientRect();
     const dot = measureDot(period);
     const turn = distance => distance / (Math.PI * dot.size) * 360; // degrees for a distance
@@ -477,6 +502,14 @@ intro.querySelectorAll('.intro-text .accent-period').forEach(period => {
     ], { duration: outTime + inTime }).finished.then(() => {
       period.classList.remove('is-rolling');
     });
+}
+
+// On a computer a click on the period (or its word) rolls it.
+// (On a phone the "~" sets all the punctuation going at once, section 3.)
+intro.querySelectorAll('.intro-text .accent-period').forEach(period => {
+  const word = period.closest('.word') || period;
+  word.addEventListener('click', () => {
+    if (!phoneLayout.matches) rollPeriod(period);
   });
 });
 
@@ -532,8 +565,13 @@ introText.querySelectorAll('.accent-comma').forEach(comma => {
   trigger.addEventListener('click', event => {
     if (phoneLayout.matches || wantsLessMotion()) return;
     if (insideLink) event.preventDefault(); // the comma falls instead of opening About
-    if (comma.classList.contains('is-falling')) return;
+    dropComma(comma);
+  });
+});
 
+// The comma tips over, falls onto the line below and bounces back up
+function dropComma(comma) {
+    if (wantsLessMotion() || comma.classList.contains('is-falling')) return;
     const tail = placeCommaTail(comma);
     const box = comma.getBoundingClientRect();
     const lineHeight = parseFloat(getComputedStyle(introText).lineHeight);
@@ -560,8 +598,22 @@ introText.querySelectorAll('.accent-comma').forEach(comma => {
     ], { duration: total }).finished.then(() => {
       comma.classList.remove('is-falling');
     });
+}
+
+// On a phone a tap on the "~" sets all the red punctuation of the intro going once,
+// as the clicks on a computer do: the periods roll away and back, the commas (and the
+// apostrophe) fall and bounce back, and the long dash spins. Like an orchestra, they
+// start one after another in reading order, a short moment apart (--punctuation-stagger)
+function playPunctuation() {
+  const stagger = cssTime('--punctuation-stagger');
+  introText.querySelectorAll('.accent-period, .accent-comma, .accent-dash').forEach((mark, i) => {
+    setTimeout(() => {
+      if (mark.classList.contains('accent-period')) rollPeriod(mark);
+      else if (mark.classList.contains('accent-comma')) dropComma(mark);
+      else spinDash(mark);
+    }, i * stagger);
   });
-});
+}
 
 // ---------- 9. The entrance: the words fall, then arrange themselves ----------
 
@@ -594,9 +646,13 @@ function entrancePieces() {
 
 function playEntrance() {
   const root = document.documentElement;
-  const finish = () => root.classList.remove('is-entering');
+  const finish = () => root.classList.remove('is-entering', 'is-entrance-running');
   if (!root.classList.contains('is-entering')) return;
-  if (window.scrollY > 0 || wantsLessMotion() || phoneLayout.matches) { finish(); return; }
+  if (window.scrollY > 0 || wantsLessMotion()) { finish(); return; } // (on the phone too)
+  // From here the script shows the sentence itself when the words have arrived, so the
+  // CSS's "show it anyway after 9 seconds" (for when the script fails) is turned off:
+  // on a slow phone it used to show the sentence while the words were still moving
+  root.classList.add('is-entrance-running');
 
   // Scrolling (wheel, finger, or keys) during the entrance skips it: the words go straight
   // into the sentence and the projects appear, so the page can be scrolled to them
@@ -605,6 +661,7 @@ function playEntrance() {
   const scrollKeys = ['ArrowDown', 'PageDown', 'End', ' ', 'Spacebar'];
   const onKey = event => { if (scrollKeys.includes(event.key)) skip(); };
   const stopListening = () => {
+    if (window.visualViewport) window.visualViewport.removeEventListener('resize', moveFloor);
     window.removeEventListener('wheel', skip);
     window.removeEventListener('touchmove', skip);
     window.removeEventListener('scroll', skip);
@@ -633,18 +690,36 @@ function playEntrance() {
   const css = getComputedStyle(document.body);
   const easing = css.getPropertyValue('--switch-easing').trim() || 'ease';
   // Gravity: how far a piece falls more each step (1/60 s), as part of the screen height
-  const gravity = parseFloat(css.getPropertyValue('--entrance-gravity')) * window.innerHeight / 3600;
+  // The screen's height: on a phone, the part of the screen the page really shows
+  // (without the browser's bars), so the words land on its bottom edge on every phone
+  const screenHeight = () => (phoneLayout.matches && window.visualViewport) ? window.visualViewport.height : window.innerHeight;
+  const gravity = parseFloat(css.getPropertyValue('--entrance-gravity')) * screenHeight() / 3600;
   const random = (from, to) => from + Math.random() * (to - from);
 
   const introBox = intro.getBoundingClientRect();
   const layer = document.createElement('div');
   layer.className = 'morph-layer';
   layer.setAttribute('aria-hidden', 'true');
-  intro.append(layer);
+  if (phoneLayout.matches) {
+    // On a phone the words fall in a layer of their own above the page, in the same place
+    // as the intro: inside the intro (blurred and cut at its sides) the phone's browser
+    // didn't redraw them while they moved, so they showed only once they stood still
+    layer.classList.add('is-above-page');
+    Object.assign(layer.style, {
+      left: introBox.left + 'px', top: introBox.top + 'px',
+      width: introBox.width + 'px', height: introBox.height + 'px'
+    });
+    document.body.append(layer);
+  } else {
+    intro.append(layer);
+  }
 
   // The floor: the bottom of the screen (the projects are hidden during the entrance,
   // styles.css, so the words pile up all the way down)
-  const floor = window.innerHeight - introBox.top;
+  let floor = screenHeight() - introBox.top;
+  // If the browser's bars move while the words fall, the floor follows the screen's bottom
+  const moveFloor = () => { floor = screenHeight() - introBox.top; };
+  if (window.visualViewport) window.visualViewport.addEventListener('resize', moveFloor);
   const width = window.innerWidth;
 
   const measure = document.createElement('canvas').getContext('2d');
@@ -744,7 +819,13 @@ function playEntrance() {
       copy.animate([{ transform: from }, { transform: 'none' }], { duration: arrange, delay, easing, fill: 'both' });
     });
     // 3. Everything is in place: show the real sentence
-    doneTimer = setTimeout(() => { stopListening(); layer.remove(); finish(); }, lastArrival + 30);
+    // (the real sentence appears first, and the copies go away a moment later, so there
+    // is never a moment with neither of them: that showed as a flicker on the phone)
+    doneTimer = setTimeout(() => {
+      stopListening();
+      finish();
+      requestAnimationFrame(() => requestAnimationFrame(() => layer.remove()));
+    }, lastArrival + 30);
   }
 }
 

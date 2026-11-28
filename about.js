@@ -2,9 +2,11 @@
 // 1. Images go from a blurred preview to sharp when they load (like the project pages).
 // 2. Recent work: hovering a work shows its images and its role.
 // 3. Education: the Bezalel emblem appears and turns once when it scrolls into view, and stays;
-//    on a computer it turns again each time the mouse comes over it.
+//    on a computer it turns again each time the mouse comes over it; on a phone each time
+//    it scrolls into view, and at each tap.
 // 4. On a computer, a click on the portrait throws letters out of the red block's top left
 //    corner; they fall and pile up at its bottom. Another click plays it all backwards.
+// 5. On a phone, the red "v" under each role opens a small gallery of the work's images.
 // (The address lines that copy on a click are in contact.js.)
 // (The asterisk menu on a phone is in menu.js.)
 
@@ -54,14 +56,15 @@ document.querySelectorAll('.about-work').forEach(row => {
 // On a computer: when the emblem scrolls into view, it appears and turns once
 // clockwise; after that it turns again each time the mouse comes over it.
 const emblem = document.querySelector('.about-desktop .about-emblem');
-let emblemTurn = null;
+const emblemTurns = new Map(); // the turn each emblem is making now (computer, phone)
 
-function turnEmblem() {
-  if (emblemTurn && emblemTurn.playState === 'running') return; // let a turn finish first
-  const duration = parseFloat(getComputedStyle(emblem).getPropertyValue('--emblem-turn-duration')) || 1200;
+function turnEmblem(target = emblem) {
+  const running = emblemTurns.get(target);
+  if (running && running.playState === 'running') return; // let a turn finish first
+  const duration = parseFloat(getComputedStyle(target).getPropertyValue('--emblem-turn-duration')) || 1200;
   // "rotate" is separate from the emblem's own small tilt (its "transform" in styles.css);
   // from -360° to 0° is one full turn clockwise
-  emblemTurn = emblem.animate([{ rotate: '-360deg' }, { rotate: '0deg' }], { duration, easing: 'ease-in-out' });
+  emblemTurns.set(target, target.animate([{ rotate: '-360deg' }, { rotate: '0deg' }], { duration, easing: 'ease-in-out' }));
 }
 
 function showEmblem() {
@@ -85,15 +88,19 @@ emblem.addEventListener('pointerenter', () => {
   if (emblem.classList.contains('is-shown')) turnEmblem(); else showEmblem();
 });
 
-// On a phone (no mouse): when the emblem has scrolled well into the screen
+// On a phone (no mouse): each time the emblem scrolls well into the screen it turns
+// once (the first time it also appears, and stays); a tap on it turns it again too
 const phoneEmblem = document.querySelector('.about-mobile .about-emblem');
 const emblemWatcher = new IntersectionObserver(entries => {
   if (entries[0].isIntersecting) {
     phoneEmblem.classList.add('is-shown');
-    emblemWatcher.disconnect(); // it stays, nothing more to watch
+    turnEmblem(phoneEmblem);
   }
 }, { threshold: 0.6 });
 emblemWatcher.observe(phoneEmblem);
+phoneEmblem.addEventListener('click', () => {
+  if (phoneEmblem.classList.contains('is-shown')) turnEmblem(phoneEmblem);
+});
 
 // ---------- 4. The portrait throws letters into the red block ----------
 // A click on the portrait (computer) lets the letters of the first sentence next to it
@@ -309,3 +316,85 @@ if (redBlock && portrait && typeof makeBody === 'function' && !lessMotion) {
     // (while they fly back, a click waits for them to arrive)
   });
 }
+
+// ---------- 5. Phone: a small gallery under each role ----------
+
+// A tap on the red "v" under a role opens a red frame right under it, with the work's
+// images (the same ones the computer shows on hover), one at a time, each whole,
+// fading into the next by itself. Everything under it glides down to make room.
+// The "v" stays where it is and turns upside down; another tap closes the gallery.
+// The sizes and times are in styles.css (--about-gallery-...).
+const aboutPhone = document.querySelector('.about-mobile');
+const galleryButtons = aboutPhone ? [...aboutPhone.querySelectorAll('.about-phone-more')] : [];
+const cssNumber = name => parseFloat(getComputedStyle(document.body).getPropertyValue(name)) || 0;
+const figmaTop = element => parseFloat(element.style.getPropertyValue('--top')) || 0;
+
+const galleries = galleryButtons.map(button => {
+  const work = button.dataset.work;
+  // what lies below the "v" (its bottom edge) moves down when the gallery opens
+  const below = figmaTop(button) + parseFloat(button.style.getPropertyValue('--height'));
+  const top = below + cssNumber('--about-gallery-gap');
+  const gallery = document.createElement('div');
+  gallery.className = 'about-gallery project-placed';
+  gallery.style.cssText = `--left: 24; --top: ${top}; --width: 342`;
+  const frame = document.createElement('div');
+  frame.className = 'about-gallery-frame';
+  gallery.append(frame);
+  // The work's images, from the computer version of the page
+  const images = [...document.querySelectorAll(`.about-desktop .about-work-image[data-work="${work}"] img`)].map(source => {
+    const image = document.createElement('img');
+    image.className = 'about-gallery-image';
+    image.src = source.getAttribute('src');
+    image.alt = source.alt;
+    image.loading = 'lazy';
+    // An image can ask to be cut to another shape in the gallery, and bigger
+    // (data-gallery-crop: its shape, data-gallery-focus: the point the cut keeps in view)
+    if (source.dataset.galleryCrop) {
+      image.classList.add('is-cut');
+      image.style.setProperty('--gallery-crop', source.dataset.galleryCrop);
+      image.style.setProperty('--gallery-focus', source.dataset.galleryFocus || '50% 50%');
+    }
+    frame.append(image);
+    return image;
+  });
+  if (images[0]) images[0].classList.add('is-shown');
+  button.after(gallery);
+  return { button, gallery, images, top, below, open: false, timer: 0, current: 0 };
+});
+
+// Everything under an open gallery is pushed down by its height (and a gap under it)
+function pushAboutPage() {
+  const room = cssNumber('--about-gallery-height') + cssNumber('--about-gallery-gap');
+  let total = 0;
+  galleries.forEach(g => { if (g.open) total += room; });
+  aboutPhone.style.setProperty('--about-push-total', total);
+  aboutPhone.querySelectorAll('.project-placed').forEach(element => {
+    const top = figmaTop(element);
+    let push = 0;
+    galleries.forEach(g => { if (g.open && g.gallery !== element && g.below <= top) push += room; });
+    // a gallery itself moves with the galleries above it
+    if (element.classList.contains('about-gallery')) {
+      push = 0;
+      galleries.forEach(g => { if (g.open && g.top < top) push += room; });
+    }
+    element.style.setProperty('--about-push', push);
+  });
+}
+
+function showNext(g) {
+  if (g.images.length < 2) return;
+  g.images[g.current].classList.remove('is-shown');
+  g.current = (g.current + 1) % g.images.length;
+  g.images[g.current].classList.add('is-shown');
+}
+
+galleries.forEach(g => {
+  g.button.addEventListener('click', () => {
+    g.open = !g.open;
+    g.button.setAttribute('aria-expanded', g.open);
+    g.gallery.classList.toggle('is-open', g.open);
+    clearInterval(g.timer);
+    if (g.open) g.timer = setInterval(() => showNext(g), cssNumber('--about-gallery-interval'));
+    pushAboutPage();
+  });
+});

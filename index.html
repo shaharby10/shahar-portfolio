@@ -11,20 +11,19 @@
   <!-- Tells the CSS that JavaScript is on (images wait for it before fading in) -->
   <script>document.documentElement.classList.add('js');</script>
   <!-- The entrance: the sentence stays hidden until its words have fallen and
-       arranged themselves (home.js). Wide screens only (the phone's intro is built
-       differently), not for people who ask for less motion, and not when the page
-       opens already scrolled down. -->
+       arranged themselves (home.js). On every screen (the phone too), but not for people
+       who ask for less motion, and not when the page opens already scrolled down. -->
   <script>
-    if (matchMedia('(min-width: 792px)').matches && !matchMedia('(prefers-reduced-motion: reduce)').matches && !location.hash) {
+    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !location.hash) {
       document.documentElement.classList.add('is-entering');
     }
   </script>
-  <link rel="stylesheet" href="styles.css?v=68a">
+  <link rel="stylesheet" href="styles.css?v=113">
   <script src="nav.js"></script>
   <script src="physics.js?v=2" defer></script>
   <script src="view-cursor.js" defer></script>
-  <script src="home.js?v=13" defer></script>
-  <script src="contact.js" defer></script>
+  <script src="home.js?v=18" defer></script>
+  <script src="contact.js?v=2" defer></script>
 </head>
 <body class="home-page">
 
@@ -69,8 +68,8 @@
            "break-c" line breaks only appear in the third layout. -->
       <!-- The big name leads to the About page (a temporary page for now) -->
       <p class="intro-text">
-        <span class="intro-im">I<span class="accent accent-medium accent-comma">’</span>m</span>
-        <a class="intro-name" href="about.html">Shahar Ben Yaacov<span class="accent accent-medium accent-comma">,</span></a><br class="break-c">
+        <span class="intro-im">I<span class="accent accent-medium accent-comma">’</span>m</span><br class="break-phone-intro">
+        <a class="intro-name" href="about.html">Shahar Ben Yaacov<span class="accent accent-medium accent-comma">,</span></a><br class="break-c"><br class="break-phone-intro">
         <span class="intro-rest"><span class="intro-rest-a">a graphic <br class="break-a">designer working across print<span class="accent accent-medium accent-comma">,</span> visual <br class="break-ac">identities<span class="accent accent-medium accent-comma">,</span> and art direction<span class="accent accent-period">.</span></span><br class="break-ab"><span class="intro-rest-b">I shape what <br class="break-phone">ideas say <span class="accent accent-dash">—</span> <br class="break-phone">not just how <br class="break-phone">they look<span class="accent accent-period">.</span></span></span>
       </p>
       <p class="intro-tagline">from <br class="break-c">the first words to the smallest visual details.</p>
@@ -87,12 +86,12 @@
     <div class="home-work">
 
       <!-- Shufuni Cider (the image and the caption lead to the project page). -->
-      <div class="work-project">
-        <!-- On a phone: the whole tall photo of the hand holding the sabra bottle instead (<picture>, styles.css),
-             zoomed in on the hand and the bottle (--phone-zoom, around --phone-zoom-at) -->
-        <a class="progressive work-image work-image-phone-alt" href="shufuni-cider.html" style="--left: 414; --top: 795; --width: 996; --height: 696; --phone-ratio: 797 / 1196; --phone-zoom: 1.4; --phone-zoom-at: 53% 38%; --preview: url('images/home/shufuni-hand-preview.jpg'); --preview-phone: url('images/shufuni/hand-at-beach-preview.jpg')">
+      <div class="work-project" style="--phone-gap: 33.5">
+        <!-- On a phone: the tall photo of the woman holding the bottle instead (<picture>, styles.css),
+             cut like in the phone frame -->
+        <a class="progressive work-image work-image-phone-alt" href="shufuni-cider.html" style="--left: 414; --top: 795; --width: 996; --height: 696; --phone-ratio: 342 / 523; --preview: url('images/home/shufuni-hand-preview.jpg'); --preview-phone: url('images/home/shufuni-phone-preview.jpg')">
           <picture>
-            <source media="(max-width: 791px)" srcset="images/shufuni/hand-at-beach.jpg">
+            <source media="(max-width: 791px)" srcset="images/home/shufuni-phone.jpg">
             <img class="progressive-image" src="images/home/shufuni-hand.jpg" alt="A hand holding a bottle of Shufuni cider" loading="lazy" decoding="async">
           </picture>
         </a>
@@ -104,8 +103,8 @@
 
       <!-- Cinema South Festival: the moving poster (a video without sound).
            The poster and the caption lead to the project page. -->
-      <div class="work-project">
-        <a class="progressive work-image" href="cinema-south.html" style="--left: 1011; --top: 1537; --width: 402; --height: 569; --preview: url('images/home/cinema-south-etty-poster-preview.jpg')">
+      <div class="work-project" style="--phone-gap: 15.5">
+        <a class="progressive work-image" href="cinema-south.html" style="--left: 1011; --top: 1537; --width: 402; --height: 569; --phone-ratio: 342 / 483.14; --preview: url('images/home/cinema-south-etty-poster-preview.jpg')">
           <video class="progressive-image" src="images/home/cinema-south-etty-poster.mp4" poster="images/home/cinema-south-etty-poster.jpg" autoplay muted loop playsinline aria-label="An animated Cinema South Festival screening poster"></video>
         </a>
         <a class="work-caption" href="cinema-south.html" style="--left: 582; --top: 1570; --width: 382">
@@ -117,7 +116,7 @@
       <!-- Etymology of wild plants (the video and the caption lead to the project page). -->
       <div class="work-project">
         <!-- A video on a white background; its white lets what is behind it show through (styles.css) -->
-        <a class="progressive work-image work-image-see-through work-image-hit-areas" href="etymology-exhibition.html" style="--left: -5.93; --top: 2024; --width: 955; --height: 609; --preview: url('images/home/etymology-plants-cropped-preview.jpg')">
+        <a class="progressive work-image work-image-see-through work-image-hit-areas" href="etymology-exhibition.html" style="--left: -5.93; --top: 2024; --width: 955; --height: 609; --phone-ratio: 342 / 235; --phone-media-width: 119.53%; --phone-media-height: 111.06%; --preview: url('images/home/etymology-plants-cropped-preview.jpg')">
           <video class="progressive-image work-video-white" src="images/home/etymology-plants-cropped.mp4" poster="images/home/etymology-plants-cropped.jpg" autoplay muted loop playsinline aria-label="Three blue plants turning slowly: Mentha, Arbutus and Anchusa"></video>
           <!-- With a mouse, only the plants themselves react (open the project, show [ VIEW PROJECT ]),
                not the white around them: one area per plant, without its name
@@ -135,7 +134,7 @@
       <!-- The curious incident of the dog in the night-time: the caption above the video
            (the video and the caption lead to the project page). -->
       <div class="work-project">
-        <a class="progressive work-image" href="curious-incident.html" style="--left: 395; --top: 2788; --width: 651; --height: 365; --preview: url('images/home/curious-title-sequence-poster-preview.jpg')">
+        <a class="progressive work-image" href="curious-incident.html" style="--left: 395; --top: 2788; --width: 651; --height: 365; --phone-ratio: 342 / 192.375; --preview: url('images/home/curious-title-sequence-poster-preview.jpg')">
           <video class="progressive-image" src="images/home/curious-title-sequence.mp4" poster="images/home/curious-title-sequence-poster.jpg" autoplay muted loop playsinline aria-label="The title sequence: a hand-drawn map of streets, then a street with a small dog"></video>
         </a>
         <a class="work-caption" href="curious-incident.html" style="--left: 27; --top: 2733; --width: 602">
@@ -147,7 +146,7 @@
       <!-- Football in Israel: the booklet's pages turning (a video without sound).
            The video and the caption lead to the project page. -->
       <div class="work-project">
-        <a class="progressive work-image" href="football-in-israel.html" style="--left: 24; --top: 3333; --width: 925; --height: 635; --preview: url('images/home/football-in-israel-flip-poster-preview.jpg')">
+        <a class="progressive work-image" href="football-in-israel.html" style="--left: 24; --top: 3333; --width: 925; --height: 635; --phone-ratio: 340.71 / 233.93; --preview: url('images/home/football-in-israel-flip-poster-preview.jpg')">
           <video class="progressive-image" src="images/home/football-in-israel-flip.mp4" poster="images/home/football-in-israel-flip-poster.jpg" autoplay muted loop playsinline aria-label="The Football in Israel booklet, its pages turning"></video>
         </a>
         <a class="work-caption" href="football-in-israel.html" style="--left: 972; --top: 3367; --width: 336">
@@ -159,7 +158,7 @@
       <!-- Consumerism Crisis: an animation (a video without sound), the caption on its left.
            The video and the caption lead to the project page ("The Cost of Consumption"). -->
       <div class="work-project">
-        <a class="progressive work-image" href="cost-of-consumption.html" style="--left: 1030; --top: 4100; --width: 339; --height: 234; --preview: url('images/home/consumerism-crisis-poster-preview.jpg')">
+        <a class="progressive work-image" href="cost-of-consumption.html" style="--left: 1030; --top: 4100; --width: 339; --height: 234; --phone-ratio: 342 / 236; --preview: url('images/home/consumerism-crisis-poster-preview.jpg')">
           <video class="progressive-image" src="images/home/consumerism-crisis.mp4" poster="images/home/consumerism-crisis-poster.jpg" autoplay muted loop playsinline aria-label="An illustrated man in a suit floating by a pool"></video>
         </a>
         <a class="work-caption" href="cost-of-consumption.html" style="--left: 768; --top: 4133; --width: 212">
@@ -170,19 +169,27 @@
 
       <!-- The Fine Print of the Pill (the image and the caption lead to the project page) -->
       <div class="work-project">
-        <a class="progressive work-image" href="fine-print-of-the-pill.html" style="--left: 27; --top: 4467; --width: 566; --height: 645; --preview: url('images/home/the-pill-cropped-preview.jpg')">
-          <img class="progressive-image" src="images/home/the-pill-cropped.jpg" alt="Hands holding open a broadsheet" loading="lazy" decoding="async">
+        <!-- On a phone: another photo of the broadsheet, cut like in the phone frame -->
+        <a class="progressive work-image work-image-phone-alt" href="fine-print-of-the-pill.html" style="--left: 27; --top: 4467; --width: 566; --height: 645; --phone-ratio: 342 / 449; --preview: url('images/home/the-pill-cropped-preview.jpg'); --preview-phone: url('images/home/pill-phone-preview.jpg')">
+          <picture>
+            <source media="(max-width: 791px)" srcset="images/home/pill-phone.jpg">
+            <img class="progressive-image" src="images/home/the-pill-cropped.jpg" alt="Hands holding open a broadsheet" loading="lazy" decoding="async">
+          </picture>
         </a>
         <a class="work-caption" href="fine-print-of-the-pill.html" style="--left: 619; --top: 4500; --width: 385">
           <span class="work-title">The Fine Print of the Pill</span>
-          <span class="work-tag">Broadsheet Design, Complex Typography, Editorial Research</span>
+          <span class="work-tag">Broadsheet Design, Complex Typography,<br class="break-phone-caption"> Editorial Research</span>
         </a>
       </div>
 
       <!-- Dalia and Dov (the image and the caption lead to the project page) -->
-      <div class="work-project">
-        <a class="progressive work-image" href="dalia-and-dov.html" style="--left: 27; --top: 5250; --width: 966; --height: 644; --preview: url('images/home/dalia-and-dov-cropped-preview.jpg')">
-          <img class="progressive-image" src="images/home/dalia-and-dov-cropped.jpg" alt="Hands resting on an open book" loading="lazy" decoding="async">
+      <div class="work-project" style="--phone-gap: 40.5">
+        <!-- On a phone: another photo of the book, cut like in the phone frame -->
+        <a class="progressive work-image work-image-phone-alt" href="dalia-and-dov.html" style="--left: 27; --top: 5250; --width: 966; --height: 644; --phone-ratio: 341 / 227; --preview: url('images/home/dalia-and-dov-cropped-preview.jpg'); --preview-phone: url('images/home/dalia-phone-preview.jpg')">
+          <picture>
+            <source media="(max-width: 791px)" srcset="images/home/dalia-phone.jpg">
+            <img class="progressive-image" src="images/home/dalia-and-dov-cropped.jpg" alt="Hands resting on an open book" loading="lazy" decoding="async">
+          </picture>
         </a>
         <a class="work-caption" href="dalia-and-dov.html" style="--left: 1013; --top: 5284; --width: 240">
           <span class="work-title">Dalia and Dov</span>
@@ -195,11 +202,22 @@
       <p class="home-talk" style="--left: 27; --top: 5871">Let<span class="home-talk-apostrophe">'</span>s talk.</p>
       <ul class="home-contact" style="--left: 1060.17; --top: 5944.24">
         <li><button class="about-copy" type="button" data-copy="shaharby10@gmail.com" aria-label="Copy email address">Email <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
-        <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+        <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" data-copy-phone="by_shahar_" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
         <li><button class="about-copy" type="button" data-copy="www.linkedin.com/in/shaharbenyaacov" aria-label="Copy LinkedIn link">LinkedIn <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
       </ul>
 
     </div>
+
+    <!-- Phone only: "Let's talk." and the contact lines at the end of the page, black with
+         red punctuation (a tap on a line copies the address, contact.js) -->
+    <section class="home-phone-talk">
+      <p class="home-phone-talk-title">Let<span class="home-phone-talk-black">'</span>s talk<span class="home-phone-talk-black">.</span></p>
+      <ul class="home-phone-contact">
+        <li><button class="about-copy" type="button" data-copy="shaharby10@gmail.com" aria-label="Copy email address">Email <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+        <li><button class="about-copy" type="button" data-copy="https://www.instagram.com/by_shahar_/?__d=1%252F%253Fhidemenu%253Dtrue" data-copy-phone="by_shahar_" aria-label="Copy Instagram link">Instagram <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+        <li><button class="about-copy" type="button" data-copy="www.linkedin.com/in/shaharbenyaacov" aria-label="Copy LinkedIn link">LinkedIn <span class="about-copy-bracket">(</span><span class="about-copy-word">copy</span><span class="about-copy-bracket">)</span></button></li>
+      </ul>
+    </section>
   </main>
 
   <!-- Over the big name in the intro, the mouse turns into this spinning asterisk (home.js) -->

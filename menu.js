@@ -2,7 +2,7 @@
 // project pages; the home page has its own copy in home.js).
 // A tap turns the asterisk and opens a red menu; another tap turns it
 // again and closes the menu. A tap on a word spreads its letters
-// (like hover on a computer) and then opens the page.
+// (like hover on a computer) and then opens the page; so does a tap on "Home".
 const menuButton = document.querySelector('.menu-button');
 const phoneMenu = document.querySelector('.phone-menu');
 let menuTurns = 0;
@@ -59,3 +59,17 @@ phoneMenu.querySelectorAll('.menu-link').forEach(link => {
     }, wait);
   });
 });
+
+// On a phone, a tap on "Home" at the top left spreads its letters too (like the
+// menu's words), and then the home page opens
+const homeLink = document.querySelector('a.home-name');
+if (homeLink) {
+  homeLink.addEventListener('click', event => {
+    if (!window.matchMedia('(max-width: 791px)').matches) return; // a computer opens it at once
+    event.preventDefault();
+    homeLink.classList.add('is-spread');
+    const lessMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const wait = lessMotion ? 0 : cssTime('--nav-hover-duration');
+    setTimeout(() => { window.location.href = homeLink.href; }, wait);
+  });
+}

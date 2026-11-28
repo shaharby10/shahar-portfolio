@@ -10,11 +10,11 @@
   <title>The Curious Incident of the Dog in the Night-Time · Shahar Ben Yaacov</title>
   <!-- Tells the CSS that JavaScript is on (images wait for it before fading in) -->
   <script>document.documentElement.classList.add('js');</script>
-  <link rel="stylesheet" href="styles.css?v=68a">
+  <link rel="stylesheet" href="styles.css?v=113">
   <script src="nav.js"></script>
   <script src="physics.js?v=2" defer></script>
-  <script src="project.js?v=10" defer></script>
-  <script src="menu.js" defer></script>
+  <script src="project.js?v=16" defer></script>
+  <script src="menu.js?v=2" defer></script>
 </head>
 <!-- "home-page" gives this page the same sizes, fonts and navigation as the home page.
      "layout-b" always puts Index, About and Contact at the top right (like Switch layout 2).
@@ -138,8 +138,8 @@
   <main class="project project-mobile">
 
     <!-- The top: the film's title card with a walking silhouette (cut for the phone) -->
-    <div class="progressive project-header-media project-placed" style="--left: 23; --top: 77; --width: 344; --height: 514; --preview: url('images/curious-incident/title-card-silhouette-phone-preview.jpg')">
-      <img class="progressive-image" fetchpriority="high" src="images/curious-incident/title-card-silhouette-phone.jpg" alt="A red title card with a walking silhouette: The Curious Incident of the Dog in the Night-Time" width="688" height="1028" decoding="async">
+    <div class="progressive project-header-media project-placed" style="--left: 23; --top: 77; --width: 343; --height: 514; --preview: url('images/curious-incident/title-card-silhouette-phone-preview.jpg')">
+      <img class="progressive-image" fetchpriority="high" src="images/curious-incident/title-card-silhouette-phone.jpg" alt="A red title card with a walking silhouette: The Curious Incident of the Dog in the Night-Time" width="686" height="1028" decoding="async">
     </div>
 
     <!-- Title, details and description -->
@@ -149,54 +149,57 @@
     <p class="project-placed phone-detail phone-detail-regular" style="--left: 194; --top: 892.8; --width: 200">Academic · Bezalel</p>
     <p class="project-placed phone-text" style="--left: 23; --top: 931; --width: 343">A title sequence for an imagined film adaptation of Mark Haddon’s The Curious Incident of the Dog in the Night-Time. The sequence follows an ordinary walk down the street from Christopher’s point of view, revealing how he notices details and interprets the world around him. The imagery shifts between the street and visuals evoking the notebook in which he records his thoughts, while a hand-drawn red line traces his changing stream of thought.</p>
 
-    <!-- The studio scene, turned on its side like in Figma -->
-    <div class="progressive project-placed phone-video-turned" style="--left: -3; --top: 1236; --width: 393; --height: 699; --preview: url('images/curious-incident/studio-scene-poster-preview.jpg')">
-      <video class="progressive-image" src="images/curious-incident/studio-scene.mp4" poster="images/curious-incident/studio-scene-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The title sequence's opening scene"></video>
+    <!-- The studio scene (the whole title sequence). A tap on it, or on the red line
+         above it, plays it on the whole screen, with its sound (project.js) -->
+    <button class="project-placed phone-fullscreen-label" type="button" data-fullscreen-for="studio-scene" style="--left: 114; --top: 1150; --width: 163">Tap here for full screen</button>
+    <div class="progressive project-placed" style="--left: 22.89; --top: 1183; --width: 343.11; --height: 193; --preview: url('images/curious-incident/studio-scene-poster-preview.jpg')">
+      <video id="studio-scene" class="progressive-image phone-fullscreen-video" src="images/curious-incident/studio-scene.mp4" poster="images/curious-incident/studio-scene-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The title sequence's opening scene"></video>
     </div>
 
-    <div class="progressive project-placed" style="--left: 24.51; --top: 1998; --width: 341.13; --height: 192; --preview: url('images/curious-incident/street-red-line-preview.jpg')">
-      <img class="progressive-image" src="images/curious-incident/street-red-line.jpg" alt="A street with a yellow car, crossed by a hand-drawn red line" width="2400" height="1350" loading="lazy" decoding="async">
+    <!-- Three stills (cut like in the phone frame) -->
+    <div class="progressive project-placed" style="--left: 23; --top: 1388; --width: 343; --height: 193; --preview: url('images/curious-incident/street-red-line-phone-preview.jpg')">
+      <img class="progressive-image" src="images/curious-incident/street-red-line-phone.jpg" alt="A street with a yellow car, crossed by a hand-drawn red line" width="686" height="386" loading="lazy" decoding="async">
     </div>
-    <div class="progressive project-placed" style="--left: 24; --top: 2202; --width: 340.96; --height: 191; --preview: url('images/curious-incident/dog-with-red-line-preview.jpg')">
-      <img class="progressive-image" src="images/curious-incident/dog-with-red-line.jpg" alt="A white dog with a red ball, and a red line" width="1320" height="714" loading="lazy" decoding="async">
+    <div class="progressive project-placed" style="--left: 23; --top: 1592; --width: 343; --height: 192; --preview: url('images/curious-incident/dog-with-red-line-phone-preview.jpg')">
+      <img class="progressive-image" src="images/curious-incident/dog-with-red-line-phone.jpg" alt="A white dog with a red ball, and a red line" width="686" height="384" loading="lazy" decoding="async">
     </div>
-    <div class="progressive project-placed" style="--left: 23; --top: 2405; --width: 341; --height: 191.47; --preview: url('images/curious-incident/street-credits-preview.jpg')">
-      <img class="progressive-image" src="images/curious-incident/street-credits.jpg" alt="A sidewalk with opening credits" width="1320" height="741" loading="lazy" decoding="async">
+    <div class="progressive project-placed" style="--left: 23; --top: 1795; --width: 343; --height: 193; --preview: url('images/curious-incident/street-credits-phone-preview.jpg')">
+      <img class="progressive-image" src="images/curious-incident/street-credits-phone.jpg" alt="A sidewalk with opening credits" width="686" height="386" loading="lazy" decoding="async">
     </div>
 
-    <p class="project-placed phone-text" style="--left: 24; --top: 2640; --width: 308">I began by building the environment as an AI-generated still frame, carefully directing the street, perspective, camera angle, and lighting. The aim was to establish a consistent cinematic world through Christopher’s point of view.</p>
-    <div class="progressive project-placed" style="--left: 25; --top: 2804; --width: 343; --height: 193; --preview: url('images/curious-incident/store-before-preview.jpg')">
+    <p class="project-placed phone-text" style="--left: 22; --top: 2013; --width: 308">I began by building the environment as an AI-generated still frame, carefully directing the street, perspective, camera angle, and lighting. The aim was to establish a consistent cinematic world through Christopher’s point of view.</p>
+    <div class="progressive project-placed" style="--left: 23; --top: 2162; --width: 343; --height: 193; --preview: url('images/curious-incident/store-before-preview.jpg')">
       <img class="progressive-image" src="images/curious-incident/store-before.jpg" alt="The street in front of a shop, empty" width="1072" height="603" loading="lazy" decoding="async">
     </div>
-    <p class="project-placed phone-text" style="--left: 25; --top: 3041; --width: 308">Once the environment was established, I introduced the planned characters and actions while preserving the composition and continuity of details. This allowed me to refine each scene individually and gradually build the sequence of events along the street.</p>
-    <div class="progressive project-placed" style="--left: 25; --top: 3225; --width: 340; --height: 192; --preview: url('images/curious-incident/store-after-preview.jpg')">
+    <p class="project-placed phone-text" style="--left: 22; --top: 2380; --width: 308">Once the environment was established, I introduced the planned characters and actions while preserving the composition and continuity of details. This allowed me to refine each scene individually and gradually build the sequence of events along the street.</p>
+    <div class="progressive project-placed" style="--left: 23; --top: 2548; --width: 343; --height: 193; --preview: url('images/curious-incident/store-after-preview.jpg')">
       <img class="progressive-image" src="images/curious-incident/store-after.jpg" alt="The same street in front of the shop, with people" width="1072" height="603" loading="lazy" decoding="async">
     </div>
 
     <!-- Two videos on a black band -->
-    <div class="project-placed curious-band" style="--left: 0; --top: 3461; --width: 390; --height: 541"></div>
-    <div class="progressive project-placed" style="--left: 24; --top: 3518; --width: 340; --height: 191; --preview: url('images/curious-incident/dog-graphic-poster-preview.jpg')">
+    <div class="project-placed curious-band" style="--left: -1; --top: 2784; --width: 391; --height: 541"></div>
+    <div class="progressive project-placed" style="--left: 24; --top: 2841; --width: 340; --height: 191; --preview: url('images/curious-incident/dog-graphic-poster-preview.jpg')">
       <video class="progressive-image" src="images/curious-incident/dog-graphic.mp4" poster="images/curious-incident/dog-graphic-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="A white dog with a red ball on the sidewalk, with the credits over the street"></video>
     </div>
-    <div class="progressive project-placed" style="--left: 24; --top: 3753; --width: 342; --height: 190; --preview: url('images/curious-incident/teaser-poster-preview.jpg')">
+    <div class="progressive project-placed" style="--left: 23; --top: 3076; --width: 342; --height: 190; --preview: url('images/curious-incident/teaser-poster-preview.jpg')">
       <video class="progressive-image" src="images/curious-incident/teaser.mp4" poster="images/curious-incident/teaser-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The title sequence's teaser"></video>
     </div>
 
-    <p class="project-placed phone-text" style="--left: 24; --top: 4032; --width: 340">I approached the story through a naive, straightforward perspective, reflecting Christopher’s tendency to interpret the world in black and white. For him, the murder is not necessarily an emotionally charged event, but a mystery to be solved. Following this perspective, I chose to avoid depicting the violence directly and end the sequence with a symbolic, minimal scene focused on the chase itself. The scene returns to the red screen used throughout the opening for the title cards, but this time silhouettes enter the composition, interacting with the typography to gradually reveal the film’s title.</p>
-    <div class="progressive project-placed" style="--left: 23; --top: 4342; --width: 342; --height: 192; --preview: url('images/curious-incident/last-scene-poster-preview.jpg')">
+    <p class="project-placed phone-text" style="--left: 23; --top: 3350; --width: 340">I approached the story through a naive, straightforward perspective, reflecting Christopher’s tendency to interpret the world in black and white. For him, the murder is not necessarily an emotionally charged event, but a mystery to be solved. Following this perspective, I chose to avoid depicting the violence directly and end the sequence with a symbolic, minimal scene focused on the chase itself. The scene returns to the red screen used throughout the opening for the title cards, but this time silhouettes enter the composition, interacting with the typography to gradually reveal the film’s title.</p>
+    <div class="progressive project-placed" style="--left: 23; --top: 3651; --width: 343; --height: 193; --preview: url('images/curious-incident/last-scene-poster-preview.jpg')">
       <video class="progressive-image" src="images/curious-incident/last-scene.mp4" poster="images/curious-incident/last-scene-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="The last scene: silhouettes on a red screen with the film's title"></video>
     </div>
 
     <!-- Next project (as in the phone frame). The whole area is a link to it. -->
-    <p class="project-placed phone-next-label" style="--left: 43; --top: 4564; --width: 300">NEXT UP <span class="project-next-slashes">////</span></p>
-    <img class="project-placed project-next-hand" src="images/shufuni/next-up-hand.png" alt="☞" width="307" height="173" style="--left: 279.55; --top: 4583.17; --width: 61.52; --height: 34.68">
-    <p class="project-placed phone-next-title" style="--left: 24; --top: 4618; --width: 342">FOOTBALL IN ISRAEL</p>
-    <p class="project-placed phone-next-tag" style="--left: 24; --top: 4738; --width: 340">Editorial Design, Typography</p>
+    <p class="project-placed phone-next-label" style="--left: 43; --top: 3857; --width: 300">NEXT UP <span class="project-next-slashes">////</span></p>
+    <img class="project-placed project-next-hand" src="images/shufuni/next-up-hand.png" alt="☞" width="307" height="173" style="--left: 279.55; --top: 3876.17; --width: 61.52; --height: 34.68">
+    <p class="project-placed phone-next-title" style="--left: 24; --top: 3911; --width: 342">FOOTBALL IN ISRAEL</p>
+    <p class="project-placed phone-next-tag" style="--left: 24; --top: 4031; --width: 340">Editorial Design, Typography</p>
     <!-- The thin red line above "VIEW PROJECT" -->
-    <div class="project-placed phone-next-line" style="--left: 78.05; --top: 4771; --width: 229.93"></div>
-    <p class="project-placed phone-next-arrow" style="--left: 90.56; --top: 4772.51">↗</p>
-    <p class="project-placed phone-next-view" style="--left: 110.54; --top: 4775.64; --width: 189">VIEW PROJECT</p>
-    <a class="project-next-link project-placed" href="football-in-israel.html" aria-label="Next project: Football in Israel" style="--left: 0; --top: 4564; --width: 390; --height: 283"></a>
+    <div class="project-placed phone-next-line" style="--left: 78.05; --top: 4064; --width: 229.93"></div>
+    <p class="project-placed phone-next-arrow" style="--left: 90.56; --top: 4065.51">↗</p>
+    <p class="project-placed phone-next-view" style="--left: 110.54; --top: 4068.64; --width: 189">VIEW PROJECT</p>
+    <a class="project-next-link project-placed" href="football-in-israel.html" aria-label="Next project: Football in Israel" style="--left: 0; --top: 3857; --width: 390; --height: 283"></a>
   </main>
 </body>
 </html>

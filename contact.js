@@ -1,5 +1,6 @@
 // The contact lines (Email, Instagram, LinkedIn) on the About page and the index page.
-// A click on a line (the word or "(copy)") copies its address to the clipboard;
+// A click on a line (the word or "(copy)") copies its address to the clipboard
+// (on a phone, Instagram copies just the user name);
 // nothing opens. After copying, "copy" says "copied" for a moment.
 
 // The browser's clipboard works only on a secure page (https, like the site online).
@@ -25,7 +26,10 @@ document.querySelectorAll('.about-copy').forEach(button => {
 
   button.addEventListener('click', async () => {
     try {
-      await copyText(button.dataset.copy);
+      // On a phone a line can copy something else (data-copy-phone): for Instagram,
+      // only the user name, ready to paste into Instagram's search
+      const onPhone = window.matchMedia('(max-width: 791px)').matches;
+      await copyText((onPhone && button.dataset.copyPhone) || button.dataset.copy);
       word.textContent = 'copied';
       setTimeout(() => { word.textContent = 'copy'; }, 1500);
     } catch (error) { /* the browser did not allow copying */ }
